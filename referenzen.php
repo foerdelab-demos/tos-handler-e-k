@@ -16,8 +16,8 @@ $projekte = require __DIR__ . '/data/projekte.php';
 
   <div class="page-header">
     <div class="container">
-      <p class="eyebrow">Referenzen</p>
-      <h1>Referenzen — Beispielfotos unserer Arbeiten</h1>
+      <p class="eyebrow" data-reveal="left">Referenzen</p>
+      <h1 data-reveal="up">Referenzen — Beispielfotos unserer Arbeiten</h1>
     </div>
   </div>
 
@@ -81,7 +81,7 @@ $projekte = require __DIR__ . '/data/projekte.php';
     </div>
   </div>
 
-  <div class="section__action container">
+  <div class="section__action container" data-reveal="scale">
     <a href="<?php echo htmlspecialchars(site_path('/kontakt'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn--primary">Auch Ihr Projekt anfragen</a>
   </div>
 

@@ -15,9 +15,9 @@ require_once __DIR__ . '/includes/header.php';
 
   <div class="page-header">
     <div class="container">
-      <p class="eyebrow font-mono">404</p>
-      <h1>Seite nicht gefunden</h1>
-      <p class="page-header__subline">Diese Seite gibt es leider nicht.</p>
+      <p class="eyebrow font-mono" data-reveal="left">404</p>
+      <h1 data-reveal="up">Seite nicht gefunden</h1>
+      <p class="page-header__subline" data-reveal="up" data-reveal-delay="1">Diese Seite gibt es leider nicht.</p>
     </div>
   </div>
 
