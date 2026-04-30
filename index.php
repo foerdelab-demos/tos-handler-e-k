@@ -30,8 +30,8 @@ require_once __DIR__ . '/includes/header.php';
       <h1 class="hero__headline" data-reveal="up">Ein Ansprechpartner für Ihr gesamtes Objekt – von Heizung bis Dach</h1>
       <p class="hero__subline" data-reveal="up" data-reveal-delay="1">TOS Handler plant, koordiniert und realisiert Sanierung, Modernisierung und technische Objektleistungen in Flensburg – zuverlässig, fachgerecht und aus einer Hand.</p>
       <div class="hero__actions" data-reveal="up" data-reveal-delay="2">
-        <a href="<?php echo htmlspecialchars(site_path('/kontakt'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn--primary">Projekt unverbindlich besprechen</a>
-        <a href="<?php echo htmlspecialchars(site_path('/referenzen'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn--ghost">Referenzen ansehen</a>
+        <a href="<?php echo htmlspecialchars(site_path('/kontakt'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn--secondary">Projekt unverbindlich besprechen</a>
+        <a href="<?php echo htmlspecialchars(site_path('/referenzen'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn--ghost-light">Referenzen ansehen</a>
       </div>
       <ul class="hero__trust" aria-label="Drei Gründe für TOS Handler" data-reveal="up" data-reveal-delay="3">
         <li class="hero__trust-item">Meisterbetrieb aus Flensburg</li>
