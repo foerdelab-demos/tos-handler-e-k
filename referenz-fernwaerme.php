@@ -14,14 +14,14 @@ require_once __DIR__ . '/includes/header.php';
 
   <div class="page-header">
     <div class="container">
-      <p class="eyebrow"><a href="<?php echo htmlspecialchars(site_path('/referenzen'), ENT_QUOTES, 'UTF-8'); ?>">Referenzen</a></p>
-      <h1>Modernisierung einer Primär-Fernwärmestation</h1>
+      <p class="eyebrow" data-reveal="left"><a href="<?php echo htmlspecialchars(site_path('/referenzen'), ENT_QUOTES, 'UTF-8'); ?>">Referenzen</a></p>
+      <h1 data-reveal="up">Modernisierung einer Primär-Fernwärmestation</h1>
     </div>
   </div>
 
   <section class="section" aria-label="Fallbeschreibung Beispiel 1">
     <div class="container container--narrow">
-      <div class="prose">
+      <div class="prose" data-reveal="up-soft">
         <p>
           An einer alten Anlage wurden in den letzten Jahren unnötigerweise Pumpen, Mischer und Ventile getauscht.
         </p>
@@ -42,14 +42,14 @@ require_once __DIR__ . '/includes/header.php';
     <div class="container">
       <h2 id="vorher-nachher-heading" class="sr-only">Vorher und Nachher</h2>
       <div class="vorher-nachher">
-        <figure class="vorher-nachher__item">
+        <figure class="vorher-nachher__item" data-reveal="left" data-reveal-delay="1">
           <img src="<?php echo htmlspecialchars(asset_path('img/projekte/IMG_8620.jpg'), ENT_QUOTES, 'UTF-8'); ?>"
                alt="Primär-Fernwärmestation — Zustand vorher"
                width="800" height="600"
                loading="lazy" decoding="async">
           <figcaption class="vorher-nachher__label font-mono">VORHER</figcaption>
         </figure>
-        <figure class="vorher-nachher__item">
+        <figure class="vorher-nachher__item" data-reveal="right" data-reveal-delay="2">
           <img src="<?php echo htmlspecialchars(asset_path('img/projekte/IMG_8823.jpg'), ENT_QUOTES, 'UTF-8'); ?>"
                alt="Primär-Fernwärmestation — nach dem Umbau"
                width="800" height="600"
@@ -63,17 +63,17 @@ require_once __DIR__ . '/includes/header.php';
   <!-- Beispiel 2: Modernisierung -->
   <section class="section" aria-labelledby="modernisierung-heading">
     <div class="container container--narrow">
-      <p class="eyebrow">Weiteres Beispiel</p>
-      <h2 id="modernisierung-heading">Modernisierung</h2>
+      <p class="eyebrow" data-reveal="left">Weiteres Beispiel</p>
+      <h2 id="modernisierung-heading" data-reveal="up">Modernisierung</h2>
       <div class="vorher-nachher">
-        <figure class="vorher-nachher__item">
+        <figure class="vorher-nachher__item" data-reveal="left" data-reveal-delay="1">
           <img src="<?php echo htmlspecialchars(asset_path('img/projekte/IMG_8620.jpg'), ENT_QUOTES, 'UTF-8'); ?>"
                alt="Heizungsanlage — Zustand vor der Modernisierung"
                width="800" height="600"
                loading="lazy" decoding="async">
           <figcaption class="vorher-nachher__label font-mono">VOR DER MODERNISIERUNG</figcaption>
         </figure>
-        <figure class="vorher-nachher__item">
+        <figure class="vorher-nachher__item" data-reveal="right" data-reveal-delay="2">
           <img src="<?php echo htmlspecialchars(asset_path('img/projekte/IMG_8823.jpg'), ENT_QUOTES, 'UTF-8'); ?>"
                alt="Heizungsanlage — nach der Modernisierung"
                width="800" height="600"
@@ -84,7 +84,7 @@ require_once __DIR__ . '/includes/header.php';
     </div>
   </section>
 
-  <div class="section__action container">
+  <div class="section__action container" data-reveal="scale">
     <a href="<?php echo htmlspecialchars(site_path('/referenzen'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn--secondary">Alle Referenzen</a>
     <a href="<?php echo htmlspecialchars(site_path('/kontakt'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn--primary">Anfrage stellen</a>
   </div>

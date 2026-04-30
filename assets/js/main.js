@@ -121,6 +121,33 @@
   }
 
   /* -------------------------------------------------------------------------
+   * Reveal-Animationen — IntersectionObserver
+   * Variants und Stagger werden im HTML per data-reveal/data-reveal-delay
+   * gesetzt; CSS macht den Rest. Hier: ein einziger Observer für alle.
+   * -------------------------------------------------------------------- */
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reveals = document.querySelectorAll('[data-reveal]');
+
+  if (reveals.length > 0) {
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      reveals.forEach(function (el) { el.classList.add('is-visible'); });
+    } else {
+      const io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -40px 0px'
+      });
+      reveals.forEach(function (el) { io.observe(el); });
+    }
+  }
+
+  /* -------------------------------------------------------------------------
    * Google Analytics Opt-Out (Datenschutz-Seite)
    * -------------------------------------------------------------------- */
   const gaOptOutBtn = document.getElementById('ga-optout');

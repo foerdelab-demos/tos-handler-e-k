@@ -14,9 +14,9 @@ require_once __DIR__ . '/includes/header.php';
 
   <div class="page-header">
     <div class="container">
-      <p class="eyebrow">Kontakt</p>
-      <h1>Wir freuen uns über eine Nachricht</h1>
-      <p class="page-header__subline">
+      <p class="eyebrow" data-reveal="left">Kontakt</p>
+      <h1 data-reveal="up">Wir freuen uns über eine Nachricht</h1>
+      <p class="page-header__subline" data-reveal="up" data-reveal-delay="1">
         Füllen Sie dieses Formular aus, wenn Sie weitere Informationen benötigen. Wir treten schnellstmöglich mit Ihnen in Verbindung.
       </p>
     </div>
@@ -27,7 +27,7 @@ require_once __DIR__ . '/includes/header.php';
       <div class="kontakt-grid">
 
         <!-- Kontaktdaten -->
-        <div class="kontakt-daten">
+        <div class="kontakt-daten" data-reveal="left">
           <h2 class="kontakt-daten__heading">Tilman Handler</h2>
           <address class="kontakt-daten__address">
             <?php echo htmlspecialchars(CONTACT_STREET, ENT_QUOTES, 'UTF-8'); ?><br>
@@ -64,7 +64,7 @@ require_once __DIR__ . '/includes/header.php';
         </div>
 
         <!-- Kontaktformular -->
-        <div class="kontakt-formular">
+        <div class="kontakt-formular" data-reveal="right" data-reveal-delay="1">
           <?php if (isset($_GET['gesendet']) && $_GET['gesendet'] === '1'): ?>
           <div class="form-success" role="alert">
             <p><strong>Ihre Anfrage ist eingegangen.</strong> Wir melden uns schnellstmöglich.</p>

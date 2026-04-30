@@ -14,16 +14,16 @@ require_once __DIR__ . '/includes/header.php';
 
   <div class="page-header">
     <div class="container">
-      <p class="eyebrow">Fachthemen</p>
-      <h1>Fachthemen &amp; Produkte</h1>
-      <p class="page-header__subline">Wo wir besser sind als der Standard.</p>
+      <p class="eyebrow" data-reveal="left">Fachthemen</p>
+      <h1 data-reveal="up">Fachthemen &amp; Produkte</h1>
+      <p class="page-header__subline" data-reveal="up" data-reveal-delay="1">Wo wir besser sind als der Standard.</p>
     </div>
   </div>
 
   <!-- Block 1: Fassadenfarben -->
   <section class="section fachthema" aria-labelledby="fassadenfarben-heading">
     <div class="container fachthema__inner">
-      <div class="fachthema__text">
+      <div class="fachthema__text" data-reveal="left">
         <p class="eyebrow">Information</p>
         <h2 id="fassadenfarben-heading">Fassadenfarben</h2>
         <div class="prose">
@@ -45,7 +45,7 @@ require_once __DIR__ . '/includes/header.php';
           <p><strong>Wir demonstrieren Ihnen das gerne an einem Anstrichmodell.</strong></p>
         </div>
       </div>
-      <div class="fachthema__image">
+      <div class="fachthema__image" data-reveal="reveal-image" data-reveal-delay="1">
         <img src="<?php echo htmlspecialchars(asset_path('img/projekte/Fassade.jpg'), ENT_QUOTES, 'UTF-8'); ?>"
              alt="Schöne Fassade nach Sanierung durch TOS Handler"
              width="700" height="520"
@@ -57,7 +57,7 @@ require_once __DIR__ . '/includes/header.php';
   <!-- Block 2: Feuchtes Mauerwerk -->
   <section class="section section--deep fachthema fachthema--reverse" aria-labelledby="mauerwerk-heading">
     <div class="container fachthema__inner">
-      <div class="fachthema__text">
+      <div class="fachthema__text" data-reveal="right">
         <p class="eyebrow">Information</p>
         <h2 id="mauerwerk-heading">Feuchtes Mauerwerk</h2>
         <div class="prose">
@@ -72,7 +72,7 @@ require_once __DIR__ . '/includes/header.php';
           </p>
         </div>
       </div>
-      <div class="fachthema__image">
+      <div class="fachthema__image" data-reveal="reveal-image" data-reveal-delay="1">
         <img src="<?php echo htmlspecialchars(asset_path('img/projekte/1fass-img_1272.jpg'), ENT_QUOTES, 'UTF-8'); ?>"
              alt="Hausfassade nach Mauerwerksabdichtung"
              width="700" height="520"
@@ -84,7 +84,7 @@ require_once __DIR__ . '/includes/header.php';
   <!-- Block 3: Sanierungen -->
   <section class="section fachthema" aria-labelledby="sanierungen-heading">
     <div class="container fachthema__inner">
-      <div class="fachthema__text">
+      <div class="fachthema__text" data-reveal="left">
         <p class="eyebrow">Gebäudetechnik</p>
         <h2 id="sanierungen-heading">Sanierungen</h2>
         <div class="prose">
@@ -96,7 +96,7 @@ require_once __DIR__ . '/includes/header.php';
           </p>
         </div>
       </div>
-      <div class="fachthema__image">
+      <div class="fachthema__image" data-reveal="reveal-image" data-reveal-delay="1">
         <img src="<?php echo htmlspecialchars(asset_path('img/projekte/1-bad_nachher_1129.jpg'), ENT_QUOTES, 'UTF-8'); ?>"
              alt="Badsanierung — fertiges Ergebnis"
              width="700" height="520"
@@ -108,7 +108,7 @@ require_once __DIR__ . '/includes/header.php';
   <!-- Block 4: Montagen -->
   <section class="section section--deep fachthema fachthema--reverse" aria-labelledby="montagen-heading">
     <div class="container fachthema__inner">
-      <div class="fachthema__text">
+      <div class="fachthema__text" data-reveal="right">
         <p class="eyebrow">Gebäudetechnik</p>
         <h2 id="montagen-heading">Montagen</h2>
         <div class="prose">
@@ -129,7 +129,7 @@ require_once __DIR__ . '/includes/header.php';
           </p>
         </div>
       </div>
-      <div class="fachthema__image">
+      <div class="fachthema__image" data-reveal="reveal-image" data-reveal-delay="1">
         <img src="<?php echo htmlspecialchars(asset_path('img/projekte/50-IMG_0187.jpg'), ENT_QUOTES, 'UTF-8'); ?>"
              alt="Küchenzeile — Montage durch TOS Handler"
              width="700" height="520"
@@ -141,7 +141,7 @@ require_once __DIR__ . '/includes/header.php';
   <!-- Block 5: Renovierung / Innenausbau -->
   <section class="section fachthema" aria-labelledby="innenausbau-heading">
     <div class="container fachthema__inner">
-      <div class="fachthema__text">
+      <div class="fachthema__text" data-reveal="left">
         <p class="eyebrow">Gebäudetechnik</p>
         <h2 id="innenausbau-heading">Renovierung / Innenausbau</h2>
         <div class="prose">
@@ -159,7 +159,7 @@ require_once __DIR__ . '/includes/header.php';
           </p>
         </div>
       </div>
-      <div class="fachthema__image">
+      <div class="fachthema__image" data-reveal="reveal-image" data-reveal-delay="1">
         <img src="<?php echo htmlspecialchars(asset_path('img/projekte/150-wore16.jpg'), ENT_QUOTES, 'UTF-8'); ?>"
              alt="Wohnraumgestaltung — Innenausbau durch TOS Handler"
              width="700" height="520"
