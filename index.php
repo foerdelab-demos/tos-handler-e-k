@@ -15,11 +15,15 @@ require_once __DIR__ . '/includes/header.php';
   <!-- Hero -->
   <section class="hero" aria-label="Einstieg">
     <div class="hero__image-wrap">
-      <img src="<?php echo htmlspecialchars(asset_path('img/projekte/1000-volquardsen-img_4410-kl.jpg'), ENT_QUOTES, 'UTF-8'); ?>"
-           alt="Modernes Bad — fertige Badsanierung durch TOS Handler e.K. Flensburg"
-           width="1600" height="900"
-           loading="eager" decoding="sync"
-           class="hero__image">
+      <picture class="hero__picture">
+        <source media="(max-width: 767px)"
+                srcset="<?php echo htmlspecialchars(asset_path('img/projekte/Fassade_4.jpg'), ENT_QUOTES, 'UTF-8'); ?>">
+        <img src="<?php echo htmlspecialchars(asset_path('img/projekte/Zaun.jpg'), ENT_QUOTES, 'UTF-8'); ?>"
+             alt="Sanierungsobjekt — Referenz von TOS Handler e.K. Flensburg"
+             width="1600" height="900"
+             loading="eager" decoding="sync"
+             class="hero__image">
+      </picture>
       <div class="hero__overlay" aria-hidden="true"></div>
     </div>
     <div class="hero__content container">
