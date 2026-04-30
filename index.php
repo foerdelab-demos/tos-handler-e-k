@@ -27,39 +27,47 @@ require_once __DIR__ . '/includes/header.php';
       <div class="hero__overlay" aria-hidden="true"></div>
     </div>
     <div class="hero__content container">
-      <h1 class="hero__headline" data-reveal="up">Meisterfachbetrieb für Heizung, Sanitär, Lüftung &amp; Dach — aus einer Hand</h1>
-      <p class="hero__subline" data-reveal="up" data-reveal-delay="1">Ihr zuverlässiger Partner in Flensburg für Sanierung, Modernisierung und Innenausbau.</p>
+      <h1 class="hero__headline" data-reveal="up">Ein Ansprechpartner für Ihr gesamtes Objekt – von Heizung bis Dach</h1>
+      <p class="hero__subline" data-reveal="up" data-reveal-delay="1">TOS Handler plant, koordiniert und realisiert Sanierung, Modernisierung und technische Objektleistungen in Flensburg – zuverlässig, fachgerecht und aus einer Hand.</p>
       <div class="hero__actions" data-reveal="up" data-reveal-delay="2">
-        <a href="<?php echo htmlspecialchars(site_path('/kontakt'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn--primary">Anfrage stellen</a>
-        <a href="<?php echo htmlspecialchars(site_path('/leistungen'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn--ghost">Unsere Leistungen</a>
+        <a href="<?php echo htmlspecialchars(site_path('/kontakt'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn--primary">Projekt unverbindlich besprechen</a>
+        <a href="<?php echo htmlspecialchars(site_path('/referenzen'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn--ghost">Referenzen ansehen</a>
       </div>
+      <ul class="hero__trust" aria-label="Drei Gründe für TOS Handler" data-reveal="up" data-reveal-delay="3">
+        <li class="hero__trust-item">Meisterbetrieb aus Flensburg</li>
+        <li class="hero__trust-item">Alles aus einer Hand</li>
+        <li class="hero__trust-item">Auch bei Brand- &amp; Wasserschäden</li>
+      </ul>
     </div>
   </section>
 
-  <!-- Begrüßung -->
-  <section class="section section--narrow" aria-label="Begrüßung">
-    <div class="container container--narrow">
-      <div class="prose" data-reveal="up-soft">
-        <p><strong>Lieber Besucher unserer Webseite,</strong></p>
-        <p>
-          unser Unternehmen in Flensburg ist ein <strong>Meisterfachbetrieb</strong> für Heizung, Sanitär, Lüftung und Dachdecker-Klempnerarbeiten.
+  <!-- Nutzen-Abschnitt: Was uns vom üblichen Handwerker-Ansatz unterscheidet -->
+  <section class="section section--narrow" aria-labelledby="nutzen-heading">
+    <div class="container">
+      <div class="nutzen-intro">
+        <p class="eyebrow" data-reveal="left">Was wir tun</p>
+        <h2 id="nutzen-heading" data-reveal="up">Technischer Objekt-Service ohne Koordinationsaufwand</h2>
+        <p class="nutzen-intro__lead" data-reveal="up-soft" data-reveal-delay="1">
+          Ob Bad, Heizung, Dach, Fassade oder Schadensanierung: Wir bündeln mehrere Gewerke, übernehmen die Abstimmung und liefern saubere Lösungen für Ihr Objekt. Sie haben einen festen Ansprechpartner und ein Team, das Planung und Ausführung zusammen denkt.
         </p>
-        <p>
-          Unsere Firma bietet Ihnen rund um Ihr Objekt fundiertes Fachwissen und zuverlässigen Service komplett aus einer Hand an.
-        </p>
-        <p>
-          Wir realisieren technische Lösungen und suchen nach Möglichkeiten, um für Sie das bestmöglichste Ergebnis abzuliefern.
-        </p>
-        <p>
-          Auch bei einem Brand- oder Wasserschaden dürfen Sie uns kontaktieren.
-        </p>
-        <p>
-          Zusätzlich übernehmen wir Architektenleistungen mit Bauantrag und den notwendigen statischen Berechnungen.
-        </p>
-        <p>
-          Bei Fragen rufen Sie uns bitte an oder senden uns eine Nachricht.
-        </p>
-        <p><strong>Wir beraten Sie gerne.</strong></p>
+      </div>
+
+      <div class="nutzen-grid">
+        <article class="nutzen-item" data-reveal="up" data-reveal-delay="1">
+          <span class="nutzen-item__number font-mono" aria-hidden="true">01</span>
+          <h3 class="nutzen-item__title">Ein Ansprechpartner</h3>
+          <p class="nutzen-item__text">Keine Abstimmung mit mehreren Gewerken — wir koordinieren den Ablauf.</p>
+        </article>
+        <article class="nutzen-item" data-reveal="up" data-reveal-delay="2">
+          <span class="nutzen-item__number font-mono" aria-hidden="true">02</span>
+          <h3 class="nutzen-item__title">Planung &amp; Ausführung</h3>
+          <p class="nutzen-item__text">Von technischer Lösung bis Bauantrag und statischer Berechnung.</p>
+        </article>
+        <article class="nutzen-item" data-reveal="up" data-reveal-delay="3">
+          <span class="nutzen-item__number font-mono" aria-hidden="true">03</span>
+          <h3 class="nutzen-item__title">Saubere Umsetzung</h3>
+          <p class="nutzen-item__text">Fachgerechte Arbeit, klare Kommunikation und verlässlicher Service.</p>
+        </article>
       </div>
     </div>
   </section>
@@ -68,42 +76,42 @@ require_once __DIR__ . '/includes/header.php';
   <section class="section section--deep" aria-labelledby="leistungen-heading">
     <div class="container">
       <p class="eyebrow" data-reveal="left">01 / Leistungen</p>
-      <h2 id="leistungen-heading" data-reveal="up">Was wir bauen</h2>
+      <h2 id="leistungen-heading" data-reveal="up">Wobei können wir Ihnen helfen?</h2>
       <div class="leistungen-grid">
 
         <article class="leistung-card" data-reveal="up" data-reveal-delay="1">
           <h3 class="leistung-card__title">Badsanierung</h3>
-          <p class="leistung-card__text">Komplettbad zum Festpreis aus einer Hand.</p>
+          <p class="leistung-card__text">Komplettbad aus einer Hand — sauber geplant, fachgerecht umgesetzt.</p>
           <a href="<?php echo htmlspecialchars(site_path('/leistungen'), ENT_QUOTES, 'UTF-8'); ?>" class="leistung-card__link">Mehr erfahren</a>
         </article>
 
         <article class="leistung-card" data-reveal="up" data-reveal-delay="2">
           <h3 class="leistung-card__title">Heizung &amp; Sanitär</h3>
-          <p class="leistung-card__text">Moderne Heiztechnik, Fernwärme, Regelungstechnik.</p>
+          <p class="leistung-card__text">Moderne Technik für Wärme, Wasser und effizienten Betrieb.</p>
           <a href="<?php echo htmlspecialchars(site_path('/leistungen'), ENT_QUOTES, 'UTF-8'); ?>" class="leistung-card__link">Mehr erfahren</a>
         </article>
 
         <article class="leistung-card" data-reveal="up" data-reveal-delay="3">
           <h3 class="leistung-card__title">Dach &amp; Klempner</h3>
-          <p class="leistung-card__text">Gauben, Dacheindeckung, Klempnerarbeiten.</p>
+          <p class="leistung-card__text">Dacharbeiten, Gauben und Klempnerlösungen für Ihr Objekt.</p>
           <a href="<?php echo htmlspecialchars(site_path('/leistungen'), ENT_QUOTES, 'UTF-8'); ?>" class="leistung-card__link">Mehr erfahren</a>
         </article>
 
         <article class="leistung-card" data-reveal="up" data-reveal-delay="4">
           <h3 class="leistung-card__title">Fassadensanierung</h3>
-          <p class="leistung-card__text">Mikroporen-Beschichtung ohne Fungizide.</p>
+          <p class="leistung-card__text">Schutz und Aufwertung der Gebäudehülle.</p>
           <a href="<?php echo htmlspecialchars(site_path('/gewerke'), ENT_QUOTES, 'UTF-8'); ?>" class="leistung-card__link">Mehr erfahren</a>
         </article>
 
         <article class="leistung-card" data-reveal="up" data-reveal-delay="5">
           <h3 class="leistung-card__title">Innenausbau</h3>
-          <p class="leistung-card__text">Vom Rohbau bis zum komfortablen Wohnraum.</p>
+          <p class="leistung-card__text">Vom Rohbau bis zum fertigen Wohn- oder Nutzraum.</p>
           <a href="<?php echo htmlspecialchars(site_path('/leistungen'), ENT_QUOTES, 'UTF-8'); ?>" class="leistung-card__link">Mehr erfahren</a>
         </article>
 
         <article class="leistung-card" data-reveal="up" data-reveal-delay="6">
           <h3 class="leistung-card__title">Brand- &amp; Wasserschaden</h3>
-          <p class="leistung-card__text">Schnelle Sanierung bei Schadensfällen.</p>
+          <p class="leistung-card__text">Schnelle Hilfe und koordinierte Sanierung nach Schäden.</p>
           <a href="<?php echo htmlspecialchars(site_path('/kontakt'), ENT_QUOTES, 'UTF-8'); ?>" class="leistung-card__link">Anfrage stellen</a>
         </article>
 
@@ -115,7 +123,8 @@ require_once __DIR__ . '/includes/header.php';
   <section class="section" aria-labelledby="referenzen-teaser-heading">
     <div class="container">
       <p class="eyebrow" data-reveal="left">02 / Referenzen</p>
-      <h2 id="referenzen-teaser-heading" data-reveal="up">Beispielfotos unserer Arbeiten</h2>
+      <h2 id="referenzen-teaser-heading" data-reveal="up">Ergebnisse, die man sehen kann</h2>
+      <p class="section__subline" data-reveal="up-soft" data-reveal-delay="1">Ein Einblick in abgeschlossene Arbeiten — von technischer Modernisierung bis Komplettsanierung.</p>
       <div class="referenzen-teaser">
 
         <article class="ref-card">
@@ -158,8 +167,8 @@ require_once __DIR__ . '/includes/header.php';
         </article>
 
       </div>
-      <div class="section__action" data-reveal="up">
-        <a href="<?php echo htmlspecialchars(site_path('/referenzen'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn--secondary">Alle Referenzen ansehen</a>
+      <div class="section__action section__action--prominent" data-reveal="scale">
+        <a href="<?php echo htmlspecialchars(site_path('/referenzen'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn--primary">Alle Referenzen ansehen</a>
       </div>
     </div>
   </section>
@@ -187,10 +196,16 @@ require_once __DIR__ . '/includes/header.php';
   </section>
 
   <!-- Kontakt-CTA-Banner -->
-  <section class="section cta-banner" aria-label="Direkt anfragen">
+  <section class="section cta-banner" aria-labelledby="cta-banner-heading">
     <div class="container">
-      <p class="cta-banner__text" data-reveal="up">Sie haben ein Projekt? Sprechen Sie direkt mit Tilman Handler.</p>
-      <div class="cta-banner__actions" data-reveal="scale" data-reveal-delay="1">
+      <div class="cta-banner__lede">
+        <h2 id="cta-banner-heading" class="cta-banner__heading" data-reveal="up">Sie haben ein Objekt oder Projekt in Flensburg?</h2>
+        <p class="cta-banner__text" data-reveal="up" data-reveal-delay="1">
+          Sprechen Sie direkt mit Tilman Handler. Wir klären, was technisch sinnvoll ist, welche Gewerke benötigt werden und wie Ihr Projekt sauber umgesetzt werden kann.
+        </p>
+      </div>
+      <div class="cta-banner__actions" data-reveal="scale" data-reveal-delay="2">
+        <a href="<?php echo htmlspecialchars(site_path('/kontakt'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn--primary-light">Jetzt Projekt anfragen</a>
         <a href="tel:<?php echo CONTACT_PHONE_TEL; ?>" class="btn btn--ghost-light">
           <?php echo htmlspecialchars(CONTACT_PHONE, ENT_QUOTES, 'UTF-8'); ?>
         </a>
