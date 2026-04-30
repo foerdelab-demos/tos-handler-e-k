@@ -7,8 +7,15 @@
 declare(strict_types=1);
 require_once __DIR__ . '/config.php';
 
-// Aktive Seite ermitteln
-$current = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+// Aktive Seite ermitteln (ohne ggf. vorhandenen Deploy-Unterordner)
+$current = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
+$currentRoute = $current;
+if (SITE_BASE_PATH !== '' && str_starts_with($current, SITE_BASE_PATH)) {
+  $currentRoute = substr($current, strlen(SITE_BASE_PATH));
+  if ($currentRoute === '' || $currentRoute === false) {
+    $currentRoute = '/';
+  }
+}
 
 $nav_items = [
     ['href' => '/',                  'label' => 'Unternehmen'],
@@ -21,8 +28,8 @@ $nav_items = [
 <header class="site-header" role="banner">
   <div class="site-header__inner container">
 
-    <a href="/" class="site-header__logo" aria-label="<?php echo htmlspecialchars(SITE_NAME, ENT_QUOTES, 'UTF-8'); ?> — Startseite">
-      <img src="/assets/img/2TOS-Brief-Typo.png"
+    <a href="<?php echo htmlspecialchars(site_path('/'), ENT_QUOTES, 'UTF-8'); ?>" class="site-header__logo" aria-label="<?php echo htmlspecialchars(SITE_NAME, ENT_QUOTES, 'UTF-8'); ?> — Startseite">
+      <img src="<?php echo htmlspecialchars(asset_path('img/2TOS-Brief-Typo.png'), ENT_QUOTES, 'UTF-8'); ?>"
            alt="TOS Handler e.K. — Meisterfachbetrieb Flensburg"
            width="160" height="60"
            loading="eager">
@@ -32,9 +39,9 @@ $nav_items = [
       <ul class="site-nav__list" role="list">
         <?php foreach ($nav_items as $item): ?>
         <li class="site-nav__item">
-          <a href="<?php echo htmlspecialchars($item['href'], ENT_QUOTES, 'UTF-8'); ?>"
-             class="site-nav__link<?php echo ($current === $item['href'] || $current === $item['href'] . '.php') ? ' is-active' : ''; ?>"
-             <?php if ($current === $item['href'] || $current === $item['href'] . '.php'): ?>aria-current="page"<?php endif; ?>>
+           <a href="<?php echo htmlspecialchars(site_path($item['href']), ENT_QUOTES, 'UTF-8'); ?>"
+             class="site-nav__link<?php echo ($currentRoute === $item['href'] || $currentRoute === $item['href'] . '.php') ? ' is-active' : ''; ?>"
+             <?php if ($currentRoute === $item['href'] || $currentRoute === $item['href'] . '.php'): ?>aria-current="page"<?php endif; ?>>
             <?php echo htmlspecialchars($item['label'], ENT_QUOTES, 'UTF-8'); ?>
           </a>
         </li>
@@ -49,7 +56,7 @@ $nav_items = [
         </svg>
         <span class="site-header__tel-number"><?php echo htmlspecialchars(CONTACT_PHONE, ENT_QUOTES, 'UTF-8'); ?></span>
       </a>
-      <a href="/kontakt" class="btn btn--primary">Anfrage stellen</a>
+      <a href="<?php echo htmlspecialchars(site_path('/kontakt'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn--primary">Anfrage stellen</a>
     </div>
 
     <button class="nav-burger" aria-expanded="false" aria-controls="mobile-nav" aria-label="Navigation öffnen">
@@ -73,14 +80,14 @@ $nav_items = [
       <ul class="mobile-nav__list" role="list">
         <?php foreach ($nav_items as $item): ?>
         <li>
-          <a href="<?php echo htmlspecialchars($item['href'], ENT_QUOTES, 'UTF-8'); ?>"
+           <a href="<?php echo htmlspecialchars(site_path($item['href']), ENT_QUOTES, 'UTF-8'); ?>"
              class="mobile-nav__link">
             <?php echo htmlspecialchars($item['label'], ENT_QUOTES, 'UTF-8'); ?>
           </a>
         </li>
         <?php endforeach; ?>
         <li>
-          <a href="/kontakt" class="mobile-nav__link mobile-nav__link--cta">Anfrage stellen</a>
+          <a href="<?php echo htmlspecialchars(site_path('/kontakt'), ENT_QUOTES, 'UTF-8'); ?>" class="mobile-nav__link mobile-nav__link--cta">Anfrage stellen</a>
         </li>
       </ul>
       <address class="mobile-nav__contact">

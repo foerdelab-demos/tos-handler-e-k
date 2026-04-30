@@ -82,7 +82,7 @@ $projekte = require __DIR__ . '/data/projekte.php';
   </div>
 
   <div class="section__action container">
-    <a href="/kontakt" class="btn btn--primary">Auch Ihr Projekt anfragen</a>
+    <a href="<?php echo htmlspecialchars(site_path('/kontakt'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn--primary">Auch Ihr Projekt anfragen</a>
   </div>
 
 </main>
@@ -92,7 +92,7 @@ $projekte = require __DIR__ . '/data/projekte.php';
 window.GALERIE = <?php echo json_encode(array_values($projekte), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>;
 window.IMG_BASE = '<?php echo IMG_PROJEKTE; ?>';
 </script>
-<script src="/assets/js/lightbox.js" defer></script>
+<script src="<?php echo htmlspecialchars(asset_path('js/lightbox.js'), ENT_QUOTES, 'UTF-8'); ?>" defer></script>
 
 <?php require_once __DIR__ . '/includes/footer.php'; ?>
 </body>

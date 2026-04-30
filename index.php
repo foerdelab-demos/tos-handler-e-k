@@ -15,7 +15,7 @@ require_once __DIR__ . '/includes/header.php';
   <!-- Hero -->
   <section class="hero" aria-label="Einstieg">
     <div class="hero__image-wrap">
-      <img src="/assets/img/projekte/1000-volquardsen-img_4410-kl.jpg"
+      <img src="<?php echo htmlspecialchars(asset_path('img/projekte/1000-volquardsen-img_4410-kl.jpg'), ENT_QUOTES, 'UTF-8'); ?>"
            alt="Modernes Bad — fertige Badsanierung durch TOS Handler e.K. Flensburg"
            width="1600" height="900"
            loading="eager" decoding="sync"
@@ -26,8 +26,8 @@ require_once __DIR__ . '/includes/header.php';
       <h1 class="hero__headline">Meisterfachbetrieb für Heizung, Sanitär, Lüftung &amp; Dach — aus einer Hand</h1>
       <p class="hero__subline">Ihr zuverlässiger Partner in Flensburg für Sanierung, Modernisierung und Innenausbau.</p>
       <div class="hero__actions">
-        <a href="/kontakt" class="btn btn--primary">Anfrage stellen</a>
-        <a href="/leistungen" class="btn btn--ghost">Unsere Leistungen</a>
+        <a href="<?php echo htmlspecialchars(site_path('/kontakt'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn--primary">Anfrage stellen</a>
+        <a href="<?php echo htmlspecialchars(site_path('/leistungen'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn--ghost">Unsere Leistungen</a>
       </div>
     </div>
   </section>
@@ -70,37 +70,37 @@ require_once __DIR__ . '/includes/header.php';
         <article class="leistung-card">
           <h3 class="leistung-card__title">Badsanierung</h3>
           <p class="leistung-card__text">Komplettbad zum Festpreis aus einer Hand.</p>
-          <a href="/leistungen" class="leistung-card__link">Mehr erfahren</a>
+          <a href="<?php echo htmlspecialchars(site_path('/leistungen'), ENT_QUOTES, 'UTF-8'); ?>" class="leistung-card__link">Mehr erfahren</a>
         </article>
 
         <article class="leistung-card">
           <h3 class="leistung-card__title">Heizung &amp; Sanitär</h3>
           <p class="leistung-card__text">Moderne Heiztechnik, Fernwärme, Regelungstechnik.</p>
-          <a href="/leistungen" class="leistung-card__link">Mehr erfahren</a>
+          <a href="<?php echo htmlspecialchars(site_path('/leistungen'), ENT_QUOTES, 'UTF-8'); ?>" class="leistung-card__link">Mehr erfahren</a>
         </article>
 
         <article class="leistung-card">
           <h3 class="leistung-card__title">Dach &amp; Klempner</h3>
           <p class="leistung-card__text">Gauben, Dacheindeckung, Klempnerarbeiten.</p>
-          <a href="/leistungen" class="leistung-card__link">Mehr erfahren</a>
+          <a href="<?php echo htmlspecialchars(site_path('/leistungen'), ENT_QUOTES, 'UTF-8'); ?>" class="leistung-card__link">Mehr erfahren</a>
         </article>
 
         <article class="leistung-card">
           <h3 class="leistung-card__title">Fassadensanierung</h3>
           <p class="leistung-card__text">Mikroporen-Beschichtung ohne Fungizide.</p>
-          <a href="/gewerke" class="leistung-card__link">Mehr erfahren</a>
+          <a href="<?php echo htmlspecialchars(site_path('/gewerke'), ENT_QUOTES, 'UTF-8'); ?>" class="leistung-card__link">Mehr erfahren</a>
         </article>
 
         <article class="leistung-card">
           <h3 class="leistung-card__title">Innenausbau</h3>
           <p class="leistung-card__text">Vom Rohbau bis zum komfortablen Wohnraum.</p>
-          <a href="/leistungen" class="leistung-card__link">Mehr erfahren</a>
+          <a href="<?php echo htmlspecialchars(site_path('/leistungen'), ENT_QUOTES, 'UTF-8'); ?>" class="leistung-card__link">Mehr erfahren</a>
         </article>
 
         <article class="leistung-card">
           <h3 class="leistung-card__title">Brand- &amp; Wasserschaden</h3>
           <p class="leistung-card__text">Schnelle Sanierung bei Schadensfällen.</p>
-          <a href="/kontakt" class="leistung-card__link">Anfrage stellen</a>
+          <a href="<?php echo htmlspecialchars(site_path('/kontakt'), ENT_QUOTES, 'UTF-8'); ?>" class="leistung-card__link">Anfrage stellen</a>
         </article>
 
       </div>
@@ -115,47 +115,47 @@ require_once __DIR__ . '/includes/header.php';
       <div class="referenzen-teaser">
 
         <article class="ref-card">
-          <a href="/referenz-fernwaerme" class="ref-card__image-link">
-            <img src="/assets/img/projekte/1000-volquardsen-img_4425-kl.jpg"
+          <a href="<?php echo htmlspecialchars(site_path('/referenz-fernwaerme'), ENT_QUOTES, 'UTF-8'); ?>" class="ref-card__image-link">
+            <img src="<?php echo htmlspecialchars(asset_path('img/projekte/1000-volquardsen-img_4425-kl.jpg'), ENT_QUOTES, 'UTF-8'); ?>"
                  alt="Modernisierung Primär-Fernwärmestation"
                  width="600" height="400"
                  loading="lazy" decoding="async">
           </a>
           <div class="ref-card__body">
             <h3 class="ref-card__title">Modernisierung Primär-Fernwärmestation</h3>
-            <a href="/referenz-fernwaerme" class="ref-card__link">Projekt ansehen</a>
+            <a href="<?php echo htmlspecialchars(site_path('/referenz-fernwaerme'), ENT_QUOTES, 'UTF-8'); ?>" class="ref-card__link">Projekt ansehen</a>
           </div>
         </article>
 
         <article class="ref-card">
-          <a href="/referenzen" class="ref-card__image-link">
-            <img src="/assets/img/projekte/IMG_8620.jpg"
+          <a href="<?php echo htmlspecialchars(site_path('/referenzen'), ENT_QUOTES, 'UTF-8'); ?>" class="ref-card__image-link">
+            <img src="<?php echo htmlspecialchars(asset_path('img/projekte/IMG_8620.jpg'), ENT_QUOTES, 'UTF-8'); ?>"
                  alt="Komplettsanierung Bad — vorher"
                  width="600" height="400"
                  loading="lazy" decoding="async">
           </a>
           <div class="ref-card__body">
             <h3 class="ref-card__title">Komplettsanierung Bad</h3>
-            <a href="/referenzen" class="ref-card__link">Alle Referenzen</a>
+            <a href="<?php echo htmlspecialchars(site_path('/referenzen'), ENT_QUOTES, 'UTF-8'); ?>" class="ref-card__link">Alle Referenzen</a>
           </div>
         </article>
 
         <article class="ref-card">
-          <a href="/referenzen" class="ref-card__image-link">
-            <img src="/assets/img/projekte/1fertig_fass1188.jpg"
+          <a href="<?php echo htmlspecialchars(site_path('/referenzen'), ENT_QUOTES, 'UTF-8'); ?>" class="ref-card__image-link">
+            <img src="<?php echo htmlspecialchars(asset_path('img/projekte/1fertig_fass1188.jpg'), ENT_QUOTES, 'UTF-8'); ?>"
                  alt="Fassadensanierung — Ergebnis"
                  width="600" height="400"
                  loading="lazy" decoding="async">
           </a>
           <div class="ref-card__body">
             <h3 class="ref-card__title">Fassadensanierung</h3>
-            <a href="/referenzen" class="ref-card__link">Alle Referenzen</a>
+            <a href="<?php echo htmlspecialchars(site_path('/referenzen'), ENT_QUOTES, 'UTF-8'); ?>" class="ref-card__link">Alle Referenzen</a>
           </div>
         </article>
 
       </div>
       <div class="section__action">
-        <a href="/referenzen" class="btn btn--secondary">Alle Referenzen ansehen</a>
+        <a href="<?php echo htmlspecialchars(site_path('/referenzen'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn--secondary">Alle Referenzen ansehen</a>
       </div>
     </div>
   </section>

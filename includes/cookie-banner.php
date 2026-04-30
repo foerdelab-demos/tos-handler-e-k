@@ -12,7 +12,7 @@
         Diese Seite verwendet Cookies. Notwendige Cookies sind immer aktiv.
         Mit Ihrer Zustimmung aktivieren wir Google Analytics zur Verbesserung des Angebots.
         Weitere Informationen finden Sie in unserer
-        <a href="/datenschutz">Datenschutzerklärung</a>.
+        <a href="<?php echo htmlspecialchars(site_path('/datenschutz'), ENT_QUOTES, 'UTF-8'); ?>">Datenschutzerklärung</a>.
       </p>
     </div>
     <div class="cookie-banner__actions">
@@ -53,4 +53,4 @@
   </div>
 </div>
 
-<script src="/assets/js/consent.js" defer></script>
+<script src="<?php echo htmlspecialchars(asset_path('js/consent.js'), ENT_QUOTES, 'UTF-8'); ?>" defer></script>

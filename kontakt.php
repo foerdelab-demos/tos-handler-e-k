@@ -75,7 +75,7 @@ require_once __DIR__ . '/includes/header.php';
           </div>
           <?php endif; ?>
 
-          <form class="form" method="post" action="/kontakt-submit.php" novalidate>
+          <form class="form" method="post" action="<?php echo htmlspecialchars(site_path('/kontakt-submit.php'), ENT_QUOTES, 'UTF-8'); ?>" novalidate>
 
             <div class="form__group">
               <label class="form__label" for="name">Name <abbr title="Pflichtfeld">*</abbr></label>
@@ -123,7 +123,7 @@ require_once __DIR__ . '/includes/header.php';
             <div class="form__group form__group--checkbox">
               <label class="form__checkbox-label">
                 <input type="checkbox" name="datenschutz" required>
-                <span>Ich habe die <a href="/datenschutz">Datenschutzerklärung</a> zur Kenntnis genommen. <abbr title="Pflichtfeld">*</abbr></span>
+                <span>Ich habe die <a href="<?php echo htmlspecialchars(site_path('/datenschutz'), ENT_QUOTES, 'UTF-8'); ?>">Datenschutzerklärung</a> zur Kenntnis genommen. <abbr title="Pflichtfeld">*</abbr></span>
               </label>
             </div>
 
@@ -139,8 +139,6 @@ require_once __DIR__ . '/includes/header.php';
   </section>
 
 </main>
-
-<script src="/assets/js/main.js" defer></script>
 
 <?php require_once __DIR__ . '/includes/footer.php'; ?>
 </body>

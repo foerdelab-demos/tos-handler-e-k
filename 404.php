@@ -25,8 +25,8 @@ require_once __DIR__ . '/includes/header.php';
     <div class="container container--narrow">
       <p>Möglicherweise wurde die Adresse geändert oder die Seite wurde entfernt.</p>
       <div class="section__action">
-        <a href="/" class="btn btn--primary">Zur Startseite</a>
-        <a href="/kontakt" class="btn btn--secondary">Kontakt aufnehmen</a>
+        <a href="<?php echo htmlspecialchars(site_path('/'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn--primary">Zur Startseite</a>
+        <a href="<?php echo htmlspecialchars(site_path('/kontakt'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn--secondary">Kontakt aufnehmen</a>
       </div>
     </div>
   </section>

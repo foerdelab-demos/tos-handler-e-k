@@ -6,9 +6,24 @@
 
 declare(strict_types=1);
 
+$scriptDir = dirname($_SERVER['SCRIPT_NAME'] ?? '');
+$scriptDir = str_replace('\\', '/', $scriptDir);
+if ($scriptDir === '.' || $scriptDir === '/' || $scriptDir === '\\') {
+	$scriptDir = '';
+}
+if ($scriptDir !== '' && $scriptDir[0] !== '/') {
+	$scriptDir = '/' . $scriptDir;
+}
+
+define('SITE_BASE_PATH', rtrim(getenv('SITE_BASE_PATH') ?: $scriptDir, '/'));
+
+$scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+$host = $_SERVER['HTTP_HOST'] ?? '';
+$detectedSite = $host !== '' ? ($scheme . '://' . $host) : 'https://tos-handler.de';
+
 // NAP-Daten (Name, Address, Phone) — konsistent in Footer, Impressum, Kontakt, Schema.org
 define('SITE_NAME',        'TOS Handler e.K.');
-define('SITE_URL',         'https://tos-handler.de');
+define('SITE_URL',         rtrim(getenv('SITE_URL') ?: ($detectedSite . SITE_BASE_PATH), '/'));
 define('CONTACT_STREET',   'Munketoft 1');
 define('CONTACT_ZIP',      '24941');
 define('CONTACT_CITY',     'Flensburg');
@@ -34,5 +49,22 @@ define('SMTP_USER',     getenv('SMTP_USER')     ?: '');
 define('SMTP_PASS',     getenv('SMTP_PASS')     ?: '');
 define('SMTP_SECURE',   getenv('SMTP_SECURE')   ?: 'tls');
 
+/**
+ * Baut interne URLs basierend auf dem aktuellen Deploy-Pfad (Root oder Unterordner).
+ */
+function site_path(string $path = '/'): string
+{
+	$normalized = ($path === '' || $path === '/') ? '/' : '/' . ltrim($path, '/');
+	return SITE_BASE_PATH === '' ? $normalized : SITE_BASE_PATH . $normalized;
+}
+
+/**
+ * Baut Asset-URLs innerhalb von /assets.
+ */
+function asset_path(string $asset): string
+{
+	return site_path('/assets/' . ltrim($asset, '/'));
+}
+
 // Galerie-Basis-Pfad
-define('IMG_PROJEKTE', '/assets/img/projekte/');
+define('IMG_PROJEKTE', site_path('/assets/img/projekte/'));

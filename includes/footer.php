@@ -45,12 +45,12 @@ require_once __DIR__ . '/config.php';
       <div class="site-footer__col">
         <h2 class="site-footer__heading">Leistungen</h2>
         <ul class="site-footer__links" role="list">
-          <li><a href="/leistungen">Badsanierung</a></li>
-          <li><a href="/leistungen">Heizung &amp; Sanitär</a></li>
-          <li><a href="/leistungen">Dachdecker- &amp; Klempnerarbeiten</a></li>
-          <li><a href="/leistungen">Fassadensanierung</a></li>
-          <li><a href="/leistungen">Innenausbau</a></li>
-          <li><a href="/leistungen">Mauerwerksabdichtung</a></li>
+          <li><a href="<?php echo htmlspecialchars(site_path('/leistungen'), ENT_QUOTES, 'UTF-8'); ?>">Badsanierung</a></li>
+          <li><a href="<?php echo htmlspecialchars(site_path('/leistungen'), ENT_QUOTES, 'UTF-8'); ?>">Heizung &amp; Sanitär</a></li>
+          <li><a href="<?php echo htmlspecialchars(site_path('/leistungen'), ENT_QUOTES, 'UTF-8'); ?>">Dachdecker- &amp; Klempnerarbeiten</a></li>
+          <li><a href="<?php echo htmlspecialchars(site_path('/leistungen'), ENT_QUOTES, 'UTF-8'); ?>">Fassadensanierung</a></li>
+          <li><a href="<?php echo htmlspecialchars(site_path('/leistungen'), ENT_QUOTES, 'UTF-8'); ?>">Innenausbau</a></li>
+          <li><a href="<?php echo htmlspecialchars(site_path('/leistungen'), ENT_QUOTES, 'UTF-8'); ?>">Mauerwerksabdichtung</a></li>
         </ul>
       </div>
 
@@ -58,9 +58,9 @@ require_once __DIR__ . '/config.php';
       <div class="site-footer__col">
         <h2 class="site-footer__heading">Rechtliches</h2>
         <ul class="site-footer__links" role="list">
-          <li><a href="/impressum">Impressum</a></li>
-          <li><a href="/datenschutz">Datenschutz</a></li>
-          <li><a href="/kontakt">Kontakt</a></li>
+          <li><a href="<?php echo htmlspecialchars(site_path('/impressum'), ENT_QUOTES, 'UTF-8'); ?>">Impressum</a></li>
+          <li><a href="<?php echo htmlspecialchars(site_path('/datenschutz'), ENT_QUOTES, 'UTF-8'); ?>">Datenschutz</a></li>
+          <li><a href="<?php echo htmlspecialchars(site_path('/kontakt'), ENT_QUOTES, 'UTF-8'); ?>">Kontakt</a></li>
         </ul>
         <a href="https://www.google.com/maps/place/TOS+Handler+e.K./"
            class="site-footer__maps-link"
@@ -86,4 +86,4 @@ require_once __DIR__ . '/config.php';
 
 </footer>
 
-<script src="/assets/js/main.js" defer></script>
+<script src="<?php echo htmlspecialchars(asset_path('js/main.js'), ENT_QUOTES, 'UTF-8'); ?>" defer></script>

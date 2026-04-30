@@ -10,7 +10,7 @@ if (!empty($_POST['website'])) {
 
 // Nur POST erlauben
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: /kontakt');
+    header('Location: ' . site_path('/kontakt'));
     exit;
 }
 
@@ -42,7 +42,7 @@ if (!$datenschutz) {
 }
 
 if (!empty($errors)) {
-    header('Location: /kontakt?fehler=1');
+    header('Location: ' . site_path('/kontakt?fehler=1'));
     exit;
 }
 
@@ -85,12 +85,12 @@ try {
 
     $mail->send();
 
-    header('Location: /kontakt?gesendet=1');
+    header('Location: ' . site_path('/kontakt?gesendet=1'));
     exit;
 
 } catch (Exception $e) {
     // Fehler loggen (kein Stack-Trace an den Nutzer)
     error_log('[TOS Kontaktformular] Mailer-Fehler: ' . $mail->ErrorInfo);
-    header('Location: /kontakt?fehler=1');
+    header('Location: ' . site_path('/kontakt?fehler=1'));
     exit;
 }

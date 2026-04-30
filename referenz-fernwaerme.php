@@ -14,7 +14,7 @@ require_once __DIR__ . '/includes/header.php';
 
   <div class="page-header">
     <div class="container">
-      <p class="eyebrow"><a href="/referenzen">Referenzen</a></p>
+      <p class="eyebrow"><a href="<?php echo htmlspecialchars(site_path('/referenzen'), ENT_QUOTES, 'UTF-8'); ?>">Referenzen</a></p>
       <h1>Modernisierung einer Primär-Fernwärmestation</h1>
     </div>
   </div>
@@ -43,14 +43,14 @@ require_once __DIR__ . '/includes/header.php';
       <h2 id="vorher-nachher-heading" class="sr-only">Vorher und Nachher</h2>
       <div class="vorher-nachher">
         <figure class="vorher-nachher__item">
-          <img src="/assets/img/projekte/IMG_8620.jpg"
+          <img src="<?php echo htmlspecialchars(asset_path('img/projekte/IMG_8620.jpg'), ENT_QUOTES, 'UTF-8'); ?>"
                alt="Primär-Fernwärmestation — Zustand vorher"
                width="800" height="600"
                loading="lazy" decoding="async">
           <figcaption class="vorher-nachher__label font-mono">VORHER</figcaption>
         </figure>
         <figure class="vorher-nachher__item">
-          <img src="/assets/img/projekte/IMG_8823.jpg"
+          <img src="<?php echo htmlspecialchars(asset_path('img/projekte/IMG_8823.jpg'), ENT_QUOTES, 'UTF-8'); ?>"
                alt="Primär-Fernwärmestation — nach dem Umbau"
                width="800" height="600"
                loading="lazy" decoding="async">
@@ -67,14 +67,14 @@ require_once __DIR__ . '/includes/header.php';
       <h2 id="modernisierung-heading">Modernisierung</h2>
       <div class="vorher-nachher">
         <figure class="vorher-nachher__item">
-          <img src="/assets/img/projekte/IMG_8620.jpg"
+          <img src="<?php echo htmlspecialchars(asset_path('img/projekte/IMG_8620.jpg'), ENT_QUOTES, 'UTF-8'); ?>"
                alt="Heizungsanlage — Zustand vor der Modernisierung"
                width="800" height="600"
                loading="lazy" decoding="async">
           <figcaption class="vorher-nachher__label font-mono">VOR DER MODERNISIERUNG</figcaption>
         </figure>
         <figure class="vorher-nachher__item">
-          <img src="/assets/img/projekte/IMG_8823.jpg"
+          <img src="<?php echo htmlspecialchars(asset_path('img/projekte/IMG_8823.jpg'), ENT_QUOTES, 'UTF-8'); ?>"
                alt="Heizungsanlage — nach der Modernisierung"
                width="800" height="600"
                loading="lazy" decoding="async">
@@ -85,8 +85,8 @@ require_once __DIR__ . '/includes/header.php';
   </section>
 
   <div class="section__action container">
-    <a href="/referenzen" class="btn btn--secondary">Alle Referenzen</a>
-    <a href="/kontakt" class="btn btn--primary">Anfrage stellen</a>
+    <a href="<?php echo htmlspecialchars(site_path('/referenzen'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn--secondary">Alle Referenzen</a>
+    <a href="<?php echo htmlspecialchars(site_path('/kontakt'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn--primary">Anfrage stellen</a>
   </div>
 
 </main>

@@ -46,7 +46,7 @@ require_once __DIR__ . '/includes/header.php';
         </div>
       </div>
       <div class="fachthema__image">
-        <img src="/assets/img/projekte/Fassade.jpg"
+        <img src="<?php echo htmlspecialchars(asset_path('img/projekte/Fassade.jpg'), ENT_QUOTES, 'UTF-8'); ?>"
              alt="Schöne Fassade nach Sanierung durch TOS Handler"
              width="700" height="520"
              loading="lazy" decoding="async">
@@ -73,7 +73,7 @@ require_once __DIR__ . '/includes/header.php';
         </div>
       </div>
       <div class="fachthema__image">
-        <img src="/assets/img/projekte/1fass-img_1272.jpg"
+        <img src="<?php echo htmlspecialchars(asset_path('img/projekte/1fass-img_1272.jpg'), ENT_QUOTES, 'UTF-8'); ?>"
              alt="Hausfassade nach Mauerwerksabdichtung"
              width="700" height="520"
              loading="lazy" decoding="async">
@@ -97,7 +97,7 @@ require_once __DIR__ . '/includes/header.php';
         </div>
       </div>
       <div class="fachthema__image">
-        <img src="/assets/img/projekte/1-bad_nachher_1129.jpg"
+        <img src="<?php echo htmlspecialchars(asset_path('img/projekte/1-bad_nachher_1129.jpg'), ENT_QUOTES, 'UTF-8'); ?>"
              alt="Badsanierung — fertiges Ergebnis"
              width="700" height="520"
              loading="lazy" decoding="async">
@@ -130,7 +130,7 @@ require_once __DIR__ . '/includes/header.php';
         </div>
       </div>
       <div class="fachthema__image">
-        <img src="/assets/img/projekte/50-IMG_0187.jpg"
+        <img src="<?php echo htmlspecialchars(asset_path('img/projekte/50-IMG_0187.jpg'), ENT_QUOTES, 'UTF-8'); ?>"
              alt="Küchenzeile — Montage durch TOS Handler"
              width="700" height="520"
              loading="lazy" decoding="async">
@@ -160,7 +160,7 @@ require_once __DIR__ . '/includes/header.php';
         </div>
       </div>
       <div class="fachthema__image">
-        <img src="/assets/img/projekte/150-wore16.jpg"
+        <img src="<?php echo htmlspecialchars(asset_path('img/projekte/150-wore16.jpg'), ENT_QUOTES, 'UTF-8'); ?>"
              alt="Wohnraumgestaltung — Innenausbau durch TOS Handler"
              width="700" height="520"
              loading="lazy" decoding="async">
