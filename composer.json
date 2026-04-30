@@ -1,0 +1,15 @@
+{
+    "name": "tos-handler/website",
+    "description": "TOS Handler e.K. — Meisterfachbetrieb Flensburg",
+    "type": "project",
+    "require": {
+        "php": ">=8.2",
+        "phpmailer/phpmailer": "^6.9"
+    },
+    "config": {
+        "optimize-autoloader": true
+    },
+    "autoload": {
+        "psr-4": {}
+    }
+}
