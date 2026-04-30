@@ -221,6 +221,19 @@ p {
   flex-wrap: wrap;
 }
 
+.section__action--prominent {
+  margin-top: var(--space-8);
+  justify-content: center;
+}
+
+.section__subline {
+  font-size: var(--fs-md);
+  color: var(--ink-muted);
+  line-height: 1.55;
+  max-width: 60ch;
+  margin-top: var(--space-2);
+}
+
 /* ==========================================================================
    5. SKIP LINK
    ========================================================================== */
@@ -529,6 +542,21 @@ p {
   text-decoration: none;
 }
 
+/* Primär auf dunklem Hintergrund: paper-Hintergrund + ink-Text */
+.btn--primary-light {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--paper);
+}
+
+.btn--primary-light:hover,
+.btn--primary-light:focus-visible {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--rust);
+  color: var(--ink);
+  text-decoration: none;
+}
+
 /* Inline-Button für Datenschutz (z.B. GA-Opt-Out) */
 .btn-inline {
   display: inline;
@@ -622,6 +650,35 @@ p {
   flex-wrap: wrap;
 }
 
+.hero__trust {
+  list-style: none;
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: rgba(242, 237, 228, 0.78);
+  letter-spacing: 0.04em;
+}
+
+.hero__trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.hero__trust-item::before {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 6px;
+  background: var(--rust);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
 @media (max-width: 767px) {
   .hero {
     min-height: 100vh;
@@ -640,6 +697,12 @@ p {
   }
   .hero__actions .btn {
     width: 100%;
+  }
+  .hero__trust {
+    margin-top: var(--space-4);
+    flex-direction: column;
+    gap: var(--space-2);
+    font-size: 11px;
   }
 }
 
@@ -660,6 +723,74 @@ p {
   font-size: var(--fs-md);
   color: var(--ink-soft);
   margin-top: var(--space-2);
+}
+
+/* ==========================================================================
+   NUTZEN-ABSCHNITT (Startseite — was den Service ausmacht)
+   ========================================================================== */
+
+.nutzen-intro {
+  max-width: 60ch;
+}
+
+.nutzen-intro__lead {
+  font-size: var(--fs-md);
+  color: var(--ink-soft);
+  line-height: 1.55;
+  margin-top: var(--space-3);
+}
+
+.nutzen-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  margin-top: var(--space-6);
+  border-top: 2px solid var(--border-strong);
+}
+
+.nutzen-item {
+  padding: var(--space-5) var(--space-4) var(--space-4) 0;
+  border-right: 1px solid var(--border);
+  padding-right: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.nutzen-item:last-child {
+  border-right: none;
+}
+
+@media (max-width: 767px) {
+  .nutzen-item {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: var(--space-4) 0;
+  }
+  .nutzen-item:last-child {
+    border-bottom: none;
+  }
+}
+
+.nutzen-item__number {
+  font-size: var(--fs-xs);
+  color: var(--rust);
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+
+.nutzen-item__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.nutzen-item__text {
+  font-size: var(--fs-sm);
+  color: var(--ink-muted);
+  line-height: 1.55;
 }
 
 /* ==========================================================================
@@ -728,6 +859,13 @@ p {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  background: var(--paper);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ref-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-print);
 }
 
 .ref-card__image-link {
@@ -739,11 +877,11 @@ p {
   width: 100%;
   aspect-ratio: 3 / 2;
   object-fit: cover;
-  transition: transform 0.2s;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .ref-card:hover .ref-card__image-link img {
-  transform: scale(1.02);
+  transform: scale(1.04);
 }
 
 .ref-card__body {
@@ -831,16 +969,32 @@ p {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-6);
   justify-content: space-between;
 }
 
-.cta-banner__text {
+.cta-banner__lede {
+  flex: 1 1 380px;
+  min-width: 0;
+  max-width: 620px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.cta-banner__heading {
   font-family: var(--font-display);
-  font-size: clamp(var(--fs-base), 2.5vw, var(--fs-xl));
+  font-size: clamp(var(--fs-lg), 2.8vw, var(--fs-xl));
   font-weight: 600;
   color: var(--paper);
-  max-width: 500px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.cta-banner__text {
+  font-size: var(--fs-base);
+  line-height: 1.55;
+  color: rgba(242, 237, 228, 0.82);
 }
 
 .cta-banner__actions {
