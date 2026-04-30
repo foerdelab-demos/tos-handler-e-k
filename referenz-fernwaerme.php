@@ -37,18 +37,20 @@ require_once __DIR__ . '/includes/header.php';
 
   <!-- Vorher/Nachher -->
   <section class="section section--deep" aria-labelledby="vorher-nachher-heading">
+    <!-- Hinweis: Die Original-Fotos der Fernwärmestation (1IMG_9145.png, 1IMG_9144.png)
+         sind noch in assets/img/projekte/ einzupflegen. Bis dahin: Platzhalter-Bilder. -->
     <div class="container">
       <h2 id="vorher-nachher-heading" class="sr-only">Vorher und Nachher</h2>
       <div class="vorher-nachher">
         <figure class="vorher-nachher__item">
-          <img src="/assets/img/projekte/1IMG_0533.jpg"
+          <img src="/assets/img/projekte/IMG_8620.jpg"
                alt="Primär-Fernwärmestation — Zustand vorher"
                width="800" height="600"
                loading="lazy" decoding="async">
           <figcaption class="vorher-nachher__label font-mono">VORHER</figcaption>
         </figure>
         <figure class="vorher-nachher__item">
-          <img src="/assets/img/projekte/Dach_Rohbau.jpg"
+          <img src="/assets/img/projekte/IMG_8823.jpg"
                alt="Primär-Fernwärmestation — nach dem Umbau"
                width="800" height="600"
                loading="lazy" decoding="async">

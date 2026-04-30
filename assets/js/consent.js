@@ -116,7 +116,7 @@
       var hidden = settingsPanel.hasAttribute('hidden');
       if (hidden) {
         settingsPanel.removeAttribute('hidden');
-        settingsBtn.textContent = 'Einstellungen schliessen';
+        settingsBtn.textContent = 'Einstellungen schließen';
       } else {
         settingsPanel.setAttribute('hidden', '');
         settingsBtn.textContent = 'Einstellungen';

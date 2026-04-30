@@ -42,7 +42,7 @@ $projekte = require __DIR__ . '/data/projekte.php';
         <div class="galerie-item" data-cat="<?php echo htmlspecialchars($projekt['cat'], ENT_QUOTES, 'UTF-8'); ?>">
           <button class="galerie-item__btn"
                   data-index="<?php echo $idx; ?>"
-                  aria-label="<?php echo htmlspecialchars($projekt['title'], ENT_QUOTES, 'UTF-8'); ?> — Grossansicht oeffnen">
+                  aria-label="<?php echo htmlspecialchars($projekt['title'], ENT_QUOTES, 'UTF-8'); ?> — Großansicht öffnen">
             <img src="<?php echo htmlspecialchars(IMG_PROJEKTE . $projekt['file'], ENT_QUOTES, 'UTF-8'); ?>"
                  alt="<?php echo htmlspecialchars($projekt['title'], ENT_QUOTES, 'UTF-8'); ?>"
                  width="600" height="450"
@@ -59,7 +59,7 @@ $projekte = require __DIR__ . '/data/projekte.php';
   <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Bildansicht" hidden>
     <div class="lightbox__backdrop"></div>
     <div class="lightbox__inner">
-      <button class="lightbox__close" aria-label="Bildansicht schliessen">
+      <button class="lightbox__close" aria-label="Bildansicht schließen">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true" focusable="false">
           <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
         </svg>
@@ -73,7 +73,7 @@ $projekte = require __DIR__ . '/data/projekte.php';
         <img id="lightbox-img" src="" alt="" class="lightbox__img">
         <figcaption id="lightbox-caption" class="lightbox__caption font-mono"></figcaption>
       </figure>
-      <button class="lightbox__next" aria-label="Naechstes Bild">
+      <button class="lightbox__next" aria-label="Nächstes Bild">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true" focusable="false">
           <polyline points="9 18 15 12 9 6"/>
         </svg>

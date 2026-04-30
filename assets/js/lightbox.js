@@ -1,7 +1,7 @@
 /**
  * lightbox.js — Galerie-Lightbox
  * Abhängigkeiten: window.GALERIE (Array aus referenzen.php), window.IMG_BASE
- * Tastatur: ESC = schliessen, Pfeiltasten = vor/zurück
+ * Tastatur: ESC = schließen, Pfeiltasten = vor/zurück
  */
 
 'use strict';
@@ -83,7 +83,7 @@
   updateVisibleItems();
 
   /* -------------------------------------------------------------------------
-   * Lightbox öffnen / schliessen
+   * Lightbox öffnen / schließen
    * -------------------------------------------------------------------- */
 
   function openLightbox(idx) {

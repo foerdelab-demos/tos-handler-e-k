@@ -39,14 +39,14 @@
     closeBtn.addEventListener('click', closeNav);
   }
 
-  // ESC-Taste schliesst die Navigation
+  // ESC-Taste schließt die Navigation
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && mobileNav && mobileNav.classList.contains('is-open')) {
       closeNav();
     }
   });
 
-  // Klick auf Nav-Links schliesst die Navigation
+  // Klick auf Nav-Links schließt die Navigation
   if (mobileNav) {
     mobileNav.querySelectorAll('.mobile-nav__link').forEach(function (link) {
       link.addEventListener('click', closeNav);
@@ -68,7 +68,7 @@
       const anfrageField = form.querySelector('[name="anfrage"]');
       const datenschutzField = form.querySelector('[name="datenschutz"]');
 
-      // Fehler-Meldungen zuruecksetzen
+      // Fehler-Meldungen zurücksetzen
       form.querySelectorAll('.form__error-msg').forEach(function (el) { el.remove(); });
       form.querySelectorAll('.form__input--error').forEach(function (el) { el.classList.remove('form__input--error'); });
 
