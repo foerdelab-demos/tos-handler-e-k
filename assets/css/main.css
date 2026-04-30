@@ -583,7 +583,8 @@ p {
 
 .hero {
   position: relative;
-  min-height: clamp(280px, 38vh, 400px);
+  min-height: 100vh;
+  min-height: 100dvh;
   overflow: hidden;
 }
 
@@ -683,10 +684,6 @@ p {
 }
 
 @media (max-width: 767px) {
-  .hero {
-    min-height: 100vh;
-    min-height: 100dvh;
-  }
   .hero__content {
     padding-top: var(--space-6);
     padding-bottom: var(--space-6);
