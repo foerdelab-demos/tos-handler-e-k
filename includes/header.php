@@ -19,6 +19,8 @@ require_once __DIR__ . '/config.php';
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <script>document.documentElement.classList.add('js-reveal');</script>
+
   <!-- Schriften: Fraunces (Display) + IBM Plex Sans (Body) + IBM Plex Mono (Akzent) -->
   <link rel="preload" href="<?php echo htmlspecialchars(asset_path('fonts/Fraunces-VariableFont.woff2'), ENT_QUOTES, 'UTF-8'); ?>" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="<?php echo htmlspecialchars(asset_path('fonts/IBMPlexSans-Regular.woff2'), ENT_QUOTES, 'UTF-8'); ?>" as="font" type="font/woff2" crossorigin>

@@ -124,26 +124,39 @@
    * Reveal-Animationen — IntersectionObserver
    * Variants und Stagger werden im HTML per data-reveal/data-reveal-delay
    * gesetzt; CSS macht den Rest. Hier: ein einziger Observer für alle.
+   * Plus: Safety-Net, falls Observer nicht feuert (alte Safari, Content-
+   * Blocker, JS-Fehler woanders) — nach 2s alle Elemente erzwungen
+   * sichtbar, damit nie etwas dauerhaft versteckt bleibt.
    * -------------------------------------------------------------------- */
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const reveals = document.querySelectorAll('[data-reveal]');
 
+  function showAll() {
+    reveals.forEach(function (el) { el.classList.add('is-visible'); });
+  }
+
   if (reveals.length > 0) {
     if (reduceMotion || !('IntersectionObserver' in window)) {
-      reveals.forEach(function (el) { el.classList.add('is-visible'); });
+      showAll();
     } else {
-      const io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            io.unobserve(entry.target);
-          }
+      try {
+        const io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              io.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.12,
+          rootMargin: '0px 0px -40px 0px'
         });
-      }, {
-        threshold: 0.12,
-        rootMargin: '0px 0px -40px 0px'
-      });
-      reveals.forEach(function (el) { io.observe(el); });
+        reveals.forEach(function (el) { io.observe(el); });
+      } catch (e) {
+        showAll();
+      }
+      // Fallback: falls Observer aus irgendeinem Grund nichts macht
+      window.setTimeout(showAll, 2000);
     }
   }
 
