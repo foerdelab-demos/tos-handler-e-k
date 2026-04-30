@@ -87,6 +87,7 @@ html {
   -webkit-text-size-adjust: 100%;
   hyphens: auto;
   hanging-punctuation: first last;
+  overflow-x: clip;
 }
 
 body {
@@ -94,6 +95,7 @@ body {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
+  overflow-x: clip;
 }
 
 main {
@@ -356,7 +358,7 @@ p {
 
 @media (max-width: 767px) {
   .site-nav,
-  .site-header__actions .btn {
+  .site-header__actions {
     display: none;
   }
   .nav-burger {
@@ -826,6 +828,19 @@ p {
   display: flex;
   gap: var(--space-2);
   flex-wrap: wrap;
+}
+
+@media (max-width: 767px) {
+  .cta-banner__actions {
+    width: 100%;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .cta-banner__actions .btn {
+    width: 100%;
+    white-space: normal;
+    word-break: break-word;
+  }
 }
 
 /* ==========================================================================
