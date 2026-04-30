@@ -602,10 +602,13 @@ p {
 }
 
 @media (max-width: 767px) {
+  .hero {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
   .hero__content {
-    justify-content: flex-start;
-    padding-top: var(--space-4);
-    padding-bottom: var(--space-4);
+    padding-top: var(--space-6);
+    padding-bottom: var(--space-6);
   }
   .hero__headline {
     font-size: clamp(2rem, 7vw, var(--fs-xl));
