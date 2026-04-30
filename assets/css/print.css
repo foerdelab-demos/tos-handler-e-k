@@ -1,0 +1,37 @@
+@media print {
+  .site-header,
+  .site-footer,
+  .cookie-banner,
+  .hero__actions,
+  .btn,
+  .galerie-filter,
+  .skip-link {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+    font-size: 11pt;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #555;
+  }
+
+  a[href^="tel"]::after,
+  a[href^="mailto"]::after {
+    content: none;
+  }
+
+  h1, h2, h3 {
+    page-break-after: avoid;
+  }
+
+  img {
+    max-width: 100%;
+    page-break-inside: avoid;
+  }
+}

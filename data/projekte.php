@@ -1,0 +1,60 @@
+<?php
+/**
+ * Galerie-Daten als PHP-Array.
+ * Alle Bilder liegen in assets/img/projekte/
+ * Kategorien: bad, kueche, dach, fassade, innenausbau, spezial
+ */
+
+declare(strict_types=1);
+
+return [
+    ['file' => 'IMG_8620.jpg',                              'title' => 'Sanierung Bad – vorher',                     'cat' => 'bad',        'pair' => 'IMG_8823.jpg'],
+    ['file' => 'IMG_8823.jpg',                              'title' => 'Sanierung Bad – nachher',                    'cat' => 'bad'],
+    ['file' => 'alu1.jpg',                                  'title' => 'Aluelemente – Gelaender',                    'cat' => 'spezial'],
+    ['file' => 'alu.jpg',                                   'title' => 'Aluelemente mit Sicherheitsverglasung',      'cat' => 'spezial'],
+    ['file' => 'kita-img_1589.jpg',                         'title' => 'KiTa Sanierung',                             'cat' => 'innenausbau'],
+    ['file' => 'kita-img_1587.jpg',                         'title' => 'KiTa Bad',                                   'cat' => 'bad'],
+    ['file' => 'kita-img_1588.jpg',                         'title' => 'KiTa Kücheneinbau',                         'cat' => 'kueche'],
+    ['file' => '50-IMG_0187.jpg',                           'title' => 'Küchenzeile',                                'cat' => 'kueche'],
+    ['file' => '50-IMG_0014.jpg',                           'title' => 'Küchenzeile',                                'cat' => 'kueche'],
+    ['file' => '00059.jpg',                                 'title' => 'Bäderwelten',                                'cat' => 'bad'],
+    ['file' => '1000-volquardsen-img_4410-kl.jpg',          'title' => 'Duschen',                                    'cat' => 'bad'],
+    ['file' => '1000-volquardsen-img_4426-kl.jpg',          'title' => 'Badaccessoires',                             'cat' => 'bad'],
+    ['file' => '1000-volquardsen-img_4425-kl.jpg',          'title' => 'Schöne Bäder',                              'cat' => 'bad'],
+    ['file' => 'kita-img_1591.jpg',                         'title' => 'KiTa Sanierung',                             'cat' => 'innenausbau'],
+    ['file' => '1IMG_0533.jpg',                             'title' => 'Pflasterarbeiten',                           'cat' => 'spezial'],
+    ['file' => 'img_7502.jpg',                              'title' => 'Bäderwelten',                                'cat' => 'bad'],
+    ['file' => 'img_7501.jpg',                              'title' => 'Bäderwelten',                                'cat' => 'bad'],
+    ['file' => 'Fassade_2.jpg',                             'title' => 'Fenstersanierungen',                         'cat' => 'fassade'],
+    ['file' => 'gaube-1000-IMG_0642.JPG',                   'title' => 'Dacharbeiten',                               'cat' => 'dach'],
+    ['file' => 'Haus.jpg',                                  'title' => 'Renovierung Haus',                           'cat' => 'fassade'],
+    ['file' => 'fenster-1000-IMG_0637.JPG',                 'title' => 'Fenster und Gaube',                          'cat' => 'dach'],
+    ['file' => '1fass-img_1272.jpg',                        'title' => 'Hausfassade',                                'cat' => 'fassade'],
+    ['file' => 'img_2228.jpg',                              'title' => 'Dacharbeiten – Gaube',                       'cat' => 'dach'],
+    ['file' => 'Zaun.jpg',                                  'title' => 'Zäune',                                      'cat' => 'spezial'],
+    ['file' => '1fertig_fass1188.jpg',                      'title' => 'Hausfassade',                                'cat' => 'fassade'],
+    ['file' => '1000-lafrenz-img_4376-kl.jpg',              'title' => 'Bäderwelten',                                'cat' => 'bad'],
+    ['file' => 'Fassade.jpg',                               'title' => 'Schöne Fassade',                             'cat' => 'fassade'],
+    ['file' => 'Gaube.jpg',                                 'title' => 'Gaube',                                      'cat' => 'dach'],
+    ['file' => '1-bad_nachher_1129.jpg',                    'title' => 'Bäderwelten',                                'cat' => 'bad'],
+    ['file' => '00-malaschewsk-img_4501-kl.jpg',            'title' => 'Bäderwelten',                                'cat' => 'bad'],
+    ['file' => 'Dusche_3.jpg',                              'title' => 'Duschen',                                    'cat' => 'bad'],
+    ['file' => 'Waschtisch.jpg',                            'title' => 'Bäderwelten – Waschtisch',                   'cat' => 'bad'],
+    ['file' => 'Fassade_3.jpg',                             'title' => 'Fassadenarbeiten',                           'cat' => 'fassade'],
+    ['file' => 'Badezimmer.jpg',                            'title' => 'Bäderwelten',                                'cat' => 'bad'],
+    ['file' => 'Armaturen.jpg',                             'title' => 'Regendusche',                                'cat' => 'bad'],
+    ['file' => 'Fassade_4.jpg',                             'title' => 'Hausfassade',                                'cat' => 'fassade'],
+    ['file' => 'Bad_V.jpg',                                 'title' => 'Bäderwelten',                                'cat' => 'bad'],
+    ['file' => 'Abfluss.jpg',                               'title' => 'Duschfliesen',                               'cat' => 'bad'],
+    ['file' => '200-kmo25.jpg',                             'title' => 'Küchenzeile',                                'cat' => 'kueche'],
+    ['file' => '3bad_lorenzens.jpg',                        'title' => 'Bäderwelten',                                'cat' => 'bad'],
+    ['file' => 'Dach_Rohbau.jpg',                           'title' => 'Dacharbeiten',                               'cat' => 'dach'],
+    ['file' => '425-giebel.JPG',                            'title' => 'Fassade',                                    'cat' => 'fassade'],
+    ['file' => '1tuerimg_1340.jpg',                         'title' => 'Haustüren',                                  'cat' => 'spezial'],
+    ['file' => '1haustr_1116.jpg',                          'title' => 'Haustüren',                                  'cat' => 'spezial'],
+    ['file' => '150-wore16.jpg',                            'title' => 'Wohnraumgestaltung',                         'cat' => 'innenausbau'],
+    ['file' => '1000-malaschewsk-img_4501-kl.jpg',          'title' => 'Bäderwelten',                                'cat' => 'bad'],
+    ['file' => '1000-volquardsen-img_4391-kl.jpg',          'title' => 'Bäderwelten',                                'cat' => 'bad'],
+    ['file' => '0057.jpg',                                  'title' => 'Bäderwelten',                                'cat' => 'bad'],
+    ['file' => '1000-lafrenz-img_4387-kl.jpg',              'title' => 'Bäderwelten',                                'cat' => 'bad'],
+];

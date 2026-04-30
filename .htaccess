@@ -1,0 +1,61 @@
+Options -Indexes
+
+RewriteEngine On
+
+# HTTPS erzwingen
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# www entfernen
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+# Pretty URLs (z. B. /leistungen statt /leistungen.php)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^.]+)$ $1.php [NC,L]
+
+# 301-Redirects von alten Joomla-URLs
+RewriteRule ^index\.php/?$                                  /                       [R=301,L]
+RewriteRule ^index\.php/features/?$                         /leistungen             [R=301,L]
+RewriteRule ^index\.php/features/gewerke/?$                 /gewerke                [R=301,L]
+RewriteRule ^index\.php/beispiele/?$                        /referenzen             [R=301,L]
+RewriteRule ^index\.php/beispiele/fernwaermestation/?$      /referenz-fernwaerme    [R=301,L]
+RewriteRule ^index\.php/2014-05-13-19-05-45/?$              /partner                [R=301,L]
+RewriteRule ^index\.php/datenschutzerklaerung/?$            /datenschutz            [R=301,L]
+RewriteRule ^index\.php/kontakt/?$                          /kontakt                [R=301,L]
+RewriteRule ^index\.php/impressum/?$                        /impressum              [R=301,L]
+
+# 404-Handling
+ErrorDocument 404 /404.php
+
+# Caching
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp        "access plus 1 year"
+  ExpiresByType image/jpeg        "access plus 1 year"
+  ExpiresByType image/png         "access plus 1 year"
+  ExpiresByType image/svg+xml     "access plus 1 month"
+  ExpiresByType text/css          "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType font/woff2        "access plus 1 year"
+  ExpiresByType text/html         "access plus 1 hour"
+</IfModule>
+
+# Komprimierung aktivieren
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/plain application/json
+</IfModule>
+
+# Sicherheits-Header
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Direkt-Zugriff auf includes und data unterbinden
+<FilesMatch "^(config\.php)$">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
