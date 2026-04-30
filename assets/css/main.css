@@ -1658,27 +1658,30 @@ p {
 
 .compare-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: 1fr;
   margin-top: var(--space-6);
   border: 2px solid var(--border-strong);
 }
 
 .compare-item {
   padding: var(--space-6) var(--space-4);
-  border-right: 2px solid var(--border-strong);
+  border-bottom: 2px solid var(--border-strong);
 }
 
 .compare-item:last-child {
-  border-right: none;
+  border-bottom: none;
 }
 
-@media (max-width: 767px) {
+@media (min-width: 768px) {
+  .compare-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
   .compare-item {
-    border-right: none;
-    border-bottom: 2px solid var(--border-strong);
+    border-bottom: none;
+    border-right: 2px solid var(--border-strong);
   }
   .compare-item:last-child {
-    border-bottom: none;
+    border-right: none;
   }
 }
 
