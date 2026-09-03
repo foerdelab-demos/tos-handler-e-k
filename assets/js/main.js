@@ -39,11 +39,12 @@
     closeBtn.addEventListener('click', closeNav);
   }
 
-  // ESC-Taste schließt die Navigation
+  // ESC-Taste schließt Navigation bzw. offenen Bewertungs-Dialog
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && mobileNav && mobileNav.classList.contains('is-open')) {
-      closeNav();
-    }
+    if (e.key !== 'Escape') return;
+    if (mobileNav && mobileNav.classList.contains('is-open')) closeNav();
+    const dlg = document.getElementById('review-dialog');
+    if (dlg && dlg.open) dlg.close();
   });
 
   // Klick auf Nav-Links schließt die Navigation
@@ -159,6 +160,184 @@
       window.setTimeout(showAll, 2000);
     }
   }
+
+  /* -------------------------------------------------------------------------
+   * Scrollspy — markiert den Nav-Link der gerade sichtbaren Sektion
+   * (Onepager). data-spy="id1 id2 ..." am Link listet zugehörige Sektionen.
+   * -------------------------------------------------------------------- */
+  const spyLinks = document.querySelectorAll('.site-nav__link[data-spy]');
+  if (spyLinks.length > 0 && 'IntersectionObserver' in window) {
+    const sectionToLink = new Map();
+    spyLinks.forEach(function (link) {
+      link.dataset.spy.split(/\s+/).forEach(function (id) {
+        const section = document.getElementById(id);
+        if (section) sectionToLink.set(section, link);
+      });
+    });
+    if (sectionToLink.size > 0) {
+      const spy = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          spyLinks.forEach(function (l) {
+            l.classList.remove('is-active');
+            l.removeAttribute('aria-current');
+          });
+          const active = sectionToLink.get(entry.target);
+          active.classList.add('is-active');
+          active.setAttribute('aria-current', 'true');
+        });
+      }, { rootMargin: '-35% 0px -55% 0px' });
+      sectionToLink.forEach(function (_link, section) { spy.observe(section); });
+    }
+  }
+
+  /* -------------------------------------------------------------------------
+   * Bewertungs-Carousel — natives Scroll-Snap; hier Pfeile, Punkte, Zustand.
+   * Punkte und Pfeile arbeiten SEITENWEISE (so viele Karten, wie gerade
+   * nebeneinander passen: Desktop 3, Tablet 2, Handy 1). Wischen/Scrollen
+   * funktioniert auch ohne dieses Skript.
+   * -------------------------------------------------------------------- */
+  document.querySelectorAll('[data-carousel]').forEach(function (root) {
+    const track    = root.querySelector('.carousel__track');
+    const slides   = Array.prototype.slice.call(root.querySelectorAll('.carousel__slide'));
+    const prevBtn  = root.querySelector('.carousel__btn--prev');
+    const nextBtn  = root.querySelector('.carousel__btn--next');
+    const dotsWrap = root.querySelector('.carousel__dots');
+    if (!track || slides.length === 0 || !prevBtn || !nextBtn || !dotsWrap) return;
+
+    const behavior = reduceMotion ? 'auto' : 'smooth';
+    const PAD = 4; // Track-Padding (siehe CSS), Snap rastet bei offsetLeft − PAD ein
+    let step = 0, perView = 1, pages = 1, current = 0, dots = [];
+
+    function measure() {
+      step = slides.length > 1 ? (slides[1].offsetLeft - slides[0].offsetLeft) : track.clientWidth;
+      perView = Math.max(1, Math.round(track.clientWidth / step));
+      const newPages = Math.max(1, Math.ceil(slides.length / perView));
+      if (newPages !== pages || dots.length === 0) {
+        pages = newPages;
+        buildDots();
+      }
+    }
+
+    function buildDots() {
+      dotsWrap.innerHTML = '';
+      dots = [];
+      for (let i = 0; i < pages; i++) {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'carousel__dot';
+        dot.setAttribute('aria-label', 'Seite ' + (i + 1) + ' von ' + pages);
+        dot.addEventListener('click', function () { goToPage(i); });
+        dotsWrap.appendChild(dot);
+        dots.push(dot);
+      }
+    }
+
+    function goToPage(page) {
+      page = Math.max(0, Math.min(pages - 1, page));
+      const slideIndex = Math.min(slides.length - 1, page * perView);
+      track.scrollTo({ left: slides[slideIndex].offsetLeft - PAD, behavior: behavior });
+    }
+
+    function update() {
+      const maxScroll = track.scrollWidth - track.clientWidth;
+      if (track.scrollLeft >= maxScroll - 8) {
+        current = pages - 1;                       // Ende erreicht = letzte Seite
+      } else {
+        current = Math.round(track.scrollLeft / (step * perView));
+        current = Math.max(0, Math.min(pages - 1, current));
+      }
+      dots.forEach(function (dot, i) {
+        dot.classList.toggle('is-active', i === current);
+        dot.setAttribute('aria-current', i === current ? 'true' : 'false');
+      });
+      prevBtn.disabled = track.scrollLeft <= 8;
+      nextBtn.disabled = track.scrollLeft >= maxScroll - 8;
+    }
+
+    prevBtn.addEventListener('click', function () { goToPage(current - 1); });
+    nextBtn.addEventListener('click', function () { goToPage(current + 1); });
+
+    let pending = false;
+    track.addEventListener('scroll', function () {
+      if (pending) return;
+      pending = true;
+      window.requestAnimationFrame(function () { pending = false; update(); });
+    });
+    window.addEventListener('resize', function () { measure(); update(); });
+
+    measure();
+    update();
+  });
+
+  /* -------------------------------------------------------------------------
+   * „Weiterlesen“ bei langen Rezensionen: 5 Zeilen Vorschau in der Karte,
+   * Volltext im <dialog>. Ohne Dialog-Support (sehr alte Browser) wird
+   * stattdessen in der Karte aufgeklappt.
+   * -------------------------------------------------------------------- */
+  const reviewDialog    = document.getElementById('review-dialog');
+  const dialogSupported = !!(reviewDialog && typeof reviewDialog.showModal === 'function');
+
+  function openReviewDialog(card) {
+    const author = card.querySelector('.review-card__author');
+    const stars  = card.querySelector('.stars');
+    const meta   = card.querySelector('.review-card__meta');
+    const text   = card.querySelector('.review-card__text');
+    const chips  = card.querySelector('.chips');
+
+    reviewDialog.querySelector('#review-dialog-author').textContent = author ? author.textContent : '';
+    reviewDialog.querySelector('.review-dialog__stars').innerHTML   = stars ? stars.outerHTML : '';
+    reviewDialog.querySelector('.review-dialog__meta').textContent  = meta ? meta.textContent : '';
+    reviewDialog.querySelector('.review-dialog__text').innerHTML    = text ? text.innerHTML : '';
+    const chipsSlot = reviewDialog.querySelector('.review-dialog__chips');
+    chipsSlot.innerHTML = chips ? chips.innerHTML : '';
+    chipsSlot.hidden = !chips;
+
+    document.body.classList.add('has-dialog');
+    reviewDialog.showModal();
+    const inner = reviewDialog.querySelector('.review-dialog__inner');
+    if (inner) inner.focus({ preventScroll: true });
+    reviewDialog.scrollTop = 0;
+  }
+
+  if (dialogSupported) {
+    reviewDialog.addEventListener('close', function () {
+      document.body.classList.remove('has-dialog');
+    });
+    // Klick auf den Backdrop schließt
+    reviewDialog.addEventListener('click', function (e) {
+      if (e.target === reviewDialog) reviewDialog.close();
+    });
+    reviewDialog.querySelectorAll('[data-dialog-close]').forEach(function (b) {
+      b.addEventListener('click', function () { reviewDialog.close(); });
+    });
+  }
+
+  document.querySelectorAll('.review-card__text[data-clamp]').forEach(function (text) {
+    text.classList.add('is-clamped');
+    if (text.scrollHeight <= text.clientHeight + 2) {
+      text.classList.remove('is-clamped');
+      return;
+    }
+    const card = text.closest('.review-card');
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'review-card__more';
+    btn.textContent = 'Weiterlesen';
+
+    if (dialogSupported && card) {
+      btn.setAttribute('aria-haspopup', 'dialog');
+      btn.addEventListener('click', function () { openReviewDialog(card); });
+    } else {
+      btn.setAttribute('aria-expanded', 'false');
+      btn.addEventListener('click', function () {
+        const expanded = !text.classList.toggle('is-clamped');
+        btn.textContent = expanded ? 'Weniger anzeigen' : 'Weiterlesen';
+        btn.setAttribute('aria-expanded', String(expanded));
+      });
+    }
+    text.insertAdjacentElement('afterend', btn);
+  });
 
   /* -------------------------------------------------------------------------
    * Google Analytics Opt-Out (Datenschutz-Seite)

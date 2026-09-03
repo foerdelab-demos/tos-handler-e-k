@@ -82,7 +82,7 @@ $projekte = require __DIR__ . '/data/projekte.php';
   </div>
 
   <div class="section__action container" data-reveal="scale">
-    <a href="<?php echo htmlspecialchars(site_path('/kontakt'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn--primary">Auch Ihr Projekt anfragen</a>
+    <a href="<?php echo htmlspecialchars(site_path('/') . '#kontakt', ENT_QUOTES, 'UTF-8'); ?>" class="btn btn--primary">Auch Ihr Projekt anfragen</a>
   </div>
 
 </main>

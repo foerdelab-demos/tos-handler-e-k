@@ -1,6 +1,6 @@
 <?php
 /**
- * cookie-banner.php — TTDSG-konformer Consent-Banner
+ * cookie-banner.php — TTDSG-konformer Consent-Banner (hell, kompakt)
  * Wird am Anfang von footer.php eingebunden (vor dem <footer>-Tag).
  * Logik liegt in assets/js/consent.js
  */
@@ -9,9 +9,8 @@
   <div class="cookie-banner__inner">
     <div class="cookie-banner__text">
       <p>
-        Diese Seite verwendet Cookies. Notwendige Cookies sind immer aktiv.
-        Mit Ihrer Zustimmung aktivieren wir Google Analytics zur Verbesserung des Angebots.
-        Weitere Informationen finden Sie in unserer
+        Wir nutzen nur technisch notwendige Cookies. Statistik (Google Analytics) läuft ausschließlich
+        mit Ihrer Zustimmung. Mehr dazu in der
         <a href="<?php echo htmlspecialchars(site_path('/datenschutz'), ENT_QUOTES, 'UTF-8'); ?>">Datenschutzerklärung</a>.
       </p>
     </div>

@@ -1,10 +1,12 @@
 <?php
 /**
- * footer.php — Kontaktblock, Quick-Links, Rechtliches, Copyright
+ * footer.php — Kontaktblock, Quick-Links, Partner, Rechtliches, Copyright
  */
 
 declare(strict_types=1);
 require_once __DIR__ . '/config.php';
+
+$home = site_path('/');
 ?>
 <?php require_once __DIR__ . '/cookie-banner.php'; ?>
 
@@ -27,12 +29,12 @@ require_once __DIR__ . '/config.php';
             <dd><a href="tel:<?php echo CONTACT_PHONE_TEL; ?>"><?php echo htmlspecialchars(CONTACT_PHONE, ENT_QUOTES, 'UTF-8'); ?></a></dd>
           </div>
           <div>
-            <dt>Fax</dt>
-            <dd><?php echo htmlspecialchars(CONTACT_FAX, ENT_QUOTES, 'UTF-8'); ?></dd>
-          </div>
-          <div>
             <dt>Mobil</dt>
             <dd><a href="tel:+4915114431526"><?php echo htmlspecialchars(CONTACT_MOBILE, ENT_QUOTES, 'UTF-8'); ?></a></dd>
+          </div>
+          <div>
+            <dt>Fax</dt>
+            <dd><?php echo htmlspecialchars(CONTACT_FAX, ENT_QUOTES, 'UTF-8'); ?></dd>
           </div>
           <div>
             <dt>E-Mail</dt>
@@ -41,26 +43,35 @@ require_once __DIR__ . '/config.php';
         </dl>
       </div>
 
-      <!-- Spalte 2: Leistungen (Quick-Links) -->
+      <!-- Spalte 2: Leistungen (Anker) -->
       <div class="site-footer__col">
         <h2 class="site-footer__heading">Leistungen</h2>
         <ul class="site-footer__links" role="list">
-          <li><a href="<?php echo htmlspecialchars(site_path('/leistungen'), ENT_QUOTES, 'UTF-8'); ?>">Badsanierung</a></li>
-          <li><a href="<?php echo htmlspecialchars(site_path('/leistungen'), ENT_QUOTES, 'UTF-8'); ?>">Heizung &amp; Sanitär</a></li>
-          <li><a href="<?php echo htmlspecialchars(site_path('/leistungen'), ENT_QUOTES, 'UTF-8'); ?>">Dachdecker- &amp; Klempnerarbeiten</a></li>
-          <li><a href="<?php echo htmlspecialchars(site_path('/leistungen'), ENT_QUOTES, 'UTF-8'); ?>">Fassadensanierung</a></li>
-          <li><a href="<?php echo htmlspecialchars(site_path('/leistungen'), ENT_QUOTES, 'UTF-8'); ?>">Innenausbau</a></li>
-          <li><a href="<?php echo htmlspecialchars(site_path('/leistungen'), ENT_QUOTES, 'UTF-8'); ?>">Mauerwerksabdichtung</a></li>
+          <li><a href="<?php echo htmlspecialchars($home . '#gebaeudesanierung', ENT_QUOTES, 'UTF-8'); ?>">Gebäudesanierung</a></li>
+          <li><a href="<?php echo htmlspecialchars($home . '#gebaeudetechnik', ENT_QUOTES, 'UTF-8'); ?>">Gebäudetechnik</a></li>
+          <li><a href="<?php echo htmlspecialchars($home . '#renovierung', ENT_QUOTES, 'UTF-8'); ?>">Renovierung</a></li>
+          <li><a href="<?php echo htmlspecialchars($home . '#bewertungen', ENT_QUOTES, 'UTF-8'); ?>">Bewertungen</a></li>
+          <li><a href="<?php echo htmlspecialchars(site_path('/referenzen'), ENT_QUOTES, 'UTF-8'); ?>">Bilder unserer Arbeiten</a></li>
+          <li><a href="<?php echo htmlspecialchars($home . '#kontakt', ENT_QUOTES, 'UTF-8'); ?>">Kontakt</a></li>
         </ul>
       </div>
 
-      <!-- Spalte 3: Rechtliches -->
+      <!-- Spalte 3: Partner -->
+      <div class="site-footer__col">
+        <h2 class="site-footer__heading">Partner</h2>
+        <ul class="site-footer__links site-footer__partner" role="list">
+          <li><strong>MC – Bauputz, Flensburg</strong><br><span>Putz- und Stuckateurarbeiten</span></li>
+          <li><strong>Elektro- und Haustechnik Staron</strong><br><span>Elektroinstallation</span></li>
+          <li><strong>Drutex</strong><br><span>Fenster, Türen, Rollladensysteme</span></li>
+        </ul>
+      </div>
+
+      <!-- Spalte 4: Rechtliches -->
       <div class="site-footer__col">
         <h2 class="site-footer__heading">Rechtliches</h2>
         <ul class="site-footer__links" role="list">
           <li><a href="<?php echo htmlspecialchars(site_path('/impressum'), ENT_QUOTES, 'UTF-8'); ?>">Impressum</a></li>
           <li><a href="<?php echo htmlspecialchars(site_path('/datenschutz'), ENT_QUOTES, 'UTF-8'); ?>">Datenschutz</a></li>
-          <li><a href="<?php echo htmlspecialchars(site_path('/kontakt'), ENT_QUOTES, 'UTF-8'); ?>">Kontakt</a></li>
         </ul>
         <a href="https://www.google.com/maps/place/TOS+Handler+e.K./"
            class="site-footer__maps-link"
