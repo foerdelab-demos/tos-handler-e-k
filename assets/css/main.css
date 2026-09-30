@@ -1263,13 +1263,57 @@ body.has-dialog {
   gap: var(--space-2) var(--space-4);
 }
 
-.bereich__list li {
+.bereich__list > li {
   font-size: var(--fs-base);
   font-weight: 500;
   color: var(--ink);
   padding-left: var(--space-2);
   border-left: 2px solid var(--line);
   line-height: 1.4;
+}
+
+.leistung-detail {
+  display: block;
+  margin-top: 6px;
+  color: var(--ink-soft);
+  font-weight: 400;
+}
+
+.leistung-gruppe {
+  grid-row: span 2;
+}
+
+.leistung-unterpunkte {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+  color: var(--ink-soft);
+  font-weight: 400;
+}
+
+.leistung-unterpunkte li::before {
+  content: "– ";
+  color: var(--rust);
+}
+
+.kuechenmarken {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-3);
+}
+
+.kuechenmarken a {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+}
+
+.kuechenmarken img {
+  width: 140px;
+  height: 48px;
+  object-fit: contain;
 }
 
 .bereich__note {
@@ -1288,6 +1332,7 @@ body.has-dialog {
 
 .bereich__media img {
   width: 100%;
+  height: auto;
   aspect-ratio: 4 / 3;
   object-fit: cover;
   border: 1px solid var(--line);
@@ -1325,6 +1370,15 @@ body.has-dialog {
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
+}
+
+/* Hochformat-Motive im Querformat-Teaser mit sinnvoll gesetztem Ausschnitt. */
+.bilder-strip img[src*="bad-waschtisch"] {
+  object-position: center 40%;
+}
+
+.bilder-strip img[src*="bautrocknung"] {
+  object-position: center 65%;
 }
 
 .bilder-strip a:hover img,

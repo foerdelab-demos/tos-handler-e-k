@@ -30,7 +30,9 @@ $projekte = require __DIR__ . '/data/projekte.php';
       <button class="galerie-filter__btn" data-filter="dach"       aria-pressed="false">Dach</button>
       <button class="galerie-filter__btn" data-filter="fassade"    aria-pressed="false">Fassade</button>
       <button class="galerie-filter__btn" data-filter="innenausbau" aria-pressed="false">Innenausbau</button>
-      <button class="galerie-filter__btn" data-filter="spezial"    aria-pressed="false">Spezial</button>
+      <button class="galerie-filter__btn" data-filter="technik" aria-pressed="false">Heizungstechnik</button>
+      <button class="galerie-filter__btn" data-filter="sanierung" aria-pressed="false">Sanierung &amp; Trocknung</button>
+      <button class="galerie-filter__btn" data-filter="betrieb" aria-pressed="false">Betrieb</button>
     </div>
   </div>
 
@@ -43,7 +45,7 @@ $projekte = require __DIR__ . '/data/projekte.php';
           <button class="galerie-item__btn"
                   data-index="<?php echo $idx; ?>"
                   aria-label="<?php echo htmlspecialchars($projekt['title'], ENT_QUOTES, 'UTF-8'); ?> — Großansicht öffnen">
-            <img src="<?php echo htmlspecialchars(IMG_PROJEKTE . $projekt['file'], ENT_QUOTES, 'UTF-8'); ?>"
+            <img src="<?php echo htmlspecialchars(IMG_PROJEKTE . 'thumbs/' . $projekt['file'], ENT_QUOTES, 'UTF-8'); ?>"
                  alt="<?php echo htmlspecialchars($projekt['title'], ENT_QUOTES, 'UTF-8'); ?>"
                  width="600" height="450"
                  loading="lazy" decoding="async">

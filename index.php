@@ -46,12 +46,11 @@ require_once __DIR__ . '/includes/header.php';
   <section class="hero hero--verlauf" aria-labelledby="hero-heading">
     <div class="container hero__grid">
       <div class="hero__content">
-        <p class="eyebrow" data-reveal="left">Meisterfachbetrieb · Flensburg</p>
+        <p class="eyebrow" data-reveal="left">Fachbetrieb in Flensburg</p>
         <h1 id="hero-heading" class="hero__headline" data-reveal="up">Alles aus <span class="hl">einer Hand.</span></h1>
         <p class="hero__subline" data-reveal="up" data-reveal-delay="1">
-          Wir beraten Sie ehrlich, planen mit Fachkenntnis und setzen die Lösung um,
-          die <span class="hl">technisch und wirtschaftlich</span> die beste für Sie ist –
-          ein Ansprechpartner für Ihr ganzes Gebäude.
+          Wir beraten Sie ehrlich und kundenorientiert, planen Ihr Projekt mit Fachkenntnis,
+          um die <span class="hl">technisch und wirtschaftlich beste Lösung</span> für Sie zu finden.
         </p>
         <div class="hero__actions" data-reveal="up" data-reveal-delay="2">
           <a href="#kontakt" class="btn btn--primary">Beratung anfragen</a>
@@ -68,8 +67,6 @@ require_once __DIR__ . '/includes/header.php';
         <a href="#gebaeudesanierung" class="index-row">
           <span class="index-row__body">
             <span class="index-row__title">Gebäude&shy;sanierung</span>
-            <span class="index-row__text">Substanz erhalten, Schäden an der Ursache beheben.</span>
-            <span class="index-row__tags">Maurer · Schimmel · Trocknung · Architekt &amp; Statik</span>
           </span>
           <span class="index-row__arrow" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" focusable="false"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -78,8 +75,6 @@ require_once __DIR__ . '/includes/header.php';
         <a href="#gebaeudetechnik" class="index-row">
           <span class="index-row__body">
             <span class="index-row__title">Gebäude&shy;technik</span>
-            <span class="index-row__text">Wärme, Wasser, Strom und Luft – effizient und sauber.</span>
-            <span class="index-row__tags">Heizung · Sanitär · Elektro · Lüftung</span>
           </span>
           <span class="index-row__arrow" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" focusable="false"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -88,8 +83,6 @@ require_once __DIR__ . '/includes/header.php';
         <a href="#renovierung" class="index-row">
           <span class="index-row__body">
             <span class="index-row__title">Renovierung</span>
-            <span class="index-row__text">Frische Räume – alle Nebengewerke inklusive.</span>
-            <span class="index-row__tags">Maler · Trockenbau · Böden · Fenster &amp; Türen · Küchen</span>
           </span>
           <span class="index-row__arrow" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" focusable="false"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -171,14 +164,13 @@ require_once __DIR__ . '/includes/header.php';
           Wir beheben die <span class="hl">Ursache</span>, nicht nur das Symptom – nach gründlicher Prüfung der Bausubstanz.
         </p>
         <ul class="bereich__list" role="list" data-reveal="up" data-reveal-delay="2">
-          <li>Maurerarbeiten</li>
+          <li>Betonsanierung</li>
           <li>Schimmelsanierung</li>
-          <li>Trocknung &amp; Feuchtemessung</li>
+          <li>Bautrocknung</li>
           <li>Mauerwerksabdichtung (WTA-geprüft)</li>
-          <li>Fassaden- &amp; Dachsanierung</li>
           <li>Brand- &amp; Wasserschäden</li>
-          <li>Architektenleistungen &amp; Bauantrag</li>
-          <li>Statikleistungen</li>
+          <li>Fassadensanierung</li>
+          <li>Architektenleistungen <span class="leistung-detail">Bauanträge &amp; Statik</span></li>
         </ul>
         <p class="bereich__note" data-reveal="up" data-reveal-delay="3">
           Eigene Fassadengerüste, Inspektionskamera und Messtechnik – <span class="hl">keine Subunternehmer-Kette</span>.
@@ -188,8 +180,8 @@ require_once __DIR__ . '/includes/header.php';
         </div>
       </div>
       <figure class="bereich__media" data-reveal="reveal-image" data-reveal-delay="1">
-        <img src="<?php echo e(asset_path('img/projekte/Fassade.jpg')); ?>"
-             alt="Sanierte Hausfassade in Flensburg" width="700" height="525" loading="lazy" decoding="async">
+        <img src="<?php echo e(asset_path('img/projekte/fassadensanierung-09.webp')); ?>"
+             alt="Helle Hausfassade mit erneuertem Giebel und Fenstern" width="1600" height="1200" loading="lazy" decoding="async">
         <figcaption>Fassadensanierung · <a href="<?php echo e(site_path('/referenzen')); ?>">mehr Bilder ansehen</a></figcaption>
       </figure>
     </div>
@@ -204,12 +196,15 @@ require_once __DIR__ . '/includes/header.php';
           Wärme, Wasser, Strom und Luft – <span class="hl">effizient</span> geplant und sauber installiert.
         </p>
         <ul class="bereich__list" role="list" data-reveal="up" data-reveal-delay="2">
-          <li>Heizung (Brennwert, Wärmepumpe, Fernwärme)</li>
-          <li>Sanitär &amp; Badsanierung</li>
-          <li>Lüftung &amp; Wohnraumlüftung</li>
+          <li class="leistung-gruppe">Heizung &amp; Sanitär
+            <ul class="leistung-unterpunkte" role="list">
+              <li>Fernwärme</li>
+              <li>Wärmepumpen</li>
+              <li>Badsanierung</li>
+            </ul>
+          </li>
           <li>Elektrotechnik</li>
-          <li>Regeltechnik &amp; Optimierung</li>
-          <li>Montagen &amp; Wartung</li>
+          <li>Lüftung</li>
         </ul>
         <p class="bereich__note" data-reveal="up" data-reveal-delay="3">
           Wir rechnen ehrlich vor, was sich für Sie lohnt – <span class="hl">technisch und wirtschaftlich</span>.
@@ -219,9 +214,9 @@ require_once __DIR__ . '/includes/header.php';
         </div>
       </div>
       <figure class="bereich__media" data-reveal="reveal-image" data-reveal-delay="1">
-        <img src="<?php echo e(asset_path('img/projekte/1000-volquardsen-img_4425-kl.jpg')); ?>"
-             alt="Modernisierte Fernwärmestation" width="700" height="525" loading="lazy" decoding="async">
-        <figcaption>Modernisierung Fernwärmestation · <a href="<?php echo e(site_path('/referenzen')); ?>">mehr Bilder ansehen</a></figcaption>
+        <img src="<?php echo e(asset_path('img/projekte/heizungsverteilung-30.webp')); ?>"
+             alt="Heizungsverteilung mit mehreren Rohrleitungen und Umwälzpumpen" width="1600" height="1200" loading="lazy" decoding="async">
+        <figcaption>Heizungstechnik · <a href="<?php echo e(site_path('/referenzen')); ?>">mehr Bilder ansehen</a></figcaption>
       </figure>
     </div>
   </section>
@@ -235,13 +230,20 @@ require_once __DIR__ . '/includes/header.php';
           Frische Räume, hochwertig ausgeführt – <span class="hl">alle Nebengewerke inklusive</span>.
         </p>
         <ul class="bereich__list" role="list" data-reveal="up" data-reveal-delay="2">
+          <li>Innenausbau</li>
           <li>Malerarbeiten</li>
-          <li>Trockenbau</li>
           <li>Bodenbelagsarbeiten</li>
           <li>Fenster &amp; Türen</li>
-          <li>Einbauküchen</li>
-          <li>Innenausbau (Dachboden, Keller, Gäste-WC)</li>
+          <li>Einbauküchen von nobilia &amp; Häcker</li>
         </ul>
+        <div class="kuechenmarken" aria-label="Unsere Küchenmarken" data-reveal="up" data-reveal-delay="2">
+          <a href="https://www.nobilia.de/de/" target="_blank" rel="noopener noreferrer" aria-label="nobilia – Herstellerwebsite öffnen">
+            <img src="<?php echo e(asset_path('img/marken/nobilia.png')); ?>" alt="nobilia" width="160" height="64" loading="lazy">
+          </a>
+          <a href="https://www.haecker-kuechen.com/de/" target="_blank" rel="noopener noreferrer" aria-label="Häcker Küchen – Herstellerwebsite öffnen">
+            <img src="<?php echo e(asset_path('img/marken/haecker.svg')); ?>" alt="Häcker Küchen" width="160" height="64" loading="lazy">
+          </a>
+        </div>
         <p class="bereich__note" data-reveal="up" data-reveal-delay="3">
           Ein Termin, ein Angebot, ein Team – <span class="hl">Sie koordinieren nichts</span>.
         </p>
@@ -250,9 +252,9 @@ require_once __DIR__ . '/includes/header.php';
         </div>
       </div>
       <figure class="bereich__media" data-reveal="reveal-image" data-reveal-delay="1">
-        <img src="<?php echo e(asset_path('img/projekte/50-IMG_0187.jpg')); ?>"
-             alt="Neu montierte Einbauküche" width="700" height="525" loading="lazy" decoding="async">
-        <figcaption>Küchenmontage · <a href="<?php echo e(site_path('/referenzen')); ?>">mehr Bilder ansehen</a></figcaption>
+        <img src="<?php echo e(asset_path('img/projekte/wohnraum-50.webp')); ?>"
+             alt="Renovierter heller Wohnraum mit Holzdielen und großen Fenstern" width="1600" height="1200" loading="lazy" decoding="async">
+        <figcaption>Innenausbau &amp; Bodenarbeiten · <a href="<?php echo e(site_path('/referenzen')); ?>">mehr Bilder ansehen</a></figcaption>
       </figure>
     </div>
   </section>
@@ -331,14 +333,14 @@ require_once __DIR__ . '/includes/header.php';
       <div class="bilder-strip">
         <?php
         $strip = [
-            ['1-bad_nachher_1129.jpg',   'Badsanierung – Ergebnis'],
-            ['gaube-1000-IMG_0642.JPG',  'Neue Gaube'],
-            ['1fertig_fass1188.jpg',     'Fassadensanierung – Ergebnis'],
-            ['150-wore16.jpg',           'Innenausbau – Wohnraum'],
+            ['bad-waschtisch-02.webp', 'Badsanierung mit Waschtisch und großem Spiegel'],
+            ['einbaukueche-24.webp', 'Moderne dunkle Einbauküche mit Essplatz'],
+            ['dachausbau-39.webp', 'Dachausbau mit sichtbaren Holzbalken'],
+            ['bautrocknung-52.webp', 'Geräte zur Bautrocknung im Einsatz'],
         ];
         foreach ($strip as $i => [$file, $alt]): ?>
         <a href="<?php echo e(site_path('/referenzen')); ?>" data-reveal="reveal-image" data-reveal-delay="<?php echo $i + 1; ?>">
-          <img src="<?php echo e(asset_path('img/projekte/' . $file)); ?>" alt="<?php echo e($alt); ?>" width="600" height="450" loading="lazy" decoding="async">
+          <img src="<?php echo e(asset_path('img/projekte/thumbs/' . $file)); ?>" alt="<?php echo e($alt); ?>" width="600" height="450" loading="lazy" decoding="async">
         </a>
         <?php endforeach; ?>
       </div>
