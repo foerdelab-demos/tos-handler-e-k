@@ -71,6 +71,13 @@ require_once __DIR__ . '/config.php';
       font-weight: 500;
       font-display: swap;
     }
+    @font-face {
+      /* Nur für den Namenszug „Tilman Handler“ im Logo (SIL Open Font License) */
+      font-family: 'Just Another Hand';
+      src: url('<?php echo htmlspecialchars(asset_path('fonts/JustAnotherHand-Regular.woff2'), ENT_QUOTES, 'UTF-8'); ?>') format('woff2');
+      font-weight: 400;
+      font-display: swap;
+    }
 
     :root {
       --paper: #f2ede4;

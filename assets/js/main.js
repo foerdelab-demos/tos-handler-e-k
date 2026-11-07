@@ -39,12 +39,11 @@
     closeBtn.addEventListener('click', closeNav);
   }
 
-  // ESC-Taste schließt Navigation bzw. offenen Bewertungs-Dialog
+  // ESC-Taste schließt Navigation bzw. jeden offenen Dialog
   document.addEventListener('keydown', function (e) {
     if (e.key !== 'Escape') return;
     if (mobileNav && mobileNav.classList.contains('is-open')) closeNav();
-    const dlg = document.getElementById('review-dialog');
-    if (dlg && dlg.open) dlg.close();
+    document.querySelectorAll('dialog[open]').forEach(function (d) { d.close(); });
   });
 
   // Klick auf Nav-Links schließt die Navigation
@@ -337,6 +336,121 @@
       });
     }
     text.insertAdjacentElement('afterend', btn);
+  });
+
+  /* -------------------------------------------------------------------------
+   * Header-Logo auf der Startseite: ausgeblendet, solange das große Logo im
+   * Hero sichtbar ist; eingeblendet, sobald es unter den Header gescrollt
+   * ist. Block entfernen → Header-Logo ist immer sichtbar.
+   * -------------------------------------------------------------------- */
+  const heroLogo   = document.querySelector('.hero__logo');
+  const siteHeader = document.querySelector('.site-header');
+  if (heroLogo && siteHeader && 'IntersectionObserver' in window) {
+    siteHeader.classList.add('site-header--hero-logo');
+    window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(function () { siteHeader.classList.add('is-ready'); });
+    });
+    const headerH = siteHeader.offsetHeight || 72;
+    new IntersectionObserver(function (entries) {
+      siteHeader.classList.toggle('is-past-hero-logo', !entries[0].isIntersecting);
+    }, { rootMargin: '-' + headerH + 'px 0px 0px 0px' }).observe(heroLogo);
+  }
+
+  /* -------------------------------------------------------------------------
+   * Leistungs-Popups: <a href="#dialog-…" data-open-dialog> öffnet das
+   * gleichnamige <dialog>. Schließen per ✕, Escape oder Klick daneben.
+   * -------------------------------------------------------------------- */
+  document.querySelectorAll('dialog.leistung-dialog').forEach(function (dlg) {
+    if (typeof dlg.showModal !== 'function') return;
+    dlg.addEventListener('close', function () { document.body.classList.remove('has-dialog'); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+    dlg.querySelectorAll('[data-dialog-close]').forEach(function (b) {
+      b.addEventListener('click', function () { dlg.close(); });
+    });
+  });
+
+  document.querySelectorAll('[data-open-dialog]').forEach(function (trigger) {
+    trigger.addEventListener('click', function (e) {
+      const id  = (trigger.getAttribute('href') || '').replace(/^#/, '');
+      const dlg = id ? document.getElementById(id) : null;
+      if (!dlg || typeof dlg.showModal !== 'function') return;
+      e.preventDefault();
+      document.body.classList.add('has-dialog');
+      dlg.showModal();
+      const inner = dlg.querySelector('.leistung-dialog__inner');
+      if (inner) inner.focus({ preventScroll: true });
+      dlg.scrollTop = 0;
+    });
+  });
+
+  /* -------------------------------------------------------------------------
+   * Projekte-Feed: Bildstreifen pro Projekt (Scroll-Snap), Zähler, Punkte,
+   * Pfeile. Wischen funktioniert auch ohne dieses Skript.
+   * -------------------------------------------------------------------- */
+  document.querySelectorAll('[data-strip]').forEach(function (media) {
+    const strip   = media.querySelector('.feed-item__strip');
+    const pics    = strip ? strip.children : [];
+    const n       = pics.length;
+    const counter = media.querySelector('.feed-item__counter');
+    const dotsBox = media.querySelector('.feed-item__dots');
+    const prev    = media.querySelector('.feed-item__nav--prev');
+    const next    = media.querySelector('.feed-item__nav--next');
+
+    // Querformat-Bilder: komplett zeigen, Rest mit weichgezeichneter Kopie füllen
+    Array.prototype.forEach.call(pics, function (pic) {
+      const img = pic.querySelector('img');
+      if (!img) return;
+      function markLandscape() {
+        if (!img.naturalWidth || img.naturalWidth < img.naturalHeight) return;
+        pic.classList.add('feed-item__pic--landscape');
+        if (!pic.querySelector('.feed-item__bg')) {
+          const bg = img.cloneNode(false);
+          bg.className = 'feed-item__bg';
+          bg.alt = '';
+          bg.setAttribute('aria-hidden', 'true');
+          bg.removeAttribute('loading');
+          pic.insertBefore(bg, img);
+        }
+      }
+      if (img.complete && img.naturalWidth) markLandscape();
+      else img.addEventListener('load', markLandscape, { once: true });
+    });
+
+    if (!strip || n < 2) return;
+
+    const dots = [];
+    if (dotsBox) {
+      for (let i = 0; i < n; i++) {
+        const d = document.createElement('span');
+        dotsBox.appendChild(d);
+        dots.push(d);
+      }
+    }
+
+    let current = 0;
+    function update() {
+      const w = strip.clientWidth || 1;
+      current = Math.max(0, Math.min(n - 1, Math.round(strip.scrollLeft / w)));
+      if (counter) counter.textContent = (current + 1) + ' / ' + n;
+      dots.forEach(function (d, i) { d.classList.toggle('is-active', i === current); });
+      if (prev) prev.disabled = current === 0;
+      if (next) next.disabled = current === n - 1;
+    }
+    function goTo(i) {
+      i = Math.max(0, Math.min(n - 1, i));
+      strip.scrollTo({ left: i * strip.clientWidth, behavior: reduceMotion ? 'auto' : 'smooth' });
+    }
+    if (prev) prev.addEventListener('click', function () { goTo(current - 1); });
+    if (next) next.addEventListener('click', function () { goTo(current + 1); });
+
+    let pending = false;
+    strip.addEventListener('scroll', function () {
+      if (pending) return;
+      pending = true;
+      window.requestAnimationFrame(function () { pending = false; update(); });
+    });
+    window.addEventListener('resize', update);
+    update();
   });
 
   /* -------------------------------------------------------------------------

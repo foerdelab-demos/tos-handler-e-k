@@ -17,7 +17,7 @@ $projekte = require __DIR__ . '/data/projekte.php';
   <div class="page-header">
     <div class="container">
       <p class="eyebrow" data-reveal="left">Referenzen</p>
-      <h1 data-reveal="up">Referenzen — Beispielfotos unserer Arbeiten</h1>
+      <h1 data-reveal="up">Referenzen: Beispielfotos unserer Arbeiten</h1>
     </div>
   </div>
 
@@ -44,7 +44,7 @@ $projekte = require __DIR__ . '/data/projekte.php';
         <div class="galerie-item" data-cat="<?php echo htmlspecialchars($projekt['cat'], ENT_QUOTES, 'UTF-8'); ?>">
           <button class="galerie-item__btn"
                   data-index="<?php echo $idx; ?>"
-                  aria-label="<?php echo htmlspecialchars($projekt['title'], ENT_QUOTES, 'UTF-8'); ?> — Großansicht öffnen">
+                  aria-label="<?php echo htmlspecialchars($projekt['title'], ENT_QUOTES, 'UTF-8'); ?>, Großansicht öffnen">
             <img src="<?php echo htmlspecialchars(IMG_PROJEKTE . 'thumbs/' . $projekt['file'], ENT_QUOTES, 'UTF-8'); ?>"
                  alt="<?php echo htmlspecialchars($projekt['title'], ENT_QUOTES, 'UTF-8'); ?>"
                  width="600" height="450"

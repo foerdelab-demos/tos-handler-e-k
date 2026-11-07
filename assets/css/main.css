@@ -19,12 +19,11 @@
   --ink-soft:   #3a352d;
   --ink-muted:  #6b6358;
 
-  /* Akzent — Ziegelrot: gleiche Farbfamilie wie das Logo (#E41E24), aber
-     gedämpft (HSL 4°/59%/45%), damit es auf Creme sitzt statt zu leuchten.
-     Kontrast auf --paper 5,5:1, Weiß darauf 5,8:1. */
-  --rust:       #b7382f;
-  --rust-deep:  #963129;                 /* Hover */
-  --rust-soft:  rgba(183, 56, 47, 0.10); /* Hintergrund für Markierungen/Chips */
+  /* Akzent — Logo-Rot, aus 2TOS-Brief-Typo.png gemessen (Kundenwunsch:
+     exakt wie im Logo). Kontrast auf --paper 4,4:1, Weiß darauf 4,7:1. */
+  --rust:       #e41e24;
+  --rust-deep:  #c0161c;                 /* Hover, Text in Markierungen */
+  --rust-soft:  rgba(228, 30, 36, 0.08); /* Hintergrund für Markierungen/Chips */
   --copper:     #b87333;
   --moss:       #4a5d3a;
   --steel:      #525049;
@@ -95,7 +94,7 @@ html {
   font-family: var(--font-body);
   line-height: 1.6;
   -webkit-text-size-adjust: 100%;
-  hyphens: auto;
+  hyphens: manual; /* keine automatische Silbentrennung, Trennung nur an &shy; */
   hanging-punctuation: first last;
   overflow-x: clip;
   scroll-behavior: smooth;
@@ -131,6 +130,7 @@ h1, h2, h3 {
   font-family: var(--font-display);
   line-height: 1.05;
   color: var(--ink);
+  hyphens: manual; /* Überschriften nie automatisch trennen (nur an &shy;) */
 }
 
 h4, h5, h6 {
@@ -337,6 +337,26 @@ mark.hl {
   width: auto;
 }
 
+/* Startseite: Header-Logo erst einblenden, wenn das große Hero-Logo aus dem
+   Bild gescrollt ist (Klassen setzt main.js; ohne JS bleibt es sichtbar). */
+.site-header--hero-logo .site-header__logo {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: none; /* erstes Verstecken sofort, kein Aufblitzen */
+}
+
+.site-header--hero-logo.is-ready .site-header__logo {
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
+}
+
+.site-header--hero-logo.is-past-hero-logo .site-header__logo {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0s;
+}
+
 .site-nav {
   flex: 1;
 }
@@ -503,6 +523,31 @@ mark.hl {
   color: var(--rust);
 }
 
+/* Standort-Zeilen im Handy-Menü (keine Links) */
+.mobile-nav__place {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: var(--space-2);
+}
+
+.mobile-nav__place-label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.mobile-nav__place-address {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.1;
+}
+
 .mobile-nav__contact {
   margin-top: auto;
   font-style: normal;
@@ -549,7 +594,7 @@ mark.hl {
   background: var(--rust-deep);
   border-color: var(--rust-deep);
   transform: translateY(-1px);
-  box-shadow: 0 8px 20px rgba(183, 56, 47, 0.28);
+  box-shadow: 0 8px 20px rgba(228, 30, 36, 0.28);
   color: var(--white);
   text-decoration: none;
 }
@@ -612,13 +657,57 @@ mark.hl {
 .hero {
   position: relative;
   background: var(--paper);
-  padding-block: var(--space-6);
+  padding-block: var(--space-3);
 }
 
 /* OPTION: kaum sichtbarer Verlauf Hellcreme → Creme. Klasse im HTML
    entfernen, wenn der Hero einfarbig bleiben soll. */
 .hero--verlauf {
   background: linear-gradient(180deg, #fffdf9 0%, var(--paper) 100%);
+}
+
+/* Logo-Banner: zentriert, volle Container-Breite */
+.hero__brand {
+  margin-bottom: clamp(1.25rem, 3vh, var(--space-6));
+}
+
+.hero__logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-inline: auto;
+}
+
+/* „Tilman Handler“ unter dem Haus — Position und Größe skalieren mit der
+   Logo-Breite (cqw = Prozent der Brand-Breite; vw als Fallback). */
+.hero__brand {
+  position: relative;
+  container-type: inline-size;
+  padding-bottom: 5.5%; /* Platz für den Namenszug unter dem Bild */
+}
+
+.hero__brand-name {
+  position: absolute;
+  left: 61%;
+  top: 15vw;  /* Fallback */
+  top: 15cqw; /* ≈ 93 % der Bildhöhe (Bild = 16,1 cqw hoch): Oberkante an der Linie */
+  font-family: 'Just Another Hand', cursive;
+  font-size: 4.4vw;
+  font-size: 4.4cqw;
+  line-height: 0.8;
+  color: var(--rust);
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  -webkit-text-stroke: 0.6px currentColor; /* etwas Marker-Gewicht */
+  user-select: none;
+}
+
+.hero__brand-name span {
+  display: block;
+}
+
+.hero__brand-name span + span {
+  padding-left: 1em; /* zweite Zeile versetzt wie in der Vorlage */
 }
 
 .hero__grid {
@@ -872,6 +961,7 @@ mark.hl {
   color: var(--ink);
   line-height: 1.2;
   letter-spacing: -0.01em;
+  hyphens: manual;
 }
 
 .nutzen-item__text {
@@ -1193,6 +1283,170 @@ body.has-dialog {
   overflow: hidden;
 }
 
+/* Leistungs-Popups (Hero → Zeile anklicken) */
+.leistung-dialog {
+  margin: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 0;
+  width: min(92vw, 640px);
+  max-height: 88vh;
+  max-height: 88dvh;
+  overflow: auto;
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: 0 24px 64px rgba(28, 26, 22, 0.28);
+}
+
+.leistung-dialog::backdrop {
+  background: rgba(28, 26, 22, 0.62);
+}
+
+.leistung-dialog[open] {
+  animation: dialog-in 0.2s ease-out;
+}
+
+.leistung-dialog__inner {
+  position: relative;
+  padding: var(--space-6) var(--space-5) var(--space-5);
+}
+
+.leistung-dialog__inner:focus {
+  outline: none;
+}
+
+.leistung-dialog__close {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.leistung-dialog__close svg {
+  width: 22px;
+  height: 22px;
+}
+
+.leistung-dialog__close:hover,
+.leistung-dialog__close:focus-visible {
+  border-color: var(--ink);
+  box-shadow: var(--shadow-print-sm);
+}
+
+.leistung-dialog__claim {
+  font-family: var(--font-display);
+  font-size: clamp(var(--fs-lg), 4vw, var(--fs-xl));
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  padding-right: 56px;
+}
+
+.leistung-dialog__lead {
+  margin-top: var(--space-3);
+  font-size: var(--fs-md);
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.leistung-dialog__list {
+  margin-top: var(--space-4);
+  display: flex;
+  flex-direction: column;
+}
+
+.leistung-dialog__sublist {
+  margin-top: 6px;
+  padding-left: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* höhere Spezifität als .leistung-dialog__list li (steht später im CSS) */
+.leistung-dialog__list .leistung-dialog__sublist li {
+  position: relative;
+  padding: 0 0 0 14px;
+  border-top: none;
+  font-size: var(--fs-base);
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+
+.leistung-dialog__list .leistung-dialog__sublist li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--rust);
+}
+
+.leistung-dialog__list li {
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+}
+
+.leistung-dialog__list li:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.leistung-dialog__item {
+  display: block;
+  font-size: var(--fs-md);
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+.leistung-dialog__details {
+  display: block;
+  margin-top: 4px;
+  font-size: var(--fs-sm);
+  color: var(--ink-muted);
+  line-height: 1.45;
+}
+
+.leistung-dialog .kuechenmarken {
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 767px) {
+  .leistung-dialog__inner {
+    padding: var(--space-6) var(--space-3) var(--space-4);
+  }
+}
+
+.kuechenmarken {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-3);
+}
+.kuechenmarken a {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+}
+.kuechenmarken img {
+  width: 140px;
+  height: 48px;
+  object-fit: contain;
+}
+
 @media (max-width: 767px) {
   .review-dialog__inner {
     padding: var(--space-6) var(--space-3) var(--space-4);
@@ -1228,122 +1482,254 @@ body.has-dialog {
 }
 
 /* ==========================================================================
-   12. LEISTUNGSBEREICHE (Gebäudesanierung / Gebäudetechnik / Renovierung)
+   12b. PROJEKTE-FEED
+   Handy: jedes Projekt eine Bildschirmhöhe, Seite rastet pro Projekt ein,
+   Bilder seitlich wischbar. Desktop: vorläufig als 2-spaltiges Raster.
    ========================================================================== */
 
-.bereich__inner {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-6);
-  align-items: start;
-}
-
-@media (min-width: 900px) {
-  .bereich__inner {
-    grid-template-columns: 3fr 2fr;
-    gap: var(--space-8);
-  }
-  .bereich--reverse .bereich__media {
-    order: -1;
-  }
-}
-
-.bereich__lead {
-  font-size: var(--fs-md);
-  color: var(--ink-soft);
-  margin-top: var(--space-3);
-  max-width: 56ch;
-  line-height: 1.5;
-}
-
-.bereich__list {
-  margin-top: var(--space-4);
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: var(--space-2) var(--space-4);
-}
-
-.bereich__list > li {
-  font-size: var(--fs-base);
-  font-weight: 500;
-  color: var(--ink);
-  padding-left: var(--space-2);
-  border-left: 2px solid var(--line);
-  line-height: 1.4;
-}
-
-.leistung-detail {
+.page-home .section--feed {
   display: block;
-  margin-top: 6px;
-  color: var(--ink-soft);
-  font-weight: 400;
+  padding-block: var(--space-6) 0;
 }
 
-.leistung-gruppe {
-  grid-row: span 2;
+.feed__head {
+  margin-bottom: var(--space-4);
 }
 
-.leistung-unterpunkte {
-  display: grid;
-  gap: 8px;
-  margin-top: 12px;
-  color: var(--ink-soft);
-  font-weight: 400;
+.feed__hint {
+  font-size: var(--fs-base);
 }
 
-.leistung-unterpunkte li::before {
-  content: "– ";
-  color: var(--rust);
-}
-
-.kuechenmarken {
+.feed {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-4);
-  margin-top: var(--space-3);
+  flex-direction: column;
 }
 
-.kuechenmarken a {
+.feed-item {
+  position: relative;
   display: flex;
-  align-items: center;
-  min-height: 48px;
+  flex-direction: column;
+  background: var(--paper);
+  border-top: 1px solid var(--line);
 }
 
-.kuechenmarken img {
-  width: 140px;
-  height: 48px;
+.feed-item__head {
+  padding: var(--space-3) var(--space-4) var(--space-2);
+}
+
+.feed-item__meta {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.feed-item__title {
+  margin-top: 4px;
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.feed-item__media {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  background: var(--paper-deep);
+  overflow: hidden;
+}
+
+.feed-item__strip {
+  display: flex;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.feed-item__strip::-webkit-scrollbar {
+  display: none;
+}
+
+.feed-item__pic {
+  position: relative;
+  flex: 0 0 100%;
+  height: 100%;
+  scroll-snap-align: start;
+  overflow: hidden;
+}
+
+.feed-item__pic img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Querformat: Bild komplett zeigen, Rest mit weichgezeichneter Kopie füllen */
+.feed-item__pic--landscape img {
+  position: relative;
+  z-index: 1;
   object-fit: contain;
 }
 
-.bereich__note {
-  margin-top: var(--space-4);
-  font-size: var(--fs-base);
-  color: var(--ink-soft);
-}
-
-.bereich__actions {
-  margin-top: var(--space-4);
-}
-
-.bereich__media {
-  margin: 0;
-}
-
-.bereich__media img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 3;
+.feed-item__pic--landscape .feed-item__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   object-fit: cover;
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow-soft);
+  filter: blur(28px) saturate(0.8);
+  opacity: 0.55;
+  transform: scale(1.2);
 }
 
-.bereich__media figcaption {
-  margin-top: var(--space-2);
-  font-family: var(--font-mono);
+/* Phasen-Label auf dem Bild (Ergebnis / Vorher / Im Bau / Fast fertig) */
+.feed-item__phase {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 2;
+  background: rgba(28, 26, 22, 0.72);
+  color: var(--paper);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  line-height: 1;
+  padding: 7px 12px;
+  border-radius: 999px;
+}
+
+.feed-item__phase--ergebnis {
+  background: var(--rust);
+  color: var(--white);
+}
+
+/* Bildunterschrift unten auf dem Bild (über den Punkten) */
+.feed-item__caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  padding: var(--space-6) var(--space-3) calc(var(--space-2) + 18px);
+  background: linear-gradient(180deg, rgba(28, 26, 22, 0) 0%, rgba(28, 26, 22, 0.62) 100%);
+  color: var(--paper);
+  font-size: var(--fs-base);
+  font-weight: 500;
+  line-height: 1.3;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+.feed-item__counter {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  z-index: 2;
+  background: rgba(28, 26, 22, 0.72);
+  color: var(--paper);
   font-size: var(--fs-xs);
-  color: var(--ink-muted);
+  padding: 5px 11px;
+  border-radius: 999px;
+}
+
+.feed-item__dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: var(--space-2);
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  pointer-events: none;
+}
+
+.feed-item__dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(250, 248, 244, 0.5);
+  box-shadow: 0 0 0 1px rgba(28, 26, 22, 0.25);
+}
+
+.feed-item__dots span.is-active {
+  background: var(--paper);
+}
+
+.feed-item__nav {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  margin-top: -22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(250, 248, 244, 0.92);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.feed-item__nav svg {
+  width: 22px;
+  height: 22px;
+}
+
+.feed-item__nav--prev { left: var(--space-2); }
+.feed-item__nav--next { right: var(--space-2); }
+
+.feed-item__nav:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* Handy: Feed-Verhalten */
+@media (max-width: 767px) {
+  html {
+    scroll-snap-type: y proximity;
+  }
+  .feed-item {
+    height: calc(100vh - var(--header-h));
+    height: calc(100dvh - var(--header-h));
+    scroll-snap-align: start;
+    scroll-margin-top: var(--header-h);
+  }
+  .feed__head {
+    margin-bottom: var(--space-3);
+  }
+}
+
+/* Desktop/Tablet: vorläufiges Raster */
+@media (min-width: 768px) {
+  .feed {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--space-4);
+    padding-bottom: var(--space-8);
+  }
+  .feed-item {
+    border: 1px solid var(--line);
+    background: var(--white);
+    box-shadow: var(--shadow-soft);
+  }
+  .feed-item__media {
+    flex: none;
+    aspect-ratio: 4 / 3;
+  }
+  .feed-item__nav {
+    display: inline-flex;
+  }
 }
 
 /* ==========================================================================
@@ -1393,7 +1779,7 @@ body.has-dialog {
 }
 
 /* ==========================================================================
-   15. FOOTER
+   15. FOOTER — nur Rechtliches + Copyright
    ========================================================================== */
 
 .site-footer {
@@ -1403,103 +1789,34 @@ body.has-dialog {
 }
 
 .site-footer__inner {
-  padding-block: var(--space-8);
-}
-
-.site-footer__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--space-6);
-}
-
-.site-footer__heading {
-  font-family: var(--font-body);
-  font-size: var(--fs-sm);
-  font-weight: 700;
-  color: var(--ink);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin-bottom: var(--space-3);
-}
-
-.site-footer__address {
-  font-style: normal;
-  font-size: var(--fs-sm);
-  color: var(--ink-soft);
-  margin-bottom: var(--space-3);
-  line-height: 1.7;
-}
-
-.site-footer__contact-list {
-  font-size: var(--fs-xs);
-  color: var(--ink-muted);
   display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  padding-block: var(--space-4);
 }
 
-.site-footer__contact-list > div {
-  display: grid;
-  grid-template-columns: 4rem 1fr;
-  gap: var(--space-1);
+.site-footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
 }
 
-.site-footer__contact-list dt {
-  color: var(--ink-muted);
-}
-
-.site-footer__contact-list dd a {
+.site-footer__legal a {
+  font-size: var(--fs-sm);
+  font-weight: 600;
   color: var(--ink-soft);
   text-decoration: none;
 }
 
-.site-footer__contact-list dd a:hover {
+.site-footer__legal a:hover,
+.site-footer__legal a:focus-visible {
   color: var(--rust);
   text-decoration: underline;
 }
 
-.site-footer__links {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-}
-
-.site-footer__links a {
-  font-size: var(--fs-sm);
-  color: var(--ink-soft);
-  text-decoration: none;
-}
-
-.site-footer__links a:hover {
-  color: var(--rust);
-  text-decoration: underline;
-}
-
-.site-footer__partner li {
-  font-size: var(--fs-sm);
-  color: var(--ink-soft);
-  line-height: 1.4;
-}
-
-.site-footer__partner li span {
-  font-size: var(--fs-xs);
-  color: var(--ink-muted);
-}
-
-.site-footer__maps-link {
-  display: inline-block;
-  margin-top: var(--space-3);
-  font-size: var(--fs-xs);
-  color: var(--ink-muted);
-  text-decoration: underline;
-}
-
-.site-footer__bottom {
-  border-top: 1px solid var(--border);
-  padding-block: var(--space-3);
-}
-
-.site-footer__bottom p {
+.site-footer__copy {
   font-size: var(--fs-xs);
   color: var(--ink-muted);
 }
@@ -2135,6 +2452,19 @@ body.has-dialog {
   font-family: var(--font-mono);
 }
 
+.u-nowrap {
+  white-space: nowrap;
+}
+
+/* Entwurfstext — gelb markiert, bis der Kunde den Wortlaut freigibt */
+mark.draft {
+  background: #fff3a3;
+  color: inherit;
+  padding: 0.05em 0.25em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
 /* ==========================================================================
    28. FOKUS-STILE
    ========================================================================== */
@@ -2177,6 +2507,11 @@ body.has-dialog {
 .js-reveal [data-reveal].is-visible {
   opacity: 1;
   transform: none;
+}
+
+/* clip-path nur für die Bild-Variante: auf Text würde er Unterlängen (g, p, j)
+   an der Boxkante abschneiden */
+.js-reveal [data-reveal="reveal-image"].is-visible {
   clip-path: inset(0 0 0 0);
 }
 

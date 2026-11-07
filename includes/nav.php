@@ -11,7 +11,7 @@ $home = site_path('/');
 
 // href beginnt mit '#' → Anker auf der Startseite; 'spy' = Sektions-IDs für den Scrollspy (main.js)
 $nav_items = [
-    ['href' => '#leistungen',  'label' => 'Leistungen',  'spy' => 'gebaeudesanierung gebaeudetechnik renovierung'],
+    ['href' => '#leistungen',  'label' => 'Leistungen',  'spy' => 'leistungen'],
     ['href' => '#bewertungen', 'label' => 'Bewertungen', 'spy' => 'bewertungen'],
     ['href' => '#warum',       'label' => 'Warum TOS',   'spy' => 'warum einblicke'],
     ['href' => '#kontakt',     'label' => 'Kontakt',     'spy' => 'kontakt'],
@@ -25,9 +25,9 @@ function nav_href(string $home, string $href): string
 <header class="site-header" role="banner">
   <div class="site-header__inner container">
 
-    <a href="<?php echo htmlspecialchars($home, ENT_QUOTES, 'UTF-8'); ?>" class="site-header__logo" aria-label="<?php echo htmlspecialchars(SITE_NAME, ENT_QUOTES, 'UTF-8'); ?> — Startseite">
+    <a href="<?php echo htmlspecialchars($home, ENT_QUOTES, 'UTF-8'); ?>" class="site-header__logo" aria-label="<?php echo htmlspecialchars(SITE_NAME, ENT_QUOTES, 'UTF-8'); ?>, zur Startseite">
       <img src="<?php echo htmlspecialchars(asset_path('img/2TOS-Brief-Typo.png'), ENT_QUOTES, 'UTF-8'); ?>"
-           alt="TOS Handler e.K. — Meisterfachbetrieb Flensburg"
+           alt="TOS Handler e.K., Meisterfachbetrieb Flensburg"
            width="160" height="60"
            loading="eager">
     </a>
@@ -74,16 +74,22 @@ function nav_href(string $home, string $href): string
       </svg>
     </button>
     <nav aria-label="Mobile Navigation">
+      <!-- Handy-Menü bewusst reduziert (Kundenwunsch): Kontakt, zwei Standorte, Impressum.
+           Die Desktop-Navigation ($nav_items) bleibt davon unberührt. -->
       <ul class="mobile-nav__list" role="list">
-        <?php foreach ($nav_items as $item): ?>
         <li>
-          <a href="<?php echo htmlspecialchars(nav_href($home, $item['href']), ENT_QUOTES, 'UTF-8'); ?>" class="mobile-nav__link">
-            <?php echo htmlspecialchars($item['label'], ENT_QUOTES, 'UTF-8'); ?>
-          </a>
+          <a href="<?php echo htmlspecialchars($home . '#kontakt', ENT_QUOTES, 'UTF-8'); ?>" class="mobile-nav__link">Kontakt</a>
         </li>
-        <?php endforeach; ?>
+        <li class="mobile-nav__place">
+          <span class="mobile-nav__place-label">Lager &amp; Werkstatt</span>
+          <span class="mobile-nav__place-address">Munketoft 1</span>
+        </li>
+        <li class="mobile-nav__place">
+          <span class="mobile-nav__place-label">Büro</span>
+          <span class="mobile-nav__place-address">Weitzstraße 10</span>
+        </li>
         <li>
-          <a href="<?php echo htmlspecialchars($home . '#kontakt', ENT_QUOTES, 'UTF-8'); ?>" class="mobile-nav__link mobile-nav__link--cta">Anfrage stellen</a>
+          <a href="<?php echo htmlspecialchars(site_path('/impressum'), ENT_QUOTES, 'UTF-8'); ?>" class="mobile-nav__link">Impressum</a>
         </li>
       </ul>
       <address class="mobile-nav__contact">

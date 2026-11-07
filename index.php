@@ -3,11 +3,20 @@ declare(strict_types=1);
 require_once __DIR__ . '/includes/config.php';
 
 $page_title       = 'Gebäudesanierung, Gebäudetechnik & Renovierung Flensburg | TOS Handler e.K.';
-$page_description = 'TOS Handler e.K. — Meisterfachbetrieb in Flensburg. Gebäudesanierung, Gebäudetechnik und Renovierung aus einer Hand: ehrlich beraten, technisch und wirtschaftlich die beste Lösung für Sie.';
+$page_description = 'TOS Handler e.K., Meisterfachbetrieb in Flensburg. Gebäudesanierung, Gebäudetechnik und Renovierung aus einer Hand: ehrlich beraten, technisch und wirtschaftlich die beste Lösung für Sie.';
 $page_canonical   = '/';
 $body_class       = 'page-home';
 
 $bewertungen = require __DIR__ . '/data/bewertungen.php';
+$leistungen  = require __DIR__ . '/data/leistungen.php';
+$projekteFeed = require __DIR__ . '/data/projekte-feed.php';
+
+// Alt-Texte aus der Galerie-Liste übernehmen (Datei → Beschreibung)
+$bildAlt = [];
+foreach (require __DIR__ . '/data/projekte.php' as $g) {
+    $bildAlt[$g['file']] = $g['title'];
+}
+
 $summary     = $bewertungen['summary'];
 $reviews     = array_values(array_filter($bewertungen['reviews'], fn(array $r): bool => $r['aktiv'] ?? true));
 
@@ -33,6 +42,50 @@ function e(string $s): string
     return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
 }
 
+const FEED_PHASEN = [
+    'ergebnis'   => 'Ergebnis',
+    'vorher'     => 'Vorher',
+    'bau'        => 'Im Bau',
+    'fastfertig' => 'Fast fertig',
+];
+
+/**
+ * Bilder eines Projekts in Erzählreihenfolge:
+ * Ergebnis → Vorher → Im Bau → Fast fertig → Ergebnis.
+ * Liefert [[Datei, Phase, Bildunterschrift], …]; Phase '' wenn das Projekt nur
+ * Ergebnisbilder hat. Ein Bild ist 'datei' oder ['datei', 'Bildunterschrift'].
+ */
+function feed_slides(array $pr): array
+{
+    $norm = fn(array $list): array => array_map(
+        fn($b) => is_array($b) ? [$b[0], (string)($b[1] ?? '')] : [$b, ''],
+        $list
+    );
+    $erg = $norm($pr['ergebnis'] ?? $pr['bilder'] ?? []);
+    $vor = $norm($pr['vorher'] ?? []);
+    $bau = $norm($pr['bau'] ?? []);
+    $ff  = $norm($pr['fastfertig'] ?? []);
+    $mehrerePhasen = ($vor || $bau || $ff);
+
+    $slides = [];
+    if ($erg) {
+        $slides[] = [$erg[0][0], 'ergebnis', $erg[0][1]];
+    }
+    foreach ($vor as $b) { $slides[] = [$b[0], 'vorher', $b[1]]; }
+    foreach ($bau as $b) { $slides[] = [$b[0], 'bau', $b[1]]; }
+    foreach ($ff as $b)  { $slides[] = [$b[0], 'fastfertig', $b[1]]; }
+    $rest = array_slice($erg, 1);
+    if ($rest) {
+        foreach ($rest as $b) { $slides[] = [$b[0], 'ergebnis', $b[1]]; }
+    } elseif ($erg && $mehrerePhasen) {
+        $slides[] = [$erg[0][0], 'ergebnis', $erg[0][1]]; // am Ende wieder das Endergebnis
+    }
+    if (!$mehrerePhasen) {
+        $slides = array_map(fn($sl) => [$sl[0], '', $sl[2]], $slides);
+    }
+    return $slides;
+}
+
 require_once __DIR__ . '/includes/header.php';
 ?>
 
@@ -44,7 +97,19 @@ require_once __DIR__ . '/includes/header.php';
        Zum Abschalten einfach die Klasse entfernen.
        =================================================================== -->
   <section class="hero hero--verlauf" aria-labelledby="hero-heading">
-    <div class="container hero__grid">
+    <div class="container">
+      <!-- Logo zentriert über die volle Breite (Kundenwunsch) -->
+      <div class="hero__brand">
+        <img src="<?php echo e(asset_path('img/2TOS-Brief-Typo.png')); ?>"
+             alt="technischer objekt-service"
+             width="1676" height="270"
+             loading="eager" decoding="sync" fetchpriority="high"
+             class="hero__logo">
+        <!-- Namenszug unter dem Haus (im Logo-PNG nicht enthalten) -->
+        <span class="hero__brand-name"><span>Tilman</span><span>Handler</span></span>
+      </div>
+
+    <div class="hero__grid">
       <div class="hero__content">
         <p class="eyebrow" data-reveal="left">Fachbetrieb in Flensburg</p>
         <h1 id="hero-heading" class="hero__headline" data-reveal="up">Alles aus <span class="hl">einer Hand.</span></h1>
@@ -63,8 +128,8 @@ require_once __DIR__ . '/includes/header.php';
         </div>
       </div>
 
-      <nav class="hero__index" aria-label="Unsere Leistungsbereiche" data-reveal="up" data-reveal-delay="2">
-        <a href="#gebaeudesanierung" class="index-row">
+      <nav id="leistungen" class="hero__index" aria-label="Unsere Leistungsbereiche" data-reveal="up" data-reveal-delay="2">
+        <a href="#dialog-gebaeudesanierung" class="index-row" data-open-dialog aria-haspopup="dialog">
           <span class="index-row__body">
             <span class="index-row__title">Gebäude&shy;sanierung</span>
           </span>
@@ -72,7 +137,7 @@ require_once __DIR__ . '/includes/header.php';
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" focusable="false"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </span>
         </a>
-        <a href="#gebaeudetechnik" class="index-row">
+        <a href="#dialog-gebaeudetechnik" class="index-row" data-open-dialog aria-haspopup="dialog">
           <span class="index-row__body">
             <span class="index-row__title">Gebäude&shy;technik</span>
           </span>
@@ -80,7 +145,7 @@ require_once __DIR__ . '/includes/header.php';
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" focusable="false"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </span>
         </a>
-        <a href="#renovierung" class="index-row">
+        <a href="#dialog-renovierung" class="index-row" data-open-dialog aria-haspopup="dialog">
           <span class="index-row__body">
             <span class="index-row__title">Renovierung</span>
           </span>
@@ -89,6 +154,7 @@ require_once __DIR__ . '/includes/header.php';
           </span>
         </a>
       </nav>
+    </div><!-- /.hero__grid -->
     </div>
   </section>
 
@@ -150,116 +216,67 @@ require_once __DIR__ . '/includes/header.php';
     </div>
   </section>
 
+
   <!-- ===================================================================
-       LEISTUNGEN — drei Bereiche, je eine Bildschirmhöhe (Anker #leistungen)
+       PROJEKTE — Feed (Daten: data/projekte-feed.php)
+       Handy: jedes Projekt eine Bildschirmhöhe, Bilder seitlich wischen.
+       Desktop: vorläufig als Raster (wird später gesondert gestaltet).
        =================================================================== -->
-  <div id="leistungen">
+  <section id="projekte" class="section section--feed" aria-labelledby="projekte-heading">
+    <div class="container feed__head">
+      <p class="eyebrow" data-reveal="left">Projekte</p>
+      <h2 id="projekte-heading" data-reveal="up">Unsere Arbeiten</h2>
+      <p class="section__subline feed__hint" data-reveal="up-soft" data-reveal-delay="1">Nach unten scrollen für das nächste Projekt, seitlich wischen für weitere Bilder.</p>
+    </div>
 
-  <section id="gebaeudesanierung" class="section bereich" aria-labelledby="sanierung-heading">
-    <div class="container bereich__inner">
-      <div class="bereich__text">
-        <p class="eyebrow" data-reveal="left">01 / Gebäudesanierung</p>
-        <h2 id="sanierung-heading" data-reveal="up">Gebäudesanierung</h2>
-        <p class="bereich__lead" data-reveal="up" data-reveal-delay="1">
-          Wir beheben die <span class="hl">Ursache</span>, nicht nur das Symptom – nach gründlicher Prüfung der Bausubstanz.
-        </p>
-        <ul class="bereich__list" role="list" data-reveal="up" data-reveal-delay="2">
-          <li>Betonsanierung</li>
-          <li>Schimmelsanierung</li>
-          <li>Bautrocknung</li>
-          <li>Mauerwerksabdichtung (WTA-geprüft)</li>
-          <li>Brand- &amp; Wasserschäden</li>
-          <li>Fassadensanierung</li>
-          <li>Architektenleistungen <span class="leistung-detail">Bauanträge &amp; Statik</span></li>
-        </ul>
-        <p class="bereich__note" data-reveal="up" data-reveal-delay="3">
-          Eigene Fassadengerüste, Inspektionskamera und Messtechnik – <span class="hl">keine Subunternehmer-Kette</span>.
-        </p>
-        <div class="bereich__actions" data-reveal="up" data-reveal-delay="3">
-          <a href="#kontakt" class="btn btn--primary">Sanierung anfragen</a>
+    <div class="feed">
+      <?php $anzahl = count($projekteFeed);
+      foreach ($projekteFeed as $pi => $pr):
+          $slides = feed_slides($pr);
+          $n = count($slides); ?>
+      <article class="feed-item" id="projekt-<?php echo $pi + 1; ?>" aria-labelledby="projekt-<?php echo $pi + 1; ?>-title">
+        <header class="feed-item__head">
+          <p class="feed-item__meta font-mono">
+            Projekt <?php echo $pi + 1; ?> von <?php echo $anzahl; ?><?php if (!empty($pr['label'])): ?> · <?php echo e($pr['label']); ?><?php endif; ?>
+          </p>
+          <h3 id="projekt-<?php echo $pi + 1; ?>-title" class="feed-item__title"><?php echo e($pr['title']); ?></h3>
+        </header>
+        <div class="feed-item__media<?php echo $n < 2 ? ' is-single' : ''; ?>" data-strip>
+          <ul class="feed-item__strip" role="list" aria-label="Bilder zu <?php echo e($pr['title']); ?>">
+            <?php foreach ($slides as $bi => [$file, $phase, $caption]):
+                $src   = asset_path('img/projekte/' . $file);
+                $alt   = $caption !== '' ? $caption : ($bildAlt[$file] ?? $pr['title']);
+                $label = $phase !== '' ? FEED_PHASEN[$phase] : '';
+                $eager = ($pi === 0 && $bi === 0); ?>
+            <li class="feed-item__pic">
+              <!-- Querformat-Darstellung (weichgezeichneter Hintergrund) setzt main.js beim Laden -->
+              <img src="<?php echo e($src); ?>"
+                   alt="<?php echo $label !== '' ? e($label) . ', ' : ''; ?>Bild <?php echo $bi + 1; ?> von <?php echo $n; ?>: <?php echo e($alt); ?>"
+                   loading="<?php echo $eager ? 'eager' : 'lazy'; ?>" decoding="async">
+              <?php if ($label !== ''): ?>
+              <span class="feed-item__phase feed-item__phase--<?php echo e($phase); ?>" aria-hidden="true"><?php echo e($label); ?></span>
+              <?php endif; ?>
+              <?php if ($caption !== ''): ?>
+              <span class="feed-item__caption" aria-hidden="true"><?php echo e($caption); ?></span>
+              <?php endif; ?>
+            </li>
+            <?php endforeach; ?>
+          </ul>
+          <?php if ($n > 1): ?>
+          <span class="feed-item__counter font-mono" aria-live="polite">1 / <?php echo $n; ?></span>
+          <div class="feed-item__dots" aria-hidden="true"></div>
+          <button type="button" class="feed-item__nav feed-item__nav--prev" aria-label="Vorheriges Bild">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button type="button" class="feed-item__nav feed-item__nav--next" aria-label="Nächstes Bild">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+          <?php endif; ?>
         </div>
-      </div>
-      <figure class="bereich__media" data-reveal="reveal-image" data-reveal-delay="1">
-        <img src="<?php echo e(asset_path('img/projekte/fassadensanierung-09.webp')); ?>"
-             alt="Helle Hausfassade mit erneuertem Giebel und Fenstern" width="1600" height="1200" loading="lazy" decoding="async">
-        <figcaption>Fassadensanierung · <a href="<?php echo e(site_path('/referenzen')); ?>">mehr Bilder ansehen</a></figcaption>
-      </figure>
+      </article>
+      <?php endforeach; ?>
     </div>
   </section>
-
-  <section id="gebaeudetechnik" class="section section--deep bereich bereich--reverse" aria-labelledby="technik-heading">
-    <div class="container bereich__inner">
-      <div class="bereich__text">
-        <p class="eyebrow" data-reveal="left">02 / Gebäudetechnik</p>
-        <h2 id="technik-heading" data-reveal="up">Gebäudetechnik</h2>
-        <p class="bereich__lead" data-reveal="up" data-reveal-delay="1">
-          Wärme, Wasser, Strom und Luft – <span class="hl">effizient</span> geplant und sauber installiert.
-        </p>
-        <ul class="bereich__list" role="list" data-reveal="up" data-reveal-delay="2">
-          <li class="leistung-gruppe">Heizung &amp; Sanitär
-            <ul class="leistung-unterpunkte" role="list">
-              <li>Fernwärme</li>
-              <li>Wärmepumpen</li>
-              <li>Badsanierung</li>
-            </ul>
-          </li>
-          <li>Elektrotechnik</li>
-          <li>Lüftung</li>
-        </ul>
-        <p class="bereich__note" data-reveal="up" data-reveal-delay="3">
-          Wir rechnen ehrlich vor, was sich für Sie lohnt – <span class="hl">technisch und wirtschaftlich</span>.
-        </p>
-        <div class="bereich__actions" data-reveal="up" data-reveal-delay="3">
-          <a href="#kontakt" class="btn btn--primary">Technik anfragen</a>
-        </div>
-      </div>
-      <figure class="bereich__media" data-reveal="reveal-image" data-reveal-delay="1">
-        <img src="<?php echo e(asset_path('img/projekte/heizungsverteilung-30.webp')); ?>"
-             alt="Heizungsverteilung mit mehreren Rohrleitungen und Umwälzpumpen" width="1600" height="1200" loading="lazy" decoding="async">
-        <figcaption>Heizungstechnik · <a href="<?php echo e(site_path('/referenzen')); ?>">mehr Bilder ansehen</a></figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section id="renovierung" class="section bereich" aria-labelledby="renovierung-heading">
-    <div class="container bereich__inner">
-      <div class="bereich__text">
-        <p class="eyebrow" data-reveal="left">03 / Renovierung</p>
-        <h2 id="renovierung-heading" data-reveal="up">Renovierung</h2>
-        <p class="bereich__lead" data-reveal="up" data-reveal-delay="1">
-          Frische Räume, hochwertig ausgeführt – <span class="hl">alle Nebengewerke inklusive</span>.
-        </p>
-        <ul class="bereich__list" role="list" data-reveal="up" data-reveal-delay="2">
-          <li>Innenausbau</li>
-          <li>Malerarbeiten</li>
-          <li>Bodenbelagsarbeiten</li>
-          <li>Fenster &amp; Türen</li>
-          <li>Einbauküchen von nobilia &amp; Häcker</li>
-        </ul>
-        <div class="kuechenmarken" aria-label="Unsere Küchenmarken" data-reveal="up" data-reveal-delay="2">
-          <a href="https://www.nobilia.de/de/" target="_blank" rel="noopener noreferrer" aria-label="nobilia – Herstellerwebsite öffnen">
-            <img src="<?php echo e(asset_path('img/marken/nobilia.png')); ?>" alt="nobilia" width="160" height="64" loading="lazy">
-          </a>
-          <a href="https://www.haecker-kuechen.com/de/" target="_blank" rel="noopener noreferrer" aria-label="Häcker Küchen – Herstellerwebsite öffnen">
-            <img src="<?php echo e(asset_path('img/marken/haecker.svg')); ?>" alt="Häcker Küchen" width="160" height="64" loading="lazy">
-          </a>
-        </div>
-        <p class="bereich__note" data-reveal="up" data-reveal-delay="3">
-          Ein Termin, ein Angebot, ein Team – <span class="hl">Sie koordinieren nichts</span>.
-        </p>
-        <div class="bereich__actions" data-reveal="up" data-reveal-delay="3">
-          <a href="#kontakt" class="btn btn--primary">Renovierung anfragen</a>
-        </div>
-      </div>
-      <figure class="bereich__media" data-reveal="reveal-image" data-reveal-delay="1">
-        <img src="<?php echo e(asset_path('img/projekte/wohnraum-50.webp')); ?>"
-             alt="Renovierter heller Wohnraum mit Holzdielen und großen Fenstern" width="1600" height="1200" loading="lazy" decoding="async">
-        <figcaption>Innenausbau &amp; Bodenarbeiten · <a href="<?php echo e(site_path('/referenzen')); ?>">mehr Bilder ansehen</a></figcaption>
-      </figure>
-    </div>
-  </section>
-
-  </div><!-- /#leistungen -->
 
   <!-- ===================================================================
        WARUM TOS — die Kernbotschaft
@@ -268,17 +285,17 @@ require_once __DIR__ . '/includes/header.php';
     <div class="container">
       <div class="nutzen-intro">
         <p class="eyebrow" data-reveal="left">Wofür wir stehen</p>
-        <h2 id="warum-heading" data-reveal="up">Gute Beratung, <span class="hl">optimale Lösung</span> – für Sie.</h2>
+        <h2 id="warum-heading" data-reveal="up">Gute Beratung, <span class="hl u-nowrap">optimale Lösung</span> für Sie.</h2>
+        <!-- ENTWURF (Kunde): Text noch nicht final — gelbe Markierung entfernen, sobald freigegeben -->
         <p class="nutzen-intro__lead" data-reveal="up-soft" data-reveal-delay="1">
-          Ein Meisterbetrieb, der Planung und Ausführung zusammen denkt. Sie bekommen keine Verkaufsshow,
-          sondern eine ehrliche Einschätzung, was an Ihrem Gebäude sinnvoll ist – und was nicht.
+          <mark class="draft">Die Zufriedenheit unserer Kunden steht an erster Stelle. Für die Umsetzung beraten wir Sie.</mark>
         </p>
       </div>
       <div class="nutzen-grid">
         <article class="nutzen-item" data-reveal="up" data-reveal-delay="1">
           <span class="nutzen-item__number font-mono" aria-hidden="true">01</span>
           <h3 class="nutzen-item__title">Alles aus einer Hand</h3>
-          <p class="nutzen-item__text">Ein Ansprechpartner für alle Gewerke. Wir koordinieren den Ablauf – Sie nicht.</p>
+          <p class="nutzen-item__text">Ein Ansprechpartner für alle Gewerke. Wir koordinieren den Ablauf, nicht Sie.</p>
         </article>
         <article class="nutzen-item" data-reveal="up" data-reveal-delay="2">
           <span class="nutzen-item__number font-mono" aria-hidden="true">02</span>
@@ -288,7 +305,7 @@ require_once __DIR__ . '/includes/header.php';
         <article class="nutzen-item" data-reveal="up" data-reveal-delay="3">
           <span class="nutzen-item__number font-mono" aria-hidden="true">03</span>
           <h3 class="nutzen-item__title">Ehrliche Beratung</h3>
-          <p class="nutzen-item__text">Wir sagen Ihnen, was Ihr Gebäude wirklich braucht – auch wenn es weniger ist als gedacht.</p>
+          <p class="nutzen-item__text">Wir sagen Ihnen, was Ihr Gebäude wirklich braucht. Auch wenn es weniger ist als gedacht.</p>
         </article>
         <article class="nutzen-item" data-reveal="up" data-reveal-delay="4">
           <span class="nutzen-item__number font-mono" aria-hidden="true">04</span>
@@ -303,20 +320,20 @@ require_once __DIR__ . '/includes/header.php';
   <section class="section" aria-labelledby="begriffe-heading">
     <div class="container">
       <p class="eyebrow" data-reveal="left">Begriffsklärung</p>
-      <h2 id="begriffe-heading" data-reveal="up">Renovierung, Sanierung, Modernisierung – was meint was?</h2>
+      <h2 id="begriffe-heading" data-reveal="up">Renovierung, Sanierung, Modernisierung: Was meint was?</h2>
       <p class="section__subline" data-reveal="up" data-reveal-delay="1">In der Praxis werden die Begriffe oft synonym benutzt. Damit Sie wissen, was Sie wirklich brauchen:</p>
       <div class="compare-grid">
         <div class="compare-item" data-reveal="expand-x" data-reveal-delay="1">
           <p class="compare-item__label">Renovierung</p>
-          <p class="compare-item__text">Auffrischen, was funktioniert. Tapete, Anstrich, Bodenbelag – die Bausubstanz bleibt unangetastet.</p>
+          <p class="compare-item__text">Auffrischen, was funktioniert. Tapete, Anstrich, Bodenbelag. Die Bausubstanz bleibt unangetastet.</p>
         </div>
         <div class="compare-item" data-reveal="expand-x" data-reveal-delay="2">
           <p class="compare-item__label">Sanierung</p>
-          <p class="compare-item__text">Reparieren, was nicht mehr funktioniert. Feuchte Wände, undichte Dächer, Schimmel – wir beheben die Ursache.</p>
+          <p class="compare-item__text">Reparieren, was nicht mehr funktioniert. Feuchte Wände, undichte Dächer, Schimmel. Wir beheben die Ursache.</p>
         </div>
         <div class="compare-item" data-reveal="expand-x" data-reveal-delay="3">
           <p class="compare-item__label">Modernisierung</p>
-          <p class="compare-item__text">Auf den heutigen Stand bringen. Wärmepumpe statt Ölkessel, Dämmung, neue Fenster – senkt Kosten, erhöht den Wert.</p>
+          <p class="compare-item__text">Auf den heutigen Stand bringen. Wärmepumpe statt Ölkessel, Dämmung, neue Fenster. Das senkt Kosten und erhöht den Wert.</p>
         </div>
       </div>
       <p class="compare-note" data-reveal="up" data-reveal-delay="4">Wir machen alle drei. Und sagen Ihnen ehrlich, was bei Ihrem Projekt sinnvoll ist.</p>
@@ -360,7 +377,7 @@ require_once __DIR__ . '/includes/header.php';
           <p class="eyebrow">Kontakt</p>
           <h2 id="kontakt-heading">Sprechen Sie direkt mit <span class="hl">Tilman Handler</span></h2>
           <p class="section__subline kontakt-daten__subline">
-            Wir klären, was sinnvoll ist und was es kostet – und melden uns schnellstmöglich.
+            Wir melden uns schnellstmöglich zurück.
           </p>
           <address class="kontakt-daten__address">
             <strong><?php echo e(SITE_NAME); ?></strong><br>
@@ -448,6 +465,52 @@ require_once __DIR__ . '/includes/header.php';
       </div>
     </div>
   </section>
+
+  <!-- Leistungs-Popups (Inhalte: data/leistungen.php) -->
+  <?php foreach ($leistungen as $lid => $l):
+      $titleId = 'dialog-' . $lid . '-title';
+      $heading = $l['claim'] !== '' ? $l['claim'] : $l['title']; ?>
+  <dialog id="dialog-<?php echo e($lid); ?>" class="leistung-dialog" aria-labelledby="<?php echo e($titleId); ?>">
+    <div class="leistung-dialog__inner" tabindex="-1">
+      <button type="button" class="leistung-dialog__close" aria-label="Schließen" data-dialog-close>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <?php if ($l['claim'] !== ''): ?>
+      <p class="eyebrow"><?php echo e($l['title']); ?></p>
+      <?php endif; ?>
+      <h2 id="<?php echo e($titleId); ?>" class="leistung-dialog__claim"><?php echo e($heading); ?></h2>
+      <?php if (($l['text'] ?? '') !== ''): ?>
+      <p class="leistung-dialog__lead"><?php echo e($l['text']); ?></p>
+      <?php endif; ?>
+      <ul class="leistung-dialog__list" role="list">
+        <?php foreach ($l['items'] as $item):
+            [$label, $details] = is_array($item) ? $item : [$item, '']; ?>
+        <li>
+          <span class="leistung-dialog__item"><?php echo e($label); ?></span>
+          <?php if (is_array($details) && $details): ?>
+          <ul class="leistung-dialog__sublist" role="list">
+            <?php foreach ($details as $sub): ?>
+            <li><?php echo e($sub); ?></li>
+            <?php endforeach; ?>
+          </ul>
+          <?php elseif (is_string($details) && $details !== ''): ?>
+          <span class="leistung-dialog__details"><?php echo e($details); ?></span>
+          <?php endif; ?>
+        </li>
+        <?php endforeach; ?>
+      </ul>
+      <?php if (!empty($l['marken'])): ?>
+      <div class="kuechenmarken" aria-label="Marken">
+        <?php foreach ($l['marken'] as [$file, $alt, $url]): ?>
+        <a href="<?php echo e($url); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo e($alt); ?>: Herstellerwebsite öffnen">
+          <img src="<?php echo e(asset_path('img/marken/' . $file)); ?>" alt="<?php echo e($alt); ?>" width="160" height="64" loading="lazy">
+        </a>
+        <?php endforeach; ?>
+      </div>
+      <?php endif; ?>
+    </div>
+  </dialog>
+  <?php endforeach; ?>
 
   <!-- Volltext einer Bewertung (wird per JS aus der Karte befüllt) -->
   <dialog id="review-dialog" class="review-dialog" aria-labelledby="review-dialog-author">
