@@ -224,7 +224,8 @@ require_once __DIR__ . '/includes/header.php';
     <div class="container feed__head">
       <p class="eyebrow" data-reveal="left">Projekte</p>
       <h2 id="projekte-heading" data-reveal="up">Unsere Arbeiten</h2>
-      <p class="section__subline feed__hint" data-reveal="up-soft" data-reveal-delay="1">Nach unten scrollen für das nächste Projekt, seitlich wischen für weitere Bilder.</p>
+      <p class="section__subline feed__hint" data-reveal="up-soft" data-reveal-delay="1">Nach unten scrollen für das nächste Projekt, seitlich wischen für weitere Bilder. Antippen vergrößert ein Bild.</p>
+      <a href="#warum" class="feed__skip">Projekte überspringen</a>
     </div>
 
     <div class="feed">
@@ -255,7 +256,7 @@ require_once __DIR__ . '/includes/header.php';
                    alt="<?php echo $label !== '' ? e($label) . ', ' : ''; ?>Bild <?php echo $bi + 1; ?> von <?php echo $n; ?>: <?php echo e($alt); ?>"
                    loading="<?php echo $eager ? 'eager' : 'lazy'; ?>" decoding="async">
               <?php if ($label !== ''): ?>
-              <span class="feed-item__phase feed-item__phase--<?php echo e($phase); ?>" aria-hidden="true"><?php echo e($label); ?></span>
+              <span class="feed-item__phase feed-item__phase--<?php echo e($phase); ?>" data-phase="<?php echo e($phase); ?>" aria-hidden="true"><?php echo e($label); ?></span>
               <?php endif; ?>
               <?php if ($caption !== ''): ?>
               <span class="feed-item__caption" aria-hidden="true"><?php echo e($caption); ?></span>
@@ -485,6 +486,27 @@ require_once __DIR__ . '/includes/header.php';
     </div>
   </dialog>
   <?php endforeach; ?>
+
+  <!-- Lightbox für Projektbilder (wird per JS befüllt) -->
+  <dialog id="feed-lightbox" class="lightbox-dialog" aria-label="Bildansicht">
+    <div class="lightbox-dialog__top">
+      <span class="lightbox-dialog__counter font-mono" aria-live="polite"></span>
+      <button type="button" class="lightbox-dialog__btn" data-lightbox-close aria-label="Bildansicht schließen">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <ul class="lightbox-dialog__track" role="list" tabindex="0"></ul>
+    <button type="button" class="lightbox-dialog__btn lightbox-dialog__nav lightbox-dialog__nav--prev" aria-label="Vorheriges Bild">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button type="button" class="lightbox-dialog__btn lightbox-dialog__nav lightbox-dialog__nav--next" aria-label="Nächstes Bild">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <div class="lightbox-dialog__bottom">
+      <p class="lightbox-dialog__title"></p>
+      <p class="lightbox-dialog__caption"></p>
+    </div>
+  </dialog>
 
   <!-- Volltext einer Bewertung (wird per JS aus der Karte befüllt) -->
   <dialog id="review-dialog" class="review-dialog" aria-labelledby="review-dialog-author">

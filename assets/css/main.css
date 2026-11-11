@@ -242,7 +242,6 @@ mark.hl {
 .section {
   padding-block: var(--space-8);
   border-top: 1px solid var(--line);
-  scroll-margin-top: var(--header-h);
 }
 
 /* Onepager: jede Sektion füllt eine Bildschirmhöhe (abzüglich Header),
@@ -1470,6 +1469,176 @@ body.has-dialog {
   font-size: var(--fs-base);
 }
 
+.feed__skip {
+  display: inline-block;
+  margin-top: var(--space-2);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
+.feed-item__pic img:not(.feed-item__bg) {
+  cursor: zoom-in;
+}
+
+/* Lightbox: Bilder eines Projekts groß ansehen */
+.lightbox-dialog {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: rgba(20, 18, 15, 0.97);
+  color: var(--paper);
+  overflow: hidden;
+}
+
+.lightbox-dialog::backdrop {
+  background: rgba(20, 18, 15, 0.97);
+}
+
+.lightbox-dialog__track {
+  display: flex;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.lightbox-dialog__track::-webkit-scrollbar {
+  display: none;
+}
+
+.lightbox-dialog__track li {
+  flex: 0 0 100%;
+  height: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 64px var(--space-2) 96px;
+}
+
+.lightbox-dialog__track img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.lightbox-dialog__top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px var(--space-2);
+  pointer-events: none;
+}
+
+.lightbox-dialog__counter {
+  font-size: var(--fs-sm);
+  padding-left: 6px;
+}
+
+.lightbox-dialog__btn {
+  pointer-events: auto;
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(250, 248, 244, 0.12);
+  border: 1px solid rgba(250, 248, 244, 0.35);
+  border-radius: 50%;
+  color: var(--paper);
+  cursor: pointer;
+}
+
+.lightbox-dialog__btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+.lightbox-dialog__btn:hover,
+.lightbox-dialog__btn:focus-visible {
+  background: rgba(250, 248, 244, 0.25);
+}
+
+.lightbox-dialog__btn:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.lightbox-dialog__nav {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  margin-top: -24px;
+}
+
+.lightbox-dialog__nav--prev { left: var(--space-2); }
+.lightbox-dialog__nav--next { right: var(--space-2); }
+
+.lightbox-dialog__bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: var(--space-2) var(--space-3) calc(var(--space-3) + env(safe-area-inset-bottom, 0px));
+  text-align: center;
+  pointer-events: none;
+}
+
+.lightbox-dialog__title {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(250, 248, 244, 0.65);
+}
+
+.lightbox-dialog__caption {
+  margin-top: 4px;
+  font-size: var(--fs-base);
+  color: var(--paper);
+  min-height: 1.4em;
+}
+
+.lightbox-dialog__phase {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(250, 248, 244, 0.18);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  vertical-align: 2px;
+}
+
+.lightbox-dialog__phase--ergebnis {
+  background: var(--rust);
+}
+
+@media (max-width: 767px) {
+  .lightbox-dialog__nav {
+    display: none; /* auf dem Handy wird gewischt */
+  }
+  .lightbox-dialog__track li {
+    padding-inline: 0;
+  }
+}
+
 .feed {
   display: flex;
   flex-direction: column;
@@ -1668,28 +1837,21 @@ body.has-dialog {
   cursor: default;
 }
 
-/* Handy: Feed als eigener Scrollbereich. Die Seite wird per JS so
-   ausgerichtet, dass der Feed direkt unter dem Header beginnt; danach
-   scrollt man im Feed von Projekt zu Projekt (exaktes Einrasten, und die
-   Safari-Leiste bleibt dabei stabil). Ohne JS: Feed scrollt normal mit. */
+/* Handy: Feed im normalen Seitenfluss, jedes Projekt eine Bildschirmhöhe.
+   Die Seite rastet sanft pro Projekt ein (proximity: kein Zwang, man kann
+   nicht daran vorbeiscrollen, aber auch nicht hängen bleiben).
+   svh = Höhe bei eingeblendeter Browserleiste, damit die Bildunterschrift
+   nie hinter der Safari-Leiste liegt. Der Versatz für den Sticky-Header
+   kommt allein vom scroll-padding-top am html. */
 @media (max-width: 767px) {
-  .feed {
-    height: calc(100vh - var(--header-h));
-    height: calc(100dvh - var(--header-h));
-    overflow-y: hidden;             /* erst scrollbar, wenn ausgerichtet (JS: .is-active) */
-    scroll-snap-type: y mandatory;
-    overscroll-behavior-y: auto;    /* am Ende weiter zur Seite scrollen */
-    -webkit-overflow-scrolling: touch;
-  }
-  .feed.is-active,
-  html:not(.js-reveal) .feed {
-    overflow-y: auto;
+  html {
+    scroll-snap-type: y proximity;
   }
   .feed-item {
-    flex: 0 0 auto;                /* nicht schrumpfen: jedes Projekt exakt Feed-Höhe */
-    height: 100%;
+    flex: 0 0 auto;
+    height: calc(100vh - var(--header-h));
+    height: calc(100svh - var(--header-h));
     scroll-snap-align: start;
-    scroll-snap-stop: always;      /* ein Wisch = ein Projekt */
   }
   .feed__head {
     margin-bottom: var(--space-3);
