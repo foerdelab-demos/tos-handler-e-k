@@ -216,6 +216,7 @@
         pages = newPages;
         buildDots();
       }
+      root.classList.toggle('is-single-page', pages <= 1);
     }
 
     function buildDots() {
@@ -452,6 +453,56 @@
     window.addEventListener('resize', update);
     update();
   });
+
+  /* -------------------------------------------------------------------------
+   * Projekte-Feed auf dem Handy: Seite so ausrichten, dass der Feed exakt
+   * unter dem Header beginnt (sobald man ihm nahe kommt), dann den Feed
+   * selbst scrollbar schalten. Verlässt man ihn (Anfang/Ende), übernimmt
+   * wieder die Seite.
+   * -------------------------------------------------------------------- */
+  const feed       = document.querySelector('.feed');
+  const mobileFeed = window.matchMedia('(max-width: 767px)');
+  if (feed) {
+    let lastY = window.scrollY, dirDown = true, timer = null, aligning = false;
+
+    function headerH() {
+      const h = document.querySelector('.site-header');
+      return h ? h.offsetHeight : 72;
+    }
+    function offset() { return feed.getBoundingClientRect().top - headerH(); }
+    function setActive() {
+      feed.classList.toggle('is-active', mobileFeed.matches && Math.abs(offset()) <= 3);
+    }
+    function settle() {
+      if (!mobileFeed.matches) { feed.classList.remove('is-active'); return; }
+      const o = offset(), fh = feed.offsetHeight, vh = window.innerHeight;
+      const approachingFromAbove = dirDown && o > 3 && o < vh * 0.6;
+      const returningFromBelow   = !dirDown && o < -3 && o > -fh * 0.5;
+      if (approachingFromAbove || returningFromBelow) {
+        aligning = true;
+        window.scrollBy({ top: o, behavior: reduceMotion ? 'auto' : 'smooth' });
+        // nach dem weichen Scrollen aktiv schalten; bei langsamem Scroll kurz nachprüfen
+        let tries = 0;
+        (function check() {
+          tries++;
+          if (Math.abs(offset()) <= 3 || tries >= 4) { aligning = false; setActive(); }
+          else window.setTimeout(check, 250);
+        })();
+        window.setTimeout(function () { if (aligning) { aligning = false; setActive(); } }, 1200);
+      } else {
+        setActive();
+      }
+    }
+    window.addEventListener('scroll', function () {
+      const y = window.scrollY;
+      if (y !== lastY) { dirDown = y > lastY; lastY = y; }
+      if (aligning) return;
+      window.clearTimeout(timer);
+      timer = window.setTimeout(settle, 120);
+    }, { passive: true });
+    window.addEventListener('resize', setActive);
+    setActive();
+  }
 
   /* -------------------------------------------------------------------------
    * Google Analytics Opt-Out (Datenschutz-Seite)

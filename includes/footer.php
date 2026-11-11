@@ -18,6 +18,7 @@ require_once __DIR__ . '/config.php';
       &copy; <?php echo date('Y'); ?> <?php echo htmlspecialchars(SITE_NAME, ENT_QUOTES, 'UTF-8'); ?>
       &middot; Reg-Nr. <?php echo htmlspecialchars(REG_NR, ENT_QUOTES, 'UTF-8'); ?>
       &middot; USt.-ID-Nr. <?php echo htmlspecialchars(UST_ID, ENT_QUOTES, 'UTF-8'); ?>
+      &middot; Webdesign: <a href="https://jasonholweg.de" target="_blank" rel="noopener" class="site-footer__credit">Jason Holweg</a>
     </p>
   </div>
 </footer>

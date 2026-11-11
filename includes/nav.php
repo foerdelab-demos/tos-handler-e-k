@@ -13,7 +13,7 @@ $home = site_path('/');
 $nav_items = [
     ['href' => '#leistungen',  'label' => 'Leistungen',  'spy' => 'leistungen'],
     ['href' => '#bewertungen', 'label' => 'Bewertungen', 'spy' => 'bewertungen'],
-    ['href' => '#warum',       'label' => 'Warum TOS',   'spy' => 'warum einblicke'],
+    ['href' => '#warum',       'label' => 'Warum TOS',   'spy' => 'warum'],
     ['href' => '#kontakt',     'label' => 'Kontakt',     'spy' => 'kontakt'],
 ];
 

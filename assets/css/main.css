@@ -666,48 +666,18 @@ mark.hl {
   background: linear-gradient(180deg, #fffdf9 0%, var(--paper) 100%);
 }
 
-/* Logo-Banner: zentriert, volle Container-Breite */
+/* Logo-Banner: Original-Logo (Haus + Namenszug), zentriert */
 .hero__brand {
   margin-bottom: clamp(1.25rem, 3vh, var(--space-6));
+  text-align: center;
 }
 
 .hero__logo {
-  display: block;
-  width: 100%;
-  height: auto;
-  margin-inline: auto;
-}
-
-/* „Tilman Handler“ unter dem Haus — Position und Größe skalieren mit der
-   Logo-Breite (cqw = Prozent der Brand-Breite; vw als Fallback). */
-.hero__brand {
-  position: relative;
-  container-type: inline-size;
-  padding-bottom: 5.5%; /* Platz für den Namenszug unter dem Bild */
-}
-
-.hero__brand-name {
-  position: absolute;
-  left: 61%;
-  top: 15vw;  /* Fallback */
-  top: 15cqw; /* ≈ 93 % der Bildhöhe (Bild = 16,1 cqw hoch): Oberkante an der Linie */
-  font-family: 'Just Another Hand', cursive;
-  font-size: 4.4vw;
-  font-size: 4.4cqw;
-  line-height: 0.8;
-  color: var(--rust);
-  white-space: nowrap;
-  letter-spacing: 0.01em;
-  -webkit-text-stroke: 0.6px currentColor; /* etwas Marker-Gewicht */
-  user-select: none;
-}
-
-.hero__brand-name span {
-  display: block;
-}
-
-.hero__brand-name span + span {
-  padding-left: 1em; /* zweite Zeile versetzt wie in der Vorlage */
+  display: inline-block;
+  width: auto;
+  max-width: 100%;
+  height: clamp(130px, 30vh, 280px);
+  object-fit: contain;
 }
 
 .hero__grid {
@@ -1534,6 +1504,13 @@ body.has-dialog {
   color: var(--ink);
 }
 
+.feed-item__text {
+  margin-top: var(--space-1);
+  font-size: var(--fs-sm);
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+
 .feed-item__media {
   position: relative;
   flex: 1;
@@ -1691,19 +1668,34 @@ body.has-dialog {
   cursor: default;
 }
 
-/* Handy: Feed-Verhalten */
+/* Handy: Feed als eigener Scrollbereich. Die Seite wird per JS so
+   ausgerichtet, dass der Feed direkt unter dem Header beginnt; danach
+   scrollt man im Feed von Projekt zu Projekt (exaktes Einrasten, und die
+   Safari-Leiste bleibt dabei stabil). Ohne JS: Feed scrollt normal mit. */
 @media (max-width: 767px) {
-  html {
-    scroll-snap-type: y proximity;
-  }
-  .feed-item {
+  .feed {
     height: calc(100vh - var(--header-h));
     height: calc(100dvh - var(--header-h));
+    overflow-y: hidden;             /* erst scrollbar, wenn ausgerichtet (JS: .is-active) */
+    scroll-snap-type: y mandatory;
+    overscroll-behavior-y: auto;    /* am Ende weiter zur Seite scrollen */
+    -webkit-overflow-scrolling: touch;
+  }
+  .feed.is-active,
+  html:not(.js-reveal) .feed {
+    overflow-y: auto;
+  }
+  .feed-item {
+    flex: 0 0 auto;                /* nicht schrumpfen: jedes Projekt exakt Feed-Höhe */
+    height: 100%;
     scroll-snap-align: start;
-    scroll-margin-top: var(--header-h);
+    scroll-snap-stop: always;      /* ein Wisch = ein Projekt */
   }
   .feed__head {
     margin-bottom: var(--space-3);
+  }
+  .feed-item__title {
+    font-size: 1.5rem;
   }
 }
 
@@ -1723,6 +1715,11 @@ body.has-dialog {
     background: var(--white);
     box-shadow: var(--shadow-soft);
   }
+  /* Kopf nimmt die Resthöhe, Bild sitzt immer unten: Bilder einer Reihe
+     stehen auf gleicher Höhe, egal wie lang Titel oder Text sind */
+  .feed-item__head {
+    flex: 1 1 auto;
+  }
   .feed-item__media {
     flex: none;
     aspect-ratio: 4 / 3;
@@ -1732,49 +1729,159 @@ body.has-dialog {
   }
 }
 
-/* ==========================================================================
-   13. EINBLICKE — Bilderstreifen (verlinkt auf /referenzen)
-   ========================================================================== */
-
-.bilder-strip {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-2);
-  margin-top: var(--space-6);
+/* Große Bildschirme: Header und Hero breiter und größer gesetzt */
+@media (min-width: 1500px) {
+  .hero > .container,
+  .site-header__inner {
+    max-width: 1720px;
+    padding-inline: var(--space-6);
+  }
+  .hero__grid {
+    gap: var(--space-12);
+  }
+  .hero__logo {
+    height: clamp(180px, 27vh, 380px);
+  }
+  .hero__headline {
+    font-size: clamp(4.75rem, 4.6vw, 6.5rem);
+  }
+  .hero__subline {
+    font-size: 1.5rem;
+    max-width: 44ch;
+  }
+  .hero__tel {
+    font-size: var(--fs-md);
+  }
+  .index-row {
+    padding-block: var(--space-5);
+  }
+  .index-row__title {
+    font-size: 2.375rem;
+  }
+  .index-row__arrow {
+    width: 56px;
+    height: 56px;
+  }
 }
 
-.bilder-strip a {
-  display: block;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  aspect-ratio: 4 / 3;
-  background: var(--white);
+@media (min-width: 2100px) {
+  .hero > .container,
+  .site-header__inner {
+    max-width: 2100px;
+  }
 }
 
-.bilder-strip img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
+/* Große Bildschirme: übrige Startseiten-Sektionen (Wofür wir stehen,
+   Begriffsklärung, Kontakt) und Footer breiter und größer gesetzt */
+@media (min-width: 1500px) {
+  .page-home .section > .container,
+  .site-footer__inner {
+    max-width: 1720px;
+    padding-inline: var(--space-6);
+  }
+  .page-home .section h2 {
+    font-size: 3.25rem;
+  }
+  .page-home .section__subline,
+  .nutzen-intro__lead {
+    font-size: 1.5rem;
+  }
+  .nutzen-intro {
+    max-width: 52ch;
+  }
+  .nutzen-grid {
+    margin-top: var(--space-6);
+  }
+  .nutzen-item__title {
+    font-size: 1.875rem;
+  }
+  .nutzen-item__text,
+  .compare-item__text,
+  .compare-note {
+    font-size: 1.3125rem;
+  }
+  .compare-item {
+    padding: var(--space-6);
+  }
+  .compare-item__label {
+    font-size: 1.875rem;
+  }
+  .kontakt-grid {
+    gap: var(--space-12);
+  }
+  .kontakt-daten__address,
+  .kontakt-daten__list {
+    font-size: 1.25rem;
+  }
+  .kontakt-daten__list > div {
+    grid-template-columns: 9rem 1fr;
+    padding-bottom: var(--space-2);
+  }
+  .form {
+    gap: var(--space-4);
+  }
+  .form__label {
+    font-size: 1.1875rem;
+  }
+  .form__input,
+  .form__select,
+  .form__textarea {
+    font-size: 1.3125rem;
+    padding: 0.875rem var(--space-3);
+  }
+  .form__textarea {
+    min-height: 200px;
+  }
+  .form__group--checkbox .form__checkbox-label {
+    font-size: 1.1875rem;
+  }
+  .form__submit .btn {
+    font-size: 1.1875rem;
+    padding: 1rem var(--space-5);
+  }
 }
 
-/* Hochformat-Motive im Querformat-Teaser mit sinnvoll gesetztem Ausschnitt. */
-.bilder-strip img[src*="bad-waschtisch"] {
-  object-position: center 40%;
+@media (min-width: 2100px) {
+  .page-home .section > .container,
+  .site-footer__inner {
+    max-width: 2100px;
+  }
 }
 
-.bilder-strip img[src*="bautrocknung"] {
-  object-position: center 65%;
+/* Große Bildschirme: Bewertungen und Projekte nutzen die volle Breite */
+@media (min-width: 1500px) {
+  .bewertungen > .container,
+  .feed__head {
+    max-width: 2400px;
+    padding-inline: var(--space-6);
+  }
+  .carousel__slide {
+    flex-basis: calc((100% - 3 * var(--space-4)) / 4);
+  }
 }
 
-.bilder-strip a:hover img,
-.bilder-strip a:focus-visible img {
-  transform: scale(1.04);
+@media (min-width: 2100px) {
+  .carousel__slide {
+    flex-basis: calc((100% - 5 * var(--space-4)) / 6);
+  }
 }
 
-@media (max-width: 767px) {
-  .bilder-strip {
-    grid-template-columns: repeat(2, 1fr);
+/* Alle Bewertungen passen auf eine Seite: Pfeile und Punkte ausblenden */
+.carousel.is-single-page .carousel__controls {
+  display: none;
+}
+
+@media (min-width: 1500px) {
+  .feed {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: 2400px;
+    padding-inline: var(--space-6);
+  }
+}
+
+@media (min-width: 2100px) {
+  .feed {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
@@ -1819,6 +1926,17 @@ body.has-dialog {
 .site-footer__copy {
   font-size: var(--fs-xs);
   color: var(--ink-muted);
+}
+
+.site-footer__credit {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-footer__credit:hover,
+.site-footer__credit:focus-visible {
+  color: var(--rust);
+  text-decoration: underline;
 }
 
 /* ==========================================================================

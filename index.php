@@ -98,15 +98,13 @@ require_once __DIR__ . '/includes/header.php';
        =================================================================== -->
   <section class="hero hero--verlauf" aria-labelledby="hero-heading">
     <div class="container">
-      <!-- Logo zentriert über die volle Breite (Kundenwunsch) -->
+      <!-- Original-Logo des Kunden, zentriert über dem Hero -->
       <div class="hero__brand">
-        <img src="<?php echo e(asset_path('img/2TOS-Brief-Typo.png')); ?>"
-             alt="technischer objekt-service"
-             width="1676" height="270"
+        <img src="<?php echo e(asset_path('img/logo-tilman-handler.png')); ?>"
+             alt="Tilman Handler, technischer objekt-service"
+             width="1588" height="1116"
              loading="eager" decoding="sync" fetchpriority="high"
              class="hero__logo">
-        <!-- Namenszug unter dem Haus (im Logo-PNG nicht enthalten) -->
-        <span class="hero__brand-name"><span>Tilman</span><span>Handler</span></span>
       </div>
 
     <div class="hero__grid">
@@ -240,6 +238,9 @@ require_once __DIR__ . '/includes/header.php';
             Projekt <?php echo $pi + 1; ?> von <?php echo $anzahl; ?><?php if (!empty($pr['label'])): ?> · <?php echo e($pr['label']); ?><?php endif; ?>
           </p>
           <h3 id="projekt-<?php echo $pi + 1; ?>-title" class="feed-item__title"><?php echo e($pr['title']); ?></h3>
+          <?php if (!empty($pr['text'])): ?>
+          <p class="feed-item__text"><?php echo e($pr['text']); ?></p>
+          <?php endif; ?>
         </header>
         <div class="feed-item__media<?php echo $n < 2 ? ' is-single' : ''; ?>" data-strip>
           <ul class="feed-item__strip" role="list" aria-label="Bilder zu <?php echo e($pr['title']); ?>">
@@ -337,33 +338,6 @@ require_once __DIR__ . '/includes/header.php';
         </div>
       </div>
       <p class="compare-note" data-reveal="up" data-reveal-delay="4">Wir machen alle drei. Und sagen Ihnen ehrlich, was bei Ihrem Projekt sinnvoll ist.</p>
-    </div>
-  </section>
-
-  <!-- ===================================================================
-       EINBLICKE — Bilder, verlinkt auf die (versteckte) Referenzen-Seite
-       =================================================================== -->
-  <section id="einblicke" class="section section--deep" aria-labelledby="einblicke-heading">
-    <div class="container">
-      <p class="eyebrow" data-reveal="left">Einblicke</p>
-      <h2 id="einblicke-heading" data-reveal="up">Ergebnisse, die man sehen kann</h2>
-      <div class="bilder-strip">
-        <?php
-        $strip = [
-            ['bad-waschtisch-02.webp', 'Badsanierung mit Waschtisch und großem Spiegel'],
-            ['einbaukueche-24.webp', 'Moderne dunkle Einbauküche mit Essplatz'],
-            ['dachausbau-39.webp', 'Dachausbau mit sichtbaren Holzbalken'],
-            ['bautrocknung-52.webp', 'Geräte zur Bautrocknung im Einsatz'],
-        ];
-        foreach ($strip as $i => [$file, $alt]): ?>
-        <a href="<?php echo e(site_path('/referenzen')); ?>" data-reveal="reveal-image" data-reveal-delay="<?php echo $i + 1; ?>">
-          <img src="<?php echo e(asset_path('img/projekte/thumbs/' . $file)); ?>" alt="<?php echo e($alt); ?>" width="600" height="450" loading="lazy" decoding="async">
-        </a>
-        <?php endforeach; ?>
-      </div>
-      <div class="section__action section__action--prominent" data-reveal="scale">
-        <a href="<?php echo e(site_path('/referenzen')); ?>" class="btn btn--ghost">Mehr Bilder ansehen</a>
-      </div>
     </div>
   </section>
 
