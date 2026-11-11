@@ -314,8 +314,11 @@
   }
 
   document.querySelectorAll('.review-card__text[data-clamp]').forEach(function (text) {
+    // Volle Höhe VOR dem Kürzen messen und mit der gekürzten vergleichen.
+    // (scrollHeight taugt nicht: Safari meldet bei line-clamp die gekürzte Höhe.)
+    const fullHeight = text.getBoundingClientRect().height;
     text.classList.add('is-clamped');
-    if (text.scrollHeight <= text.clientHeight + 2) {
+    if (fullHeight <= text.getBoundingClientRect().height + 2) {
       text.classList.remove('is-clamped');
       return;
     }

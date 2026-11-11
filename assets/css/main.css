@@ -1137,8 +1137,17 @@ mark.hl {
 .review-card__text.is-clamped {
   display: -webkit-box;
   -webkit-line-clamp: 4;
+  line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* Handy: schmalere Zeilen, daher 6 Zeilen Vorschau */
+@media (max-width: 767px) {
+  .review-card__text.is-clamped {
+    -webkit-line-clamp: 6;
+    line-clamp: 6;
+  }
 }
 
 .review-card .chips {
