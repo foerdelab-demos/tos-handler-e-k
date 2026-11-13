@@ -15,9 +15,9 @@ declare(strict_types=1);
 return [
     'gebaeudesanierung' => [
         'title' => 'Gebäudesanierung',
-        'claim' => 'Beraten, Planen und Umsetzen!',
+        'claim' => 'Beraten, Planen und Sanieren von:',
         'items' => [
-            'Balken & Dach',
+            'Balkon & Dach',
             'Fassaden',
             'Beton',
             'Schimmel',

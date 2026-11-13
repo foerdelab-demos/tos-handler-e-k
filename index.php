@@ -57,6 +57,10 @@ const FEED_PHASEN = [
  */
 function feed_slides(array $pr): array
 {
+    // eigene Reihenfolge: [[Phase, Datei, Bildunterschrift], …]
+    if (!empty($pr['slides'])) {
+        return array_map(fn($sl) => [$sl[1], $sl[0], (string)($sl[2] ?? '')], $pr['slides']);
+    }
     $norm = fn(array $list): array => array_map(
         fn($b) => is_array($b) ? [$b[0], (string)($b[1] ?? '')] : [$b, ''],
         $list
@@ -223,9 +227,8 @@ require_once __DIR__ . '/includes/header.php';
   <section id="projekte" class="section section--feed" aria-labelledby="projekte-heading">
     <div class="container feed__head">
       <p class="eyebrow" data-reveal="left">Projekte</p>
-      <h2 id="projekte-heading" data-reveal="up">Unsere Arbeiten</h2>
-      <p class="section__subline feed__hint" data-reveal="up-soft" data-reveal-delay="1">Nach unten scrollen für das nächste Projekt, seitlich wischen für weitere Bilder. Antippen vergrößert ein Bild.</p>
-      <a href="#warum" class="feed__skip">Projekte überspringen</a>
+      <h2 id="projekte-heading" data-reveal="up">Beispiele unserer Arbeiten:</h2>
+      <p class="section__subline feed__hint" data-reveal="up-soft" data-reveal-delay="1">Nach unten scrollen und seitlich wischen für weitere Bilder.</p>
     </div>
 
     <div class="feed">
@@ -283,62 +286,15 @@ require_once __DIR__ . '/includes/header.php';
   <!-- ===================================================================
        WARUM TOS — die Kernbotschaft
        =================================================================== -->
-  <section id="warum" class="section section--deep" aria-labelledby="warum-heading">
+  <section id="warum" class="section section--deep section--auto" aria-labelledby="warum-heading">
     <div class="container">
       <div class="nutzen-intro">
         <p class="eyebrow" data-reveal="left">Wofür wir stehen</p>
-        <h2 id="warum-heading" data-reveal="up">Gute Beratung, <span class="hl u-nowrap">optimale Lösung</span> für Sie.</h2>
-        <!-- ENTWURF (Kunde): Text noch nicht final — gelbe Markierung entfernen, sobald freigegeben -->
+        <h2 id="warum-heading" data-reveal="up">Gute Beratung für <span class="hl u-nowrap">optimale Lösungen.</span></h2>
         <p class="nutzen-intro__lead" data-reveal="up-soft" data-reveal-delay="1">
-          <mark class="draft">Die Zufriedenheit unserer Kunden steht an erster Stelle. Für die Umsetzung beraten wir Sie.</mark>
+          Die Zufriedenheit unserer Kunden steht an erster Stelle.
         </p>
       </div>
-      <div class="nutzen-grid">
-        <article class="nutzen-item" data-reveal="up" data-reveal-delay="1">
-          <span class="nutzen-item__number font-mono" aria-hidden="true">01</span>
-          <h3 class="nutzen-item__title">Alles aus einer Hand</h3>
-          <p class="nutzen-item__text">Ein Ansprechpartner für alle Gewerke. Wir koordinieren den Ablauf, nicht Sie.</p>
-        </article>
-        <article class="nutzen-item" data-reveal="up" data-reveal-delay="2">
-          <span class="nutzen-item__number font-mono" aria-hidden="true">02</span>
-          <h3 class="nutzen-item__title">Fachkenntnis</h3>
-          <p class="nutzen-item__text">Meisterbetrieb seit Jahrzehnten in Flensburg. Geprüfte Verfahren, saubere Ausführung.</p>
-        </article>
-        <article class="nutzen-item" data-reveal="up" data-reveal-delay="3">
-          <span class="nutzen-item__number font-mono" aria-hidden="true">03</span>
-          <h3 class="nutzen-item__title">Ehrliche Beratung</h3>
-          <p class="nutzen-item__text">Wir sagen Ihnen, was Ihr Gebäude wirklich braucht. Auch wenn es weniger ist als gedacht.</p>
-        </article>
-        <article class="nutzen-item" data-reveal="up" data-reveal-delay="4">
-          <span class="nutzen-item__number font-mono" aria-hidden="true">04</span>
-          <h3 class="nutzen-item__title">Technisch &amp; wirtschaftlich</h3>
-          <p class="nutzen-item__text">Die Lösung muss funktionieren und sich für Sie rechnen. Beides gehört zusammen.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- Begriffsklärung -->
-  <section class="section" aria-labelledby="begriffe-heading">
-    <div class="container">
-      <p class="eyebrow" data-reveal="left">Begriffsklärung</p>
-      <h2 id="begriffe-heading" data-reveal="up">Renovierung, Sanierung, Modernisierung: Was meint was?</h2>
-      <p class="section__subline" data-reveal="up" data-reveal-delay="1">In der Praxis werden die Begriffe oft synonym benutzt. Damit Sie wissen, was Sie wirklich brauchen:</p>
-      <div class="compare-grid">
-        <div class="compare-item" data-reveal="expand-x" data-reveal-delay="1">
-          <p class="compare-item__label">Renovierung</p>
-          <p class="compare-item__text">Auffrischen, was funktioniert. Tapete, Anstrich, Bodenbelag. Die Bausubstanz bleibt unangetastet.</p>
-        </div>
-        <div class="compare-item" data-reveal="expand-x" data-reveal-delay="2">
-          <p class="compare-item__label">Sanierung</p>
-          <p class="compare-item__text">Reparieren, was nicht mehr funktioniert. Feuchte Wände, undichte Dächer, Schimmel. Wir beheben die Ursache.</p>
-        </div>
-        <div class="compare-item" data-reveal="expand-x" data-reveal-delay="3">
-          <p class="compare-item__label">Modernisierung</p>
-          <p class="compare-item__text">Auf den heutigen Stand bringen. Wärmepumpe statt Ölkessel, Dämmung, neue Fenster. Das senkt Kosten und erhöht den Wert.</p>
-        </div>
-      </div>
-      <p class="compare-note" data-reveal="up" data-reveal-delay="4">Wir machen alle drei. Und sagen Ihnen ehrlich, was bei Ihrem Projekt sinnvoll ist.</p>
     </div>
   </section>
 

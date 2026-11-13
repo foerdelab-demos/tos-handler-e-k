@@ -244,6 +244,12 @@ mark.hl {
   border-top: 1px solid var(--line);
 }
 
+/* Kurze Sektion: nur so hoch wie ihr Inhalt */
+.page-home .section.section--auto {
+  min-height: 0;
+  padding-block: var(--space-8);
+}
+
 /* Onepager: jede Sektion füllt eine Bildschirmhöhe (abzüglich Header),
    Inhalt vertikal zentriert. min-height statt height, damit auf kleinen
    Screens nichts abgeschnitten wird. */
@@ -885,59 +891,12 @@ mark.hl {
   margin-top: var(--space-3);
 }
 
-.nutzen-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  margin-top: var(--space-5);
-  border-top: 1px solid var(--line);
-}
 
-.nutzen-item {
-  padding: var(--space-5) var(--space-4) var(--space-4) 0;
-  border-right: 1px solid var(--border);
-  padding-right: var(--space-4);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
 
-.nutzen-item:last-child {
-  border-right: none;
-}
 
-@media (max-width: 767px) {
-  .nutzen-item {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-    padding: var(--space-4) 0;
-  }
-  .nutzen-item:last-child {
-    border-bottom: none;
-  }
-}
 
-.nutzen-item__number {
-  font-size: var(--fs-xs);
-  color: var(--ink-muted);
-  letter-spacing: 0.08em;
-  font-weight: 500;
-}
 
-.nutzen-item__title {
-  font-family: var(--font-display);
-  font-size: var(--fs-md);
-  font-weight: 600;
-  color: var(--ink);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  hyphens: manual;
-}
 
-.nutzen-item__text {
-  font-size: var(--fs-base);
-  color: var(--ink-soft);
-  line-height: 1.55;
-}
 
 /* ==========================================================================
    11. GOOGLE-BEWERTUNGEN
@@ -1478,12 +1437,6 @@ body.has-dialog {
   font-size: var(--fs-base);
 }
 
-.feed__skip {
-  display: inline-block;
-  margin-top: var(--space-2);
-  font-size: var(--fs-sm);
-  font-weight: 600;
-}
 
 .feed-item__pic img:not(.feed-item__bg) {
   cursor: zoom-in;
@@ -1959,23 +1912,6 @@ body.has-dialog {
   }
   .nutzen-intro {
     max-width: 52ch;
-  }
-  .nutzen-grid {
-    margin-top: var(--space-6);
-  }
-  .nutzen-item__title {
-    font-size: 1.875rem;
-  }
-  .nutzen-item__text,
-  .compare-item__text,
-  .compare-note {
-    font-size: 1.3125rem;
-  }
-  .compare-item {
-    padding: var(--space-6);
-  }
-  .compare-item__label {
-    font-size: 1.875rem;
   }
   .kontakt-grid {
     gap: var(--space-12);
@@ -2587,57 +2523,12 @@ body.has-dialog {
    COMPARE / BEGRIFFSKLÄRUNG
    ========================================================================== */
 
-.compare-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  margin-top: var(--space-4);
-  border: 1px solid var(--line);
-  background: var(--white);
-  box-shadow: var(--shadow-soft);
-}
 
-.compare-item {
-  padding: var(--space-4);
-  border-bottom: 1px solid var(--line);
-}
 
-.compare-item:last-child {
-  border-bottom: none;
-}
 
-@media (min-width: 768px) {
-  .compare-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .compare-item {
-    border-bottom: none;
-    border-right: 1px solid var(--line);
-  }
-  .compare-item:last-child {
-    border-right: none;
-  }
-}
 
-.compare-item__label {
-  font-family: var(--font-display);
-  font-size: var(--fs-md);
-  font-weight: 600;
-  color: var(--rust);
-  margin-bottom: var(--space-2);
-}
 
-.compare-item__text {
-  font-size: var(--fs-base);
-  color: var(--ink-soft);
-  line-height: 1.5;
-}
 
-.compare-note {
-  margin-top: var(--space-4);
-  font-size: var(--fs-base);
-  color: var(--ink-soft);
-  font-style: italic;
-}
 
 /* ==========================================================================
    26. PROSE / LEGAL
@@ -2745,14 +2636,6 @@ body.has-dialog {
   white-space: nowrap;
 }
 
-/* Entwurfstext — gelb markiert, bis der Kunde den Wortlaut freigibt */
-mark.draft {
-  background: #fff3a3;
-  color: inherit;
-  padding: 0.05em 0.25em;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-}
 
 /* ==========================================================================
    28. FOKUS-STILE

@@ -13,6 +13,8 @@
  *   oder das erste noch einmal, wenn es nur eines gibt).
  * Töpfe, die es für ein Projekt nicht gibt, einfach weglassen.
  *
+ * 'slides' (optional) legt eine eigene Reihenfolge fest und ersetzt die Töpfe:
+ *   [['ergebnis'|'vorher'|'bau'|'fastfertig', 'datei.webp', 'Bildunterschrift'], …]
  * 'text' (optional) ist ein kurzer Absatz unter dem Titel.
  * Ein Bild ist entweder 'datei.webp' oder ['datei.webp', 'Bildunterschrift'].
  * Die Bildunterschrift erscheint klein auf dem Bild und dient als Alt-Text.
@@ -34,9 +36,9 @@ return [
         ],
         'vorher'     => [['umbau-wohnhaus-vorher-friseursalon.webp', 'Vorher: Friseursalon']],
         'bau'        => [
-            ['umbau-wohnhaus-bau-geruest.webp',   'Eingerüstet, Umbau läuft'],
             ['umbau-wohnhaus-bau-dachstuhl.webp', 'Dachstuhl'],
             ['umbau-wohnhaus-bau-giebel.webp',    'Giebel neu aufgemauert'],
+            ['umbau-wohnhaus-bau-geruest.webp',   'Eingerüstet, Umbau läuft'],
         ],
         'fastfertig' => [['umbau-wohnhaus-fastfertig-fenster.webp', 'Fenster rein']],
     ],
@@ -44,8 +46,11 @@ return [
     [
         'title'    => 'Malerarbeiten mit Holzböden',
         'label'    => 'Renovierung',
-        'ergebnis' => [['maler-holzboden-ergebnis.webp', 'Frisch gestrichen, Dielen aufgearbeitet']],
-        'vorher'   => [['maler-holzboden-vorher-abschleifen.webp', 'Vorher: Dielen werden abgeschliffen']],
+        // eigene Reihenfolge: Ergebnis nur einmal (Kundenwunsch)
+        'slides'   => [
+            ['ergebnis', 'maler-holzboden-ergebnis.webp',           'Frisch gestrichen, Dielen aufgearbeitet'],
+            ['vorher',   'maler-holzboden-vorher-abschleifen.webp', 'Vorher: Dielen werden abgeschliffen'],
+        ],
     ],
 
     [
@@ -61,38 +66,37 @@ return [
     [
         'title'    => 'Komplettsanierung eines der ältesten Häuser in Tönning',
         'label'    => 'Gebäudesanierung',
-        'ergebnis' => [
-            ['toenning-ergebnis-1.webp',             'Eingangsbereich'],
-            ['toenning-ergebnis-treppenhaus.webp',   'Treppenhaus'],
-            ['toenning-ergebnis-2.webp',             'Veranda'],
-            ['toenning-ergebnis-3.webp',             'Veranda'],
-            ['toenning-ergebnis-bad.webp',           'Badezimmer'],
-            ['toenning-ergebnis-wohnbereich-1.webp', 'Wohnbereich'],
-            ['toenning-ergebnis-wohnbereich-2.webp', 'Wohnbereich'],
+        // Vorher-Nachher-Paare je Raum (Kundenwunsch)
+        'slides'   => [
+            ['ergebnis', 'toenning-ergebnis-1.webp',             'Eingangsbereich'],
+            ['vorher',   'toenning-vorher-1.webp',               'Vorher: Eingangsbereich'],
+            ['vorher',   'toenning-vorher-treppenhaus.webp',     'Vorher: Treppenhaus'],
+            ['vorher',   'toenning-vorher-treppenhaus-2.webp',   'Vorher: Treppenhaus'],
+            ['ergebnis', 'toenning-ergebnis-treppenhaus.webp',   'Treppenhaus'],
+            ['vorher',   'toenning-vorher-2.webp',               'Vorher: Veranda von außen'],
+            ['vorher',   'toenning-vorher-3.webp',               'Vorher: Veranda'],
+            ['ergebnis', 'toenning-ergebnis-2.webp',             'Veranda'],
+            ['ergebnis', 'toenning-ergebnis-3.webp',             'Veranda'],
+            ['vorher',   'toenning-vorher-bad.webp',             'Vorher: Badezimmer'],
+            ['ergebnis', 'toenning-ergebnis-bad.webp',           'Badezimmer'],
+            ['vorher',   'toenning-vorher-wohnbereich.webp',     'Vorher: Wohnbereich'],
+            ['bau',      'toenning-bau-wohnbereich.webp',        'Wohnbereich während der Arbeiten'],
+            ['ergebnis', 'toenning-ergebnis-wohnbereich-1.webp', 'Wohnbereich'],
+            ['ergebnis', 'toenning-ergebnis-wohnbereich-2.webp', 'Wohnbereich'],
         ],
-        'vorher'   => [
-            ['toenning-vorher-1.webp',           'Vorher: Eingangsbereich'],
-            ['toenning-vorher-treppenhaus.webp', 'Vorher: Treppenhaus'],
-            ['toenning-vorher-treppenhaus-2.webp', 'Vorher: Treppenhaus'],
-            ['toenning-vorher-2.webp',           'Vorher: Veranda von außen'],
-            ['toenning-vorher-3.webp',           'Vorher: Veranda'],
-            ['toenning-vorher-bad.webp',         'Vorher: Badezimmer'],
-            ['toenning-vorher-wohnbereich.webp', 'Vorher: Wohnbereich'],
-        ],
-        'bau'      => [['toenning-bau-wohnbereich.webp', 'Wohnbereich während der Arbeiten']],
     ],
     [
         'title'    => 'Fassaden- und Balkonsanierung',
         'label'    => 'Gebäudesanierung',
-        'ergebnis' => [['balkonsanierung-ergebnis.webp', 'Fassade und Balkone nach der Sanierung']],
-        'vorher'   => [
-            ['balkonsanierung-vorher-1.webp', 'Vorher: Schäden am Balkon'],
-            ['balkonsanierung-vorher-2.webp', 'Vorher: freiliegender Stahlträger'],
-        ],
-        'bau'      => [
-            ['balkonsanierung-bau-1.webp', 'Schadhafter Beton wird freigelegt'],
-            ['balkonsanierung-bau-2.webp', 'Balkone während der Sanierung'],
-            ['balkonsanierung-bau-3.webp', 'Eingerüstete Fassade'],
+        // eigene Reihenfolge: eingerüstete Fassade an zweiter Stelle (Kundenwunsch)
+        'slides'   => [
+            ['ergebnis', 'balkonsanierung-ergebnis.webp', 'Fassade und Balkone nach der Sanierung'],
+            ['bau',      'balkonsanierung-bau-3.webp',    'Eingerüstete Fassade'],
+            ['vorher',   'balkonsanierung-vorher-1.webp', 'Vorher: Schäden am Balkon'],
+            ['vorher',   'balkonsanierung-vorher-2.webp', 'Vorher: freiliegender Stahlträger'],
+            ['bau',      'balkonsanierung-bau-1.webp',    'Schadhafter Beton wird freigelegt'],
+            ['bau',      'balkonsanierung-bau-2.webp',    'Balkone während der Sanierung'],
+            ['ergebnis', 'balkonsanierung-ergebnis.webp', 'Fassade und Balkone nach der Sanierung'],
         ],
     ],
     [
@@ -131,9 +135,9 @@ return [
                        'bibliothek-schleswig-2.webp', 'bibliothek-schleswig-3.webp'],
     ],
     [
-        'title'    => 'Warmwasseranlage auf Fernwärme umgebaut',
+        'title'    => 'Umbau auf Fernwärme',
         'label'    => 'Gebäudetechnik',
-        'text'     => 'Über Jahre wurde viel Geld in Reparaturen dieser Anlage investiert, ohne dass sie dauerhaft störungsfrei lief. Nach einem Verwalterwechsel sollten wir die Ursache finden. Wir haben die Anlage, die ursprünglich mit einer Ölheizung arbeitete, auf Fernwärme umgebaut. Seit vier Jahren läuft sie störungsfrei und spart erheblich Energie.',
+        'text'     => 'Über Jahre wurde viel Geld in Reparaturen dieser Anlage investiert, ohne dass sie dauerhaft störungsfrei lief. Nach einem Verwalterwechsel sollten wir die Ursache finden. Wir haben die Anlage, die ursprünglich mit einer Ölheizung arbeitete, auf den seit Jahren bestehenden Fernwärmeanschluss umgebaut. Seit vier Jahren läuft sie störungsfrei und spart erheblich Energie.',
         'ergebnis' => ['fernwaerme-ergebnis-1.webp', 'fernwaerme-ergebnis-2.webp'],
         'vorher'   => [['fernwaerme-vorher.webp', 'Vorher']],
     ],
