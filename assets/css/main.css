@@ -2,7 +2,7 @@
  * main.css — Design-System TOS Handler e.K.
  * Reihenfolge: Custom Properties > Reset > Typografie > Layout > Komponenten > Utilities
  *
- * Schriften: Fraunces (Display/Headlines) + IBM Plex Sans (Body) + IBM Plex Mono (Akzent)
+ * Schriften: Montserrat (Überschriften) + IBM Plex Sans (Body) + IBM Plex Mono (Akzent)
  * Farbpalette: helles Papier / Tinte / Logo-Rot als Akzent (keine Gradients)
  */
 
@@ -35,7 +35,7 @@
   --border-strong: #1c1a16;   /* nur noch für Buttons/Outline */
 
   /* Typografie */
-  --font-display: 'Fraunces', Georgia, serif;
+  --font-display: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
   --font-body:    'IBM Plex Sans', -apple-system, sans-serif;
   --font-mono:    'IBM Plex Mono', 'Courier New', monospace;
 
@@ -162,7 +162,6 @@ h1 {
   font-weight: 800;
   line-height: 0.95;
   letter-spacing: -0.02em;
-  font-variation-settings: "opsz" 144, "SOFT" 50, "WONK" 1;
 }
 
 h2 {
@@ -699,7 +698,6 @@ mark.hl {
   line-height: 1.0;
   letter-spacing: -0.02em;
   hyphens: none;
-  font-variation-settings: "opsz" 144, "SOFT" 50, "WONK" 1;
 }
 
 .hero__subline {
@@ -1358,6 +1356,38 @@ body.has-dialog {
 
 .leistung-dialog .kuechenmarken {
   margin-top: var(--space-4);
+}
+
+/* Rubriken (z. B. „Wir bieten an:“): untereinander, auf großen Bildschirmen nebeneinander,
+   damit das Fenster ohne Scrollen auskommt (Kundenwunsch 16.11.2026) */
+.leistung-dialog__gruppe + .leistung-dialog__gruppe {
+  margin-top: var(--space-5);
+}
+
+.leistung-dialog--spalten .leistung-dialog__claim {
+  font-size: var(--fs-lg);
+}
+
+@media (min-width: 900px) {
+  .leistung-dialog--spalten {
+    width: min(94vw, 1040px);
+  }
+
+  .leistung-dialog--spalten .leistung-dialog__gruppen {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6);
+    align-items: start;
+    margin-top: var(--space-2);
+  }
+
+  .leistung-dialog--spalten .leistung-dialog__gruppe + .leistung-dialog__gruppe {
+    margin-top: 0;
+  }
+
+  .leistung-dialog--spalten .leistung-dialog__list li {
+    padding: 10px 0;
+  }
 }
 
 @media (max-width: 767px) {

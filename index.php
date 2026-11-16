@@ -400,8 +400,18 @@ require_once __DIR__ . '/includes/header.php';
   <!-- Leistungs-Popups (Inhalte: data/leistungen.php) -->
   <?php foreach ($leistungen as $lid => $l):
       $titleId = 'dialog-' . $lid . '-title';
-      $heading = $l['claim'] !== '' ? $l['claim'] : $l['title']; ?>
-  <dialog id="dialog-<?php echo e($lid); ?>" class="leistung-dialog" aria-labelledby="<?php echo e($titleId); ?>">
+      $heading = $l['claim'] !== '' ? $l['claim'] : $l['title'];
+      // Punkte in Rubriken teilen: ['rubrik' => '…'] beginnt eine neue Gruppe mit eigener Überschrift
+      $gruppen = [['titel' => null, 'items' => []]];
+      foreach ($l['items'] as $item) {
+          if (is_array($item) && isset($item['rubrik'])) {
+              $gruppen[] = ['titel' => (string) $item['rubrik'], 'items' => []];
+              continue;
+          }
+          $gruppen[count($gruppen) - 1]['items'][] = $item;
+      }
+      $spalten = count($gruppen) > 1; ?>
+  <dialog id="dialog-<?php echo e($lid); ?>" class="leistung-dialog<?php echo $spalten ? ' leistung-dialog--spalten' : ''; ?>" aria-labelledby="<?php echo e($titleId); ?>">
     <div class="leistung-dialog__inner" tabindex="-1">
       <button type="button" class="leistung-dialog__close" aria-label="Schließen" data-dialog-close>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -409,27 +419,37 @@ require_once __DIR__ . '/includes/header.php';
       <?php if ($l['claim'] !== ''): ?>
       <p class="eyebrow"><?php echo e($l['title']); ?></p>
       <?php endif; ?>
-      <h2 id="<?php echo e($titleId); ?>" class="leistung-dialog__claim"><?php echo e($heading); ?></h2>
-      <?php if (($l['text'] ?? '') !== ''): ?>
-      <p class="leistung-dialog__lead"><?php echo e($l['text']); ?></p>
-      <?php endif; ?>
-      <ul class="leistung-dialog__list" role="list">
-        <?php foreach ($l['items'] as $item):
-            [$label, $details] = is_array($item) ? $item : [$item, '']; ?>
-        <li>
-          <span class="leistung-dialog__item"><?php echo e($label); ?></span>
-          <?php if (is_array($details) && $details): ?>
-          <ul class="leistung-dialog__sublist" role="list">
-            <?php foreach ($details as $sub): ?>
-            <li><?php echo e($sub); ?></li>
+      <div class="leistung-dialog__gruppen">
+        <?php foreach ($gruppen as $gi => $gruppe): ?>
+        <div class="leistung-dialog__gruppe">
+          <?php if ($gi === 0): ?>
+          <h2 id="<?php echo e($titleId); ?>" class="leistung-dialog__claim"><?php echo e($heading); ?></h2>
+          <?php if (($l['text'] ?? '') !== ''): ?>
+          <p class="leistung-dialog__lead"><?php echo e($l['text']); ?></p>
+          <?php endif; ?>
+          <?php else: ?>
+          <h3 class="leistung-dialog__claim"><?php echo e($gruppe['titel']); ?></h3>
+          <?php endif; ?>
+          <ul class="leistung-dialog__list" role="list">
+            <?php foreach ($gruppe['items'] as $item):
+                [$label, $details] = is_array($item) ? $item : [$item, '']; ?>
+            <li>
+              <span class="leistung-dialog__item"><?php echo e($label); ?></span>
+              <?php if (is_array($details) && $details): ?>
+              <ul class="leistung-dialog__sublist" role="list">
+                <?php foreach ($details as $sub): ?>
+                <li><?php echo e($sub); ?></li>
+                <?php endforeach; ?>
+              </ul>
+              <?php elseif (is_string($details) && $details !== ''): ?>
+              <span class="leistung-dialog__details"><?php echo e($details); ?></span>
+              <?php endif; ?>
+            </li>
             <?php endforeach; ?>
           </ul>
-          <?php elseif (is_string($details) && $details !== ''): ?>
-          <span class="leistung-dialog__details"><?php echo e($details); ?></span>
-          <?php endif; ?>
-        </li>
+        </div>
         <?php endforeach; ?>
-      </ul>
+      </div>
       <?php if (!empty($l['marken'])): ?>
       <div class="kuechenmarken" aria-label="Marken">
         <?php foreach ($l['marken'] as [$file, $alt, $url]): ?>

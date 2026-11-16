@@ -21,16 +21,16 @@ require_once __DIR__ . '/config.php';
 
   <script>document.documentElement.classList.add('js-reveal');</script>
 
-  <!-- Schriften: Fraunces (Display) + IBM Plex Sans (Body) + IBM Plex Mono (Akzent) -->
-  <link rel="preload" href="<?php echo htmlspecialchars(asset_path('fonts/Fraunces-VariableFont.woff2'), ENT_QUOTES, 'UTF-8'); ?>" as="font" type="font/woff2" crossorigin>
+  <!-- Schriften: Montserrat (Überschriften, Kundenwunsch 16.11.2026) + IBM Plex Sans (Body) + IBM Plex Mono (Akzent) -->
+  <link rel="preload" href="<?php echo htmlspecialchars(asset_path('fonts/Montserrat-VariableFont.woff2'), ENT_QUOTES, 'UTF-8'); ?>" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="<?php echo htmlspecialchars(asset_path('fonts/IBMPlexSans-Regular.woff2'), ENT_QUOTES, 'UTF-8'); ?>" as="font" type="font/woff2" crossorigin>
 
   <!-- Kritisches CSS inline, Rest als externem Stylesheet -->
   <style>
     /* Kritisches CSS — verhindert FOUC */
     @font-face {
-      font-family: 'Fraunces';
-      src: url('<?php echo htmlspecialchars(asset_path('fonts/Fraunces-VariableFont.woff2'), ENT_QUOTES, 'UTF-8'); ?>') format('woff2-variations');
+      font-family: 'Montserrat';
+      src: url('<?php echo htmlspecialchars(asset_path('fonts/Montserrat-VariableFont.woff2'), ENT_QUOTES, 'UTF-8'); ?>') format('woff2-variations');
       font-weight: 100 900;
       font-display: swap;
       font-style: normal;
@@ -75,7 +75,7 @@ require_once __DIR__ . '/config.php';
     :root {
       --paper: #f2ede4;
       --ink: #1c1a16;
-      --font-display: 'Fraunces', Georgia, serif;
+      --font-display: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
       --font-body: 'IBM Plex Sans', -apple-system, sans-serif;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }

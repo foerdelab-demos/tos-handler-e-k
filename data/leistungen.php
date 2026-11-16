@@ -4,7 +4,8 @@
  *
  * - 'claim'  : Überschrift im Popup (leer = Bereichsname wird als Überschrift genutzt)
  * - 'text'   : optionaler Einleitungssatz unter der Überschrift
- * - 'items'  : Reihenfolge = Anzeige-Reihenfolge. Ein Eintrag ist entweder ein String
+ * - 'items'  : Reihenfolge = Anzeige-Reihenfolge. ['rubrik' => 'Überschrift'] beginnt eine neue
+ *              Rubrik mit eigener Überschrift (großer Bildschirm: zweite Spalte). Ein Eintrag ist entweder ein String
  *              oder [Bezeichnung, Details]. Details als String → kleine Zeile darunter,
  *              als Array → eingerückte Unterpunkte.
  * - 'marken' : optionale Markenlogos [[Bilddatei (unter assets/img/marken), Alt-Text, Link], …]
@@ -22,9 +23,11 @@ return [
             'Beton',
             'Schimmel',
             'Brand- und Wasserschäden',
-            'Bautrocknung',
+            // neue Rubrik (Kundenwunsch 16.11.2026)
+            ['rubrik' => 'Wir bieten an:'],
             'Messtechnische Untersuchungen',
-            ['Oberflächenreinigung mit Vakuumstrahlverfahren',
+            'Bautrocknung und Estrichtrocknung',
+            ['Oberflächenreinigung mit Vakuumstrahlverfahren und Osmose-Reinwasser',
              'Graffiti · Fassade · Steinböden · Fliesen und Fugen · Holz im Innen- und Außenbereich · Entfernung von Bootslacken und Antifouling'],
             'Bauanträge und Statik',
         ],

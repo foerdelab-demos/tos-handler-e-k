@@ -40,7 +40,7 @@ define('VERTRETEN_DURCH', 'Knebel-Handler, Tilman');
 
 // Mail-Empfänger
 define('MAIL_TO',   CONTACT_EMAIL);
-define('MAIL_FROM', 'noreply@tos-handler.de');
+define('MAIL_FROM', CONTACT_EMAIL); // Absender ist das Postfach info@ (kein noreply)
 
 // SMTP-Konfiguration — Werte aus Umgebungsvariablen
 define('SMTP_HOST',     getenv('SMTP_HOST')     ?: 'localhost');
