@@ -52,15 +52,15 @@ $canonical_url = SITE_URL . (isset($page_canonical) ? $page_canonical : '/');
   "email": "info@tos-handler.de",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "Munketoft 1",
-    "postalCode": "24941",
+    "streetAddress": "Waitzstraße 10",
+    "postalCode": "24937",
     "addressLocality": "Flensburg",
     "addressCountry": "DE"
   },
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": 54.7836,
-    "longitude": 9.4321
+    "latitude": 54.78077,
+    "longitude": 9.44045
   },
   "areaServed": ["Flensburg", "Schleswig-Holstein", "Glücksburg", "Harrislee"],
   "priceRange": "€€",

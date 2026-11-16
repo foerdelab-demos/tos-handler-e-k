@@ -24,8 +24,13 @@ $detectedSite = $host !== '' ? ($scheme . '://' . $host) : 'https://tos-handler.
 // NAP-Daten (Name, Address, Phone) — konsistent in Footer, Impressum, Kontakt, Schema.org
 define('SITE_NAME',        'TOS Handler e.K.');
 define('SITE_URL',         rtrim(getenv('SITE_URL') ?: ($detectedSite . SITE_BASE_PATH), '/'));
-define('CONTACT_STREET',   'Munketoft 1');
-define('CONTACT_ZIP',      '24941');
+// Hauptadresse ist das Büro (Kundenwunsch 16.11.2026). Die Straße heißt laut OpenStreetMap
+// „Waitzstraße“ (24937 Flensburg), nicht „Weitzstraße“.
+define('CONTACT_STREET',   'Waitzstraße 10');
+define('CONTACT_ZIP',      '24937');
+// Zweiter Standort: Lager & Werkstatt
+define('LAGER_STREET',     'Munketoft 1');
+define('LAGER_ZIP',        '24941');
 define('CONTACT_CITY',     'Flensburg');
 define('CONTACT_PHONE',    '0461 - 9788 - 7885');
 define('CONTACT_PHONE_TEL', '+4946197887885');

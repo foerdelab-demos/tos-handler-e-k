@@ -3,7 +3,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/includes/config.php';
 
 $page_title       = 'Impressum | TOS Handler e.K. Flensburg';
-$page_description = 'Impressum von TOS Handler e.K. — Meisterfachbetrieb in Flensburg, Munketoft 1, 24941 Flensburg.';
+$page_description = 'Impressum von TOS Handler e.K. — Meisterfachbetrieb in Flensburg, Waitzstraße 10, 24937 Flensburg.';
 $page_canonical   = '/impressum';
 $body_class       = 'page-impressum';
 
@@ -27,8 +27,8 @@ require_once __DIR__ . '/includes/header.php';
 
         <address>
           TOS-Handler e.K.<br>
-          Munketoft 1<br>
-          24941 Flensburg
+          Waitzstraße 10<br>
+          24937 Flensburg
         </address>
 
         <p>USt.-ID-Nr. DE 260 999 553</p>

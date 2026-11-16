@@ -86,7 +86,7 @@ function nav_href(string $home, string $href): string
         </li>
         <li class="mobile-nav__place">
           <span class="mobile-nav__place-label">Büro</span>
-          <span class="mobile-nav__place-address">Weitzstraße 10</span>
+          <span class="mobile-nav__place-address">Waitzstraße 10</span>
         </li>
         <li>
           <a href="<?php echo htmlspecialchars(site_path('/impressum'), ENT_QUOTES, 'UTF-8'); ?>" class="mobile-nav__link">Impressum</a>

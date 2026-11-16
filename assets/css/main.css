@@ -2321,6 +2321,23 @@ body.has-dialog {
   margin-bottom: var(--space-4);
 }
 
+.kontakt-daten__zusage {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: var(--space-4);
+}
+
+.kontakt-daten__ort {
+  margin-left: 0.4em;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+
 .kontakt-daten__address {
   font-style: normal;
   font-size: var(--fs-base);

@@ -306,14 +306,15 @@ require_once __DIR__ . '/includes/header.php';
       <div class="kontakt-grid">
         <div class="kontakt-daten" data-reveal="left">
           <p class="eyebrow">Kontakt</p>
-          <h2 id="kontakt-heading">Sprechen Sie direkt mit <span class="hl">Tilman Handler</span></h2>
-          <p class="section__subline kontakt-daten__subline">
-            Wir melden uns schnellstmöglich zurück.
-          </p>
+          <!-- Kundenwunsch 16.11.2026: alte Überschrift entfällt, dieser Satz steht größer und fetter -->
+          <h2 id="kontakt-heading" class="kontakt-daten__zusage">Wir melden uns schnellstmöglich zurück.</h2>
           <address class="kontakt-daten__address">
             <strong><?php echo e(SITE_NAME); ?></strong><br>
+            <?php echo e(LAGER_STREET); ?>, <?php echo e(LAGER_ZIP . ' ' . CONTACT_CITY); ?>
+            <span class="kontakt-daten__ort">Lager &amp; Werkstatt</span><br>
             <?php echo e(CONTACT_STREET); ?>, <?php echo e(CONTACT_ZIP . ' ' . CONTACT_CITY); ?>
-            · <a href="https://www.openstreetmap.org/?mlat=54.7836&mlon=9.4321#map=16/54.7836/9.4321"
+            <span class="kontakt-daten__ort">Büro</span>
+            · <a href="https://www.openstreetmap.org/?mlat=54.78077&mlon=9.44045#map=17/54.78077/9.44045"
                  target="_blank" rel="noopener noreferrer" class="kontakt-daten__map">Karte</a>
           </address>
           <dl class="kontakt-daten__list font-mono">
