@@ -94,7 +94,7 @@ $projekte = require __DIR__ . '/data/projekte.php';
 window.GALERIE = <?php echo json_encode(array_values($projekte), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>;
 window.IMG_BASE = '<?php echo IMG_PROJEKTE; ?>';
 </script>
-<script src="<?php echo htmlspecialchars(asset_path('js/lightbox.js'), ENT_QUOTES, 'UTF-8'); ?>" defer></script>
+<script src="<?php echo htmlspecialchars(asset_path_v('js/lightbox.js'), ENT_QUOTES, 'UTF-8'); ?>" defer></script>
 
 <?php require_once __DIR__ . '/includes/footer.php'; ?>
 </body>

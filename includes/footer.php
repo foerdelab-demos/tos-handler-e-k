@@ -23,4 +23,4 @@ require_once __DIR__ . '/config.php';
   </div>
 </footer>
 
-<script src="<?php echo htmlspecialchars(asset_path('js/main.js'), ENT_QUOTES, 'UTF-8'); ?>" defer></script>
+<script src="<?php echo htmlspecialchars(asset_path_v('js/main.js'), ENT_QUOTES, 'UTF-8'); ?>" defer></script>

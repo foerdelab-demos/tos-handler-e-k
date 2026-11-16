@@ -77,5 +77,15 @@ function asset_path(string $asset): string
 	return site_path('/assets/' . ltrim($asset, '/'));
 }
 
+/**
+ * Asset-URL mit Versionsparameter aus dem Änderungsdatum der Datei. Ohne ihn liefert
+ * Cloudflare nach einem Update noch stundenlang das alte CSS/JS aus dem Zwischenspeicher.
+ */
+function asset_path_v(string $asset): string
+{
+	$datei = dirname(__DIR__) . '/assets/' . ltrim($asset, '/');
+	return asset_path($asset) . (is_file($datei) ? '?v=' . filemtime($datei) : '');
+}
+
 // Galerie-Basis-Pfad
 define('IMG_PROJEKTE', site_path('/assets/img/projekte/'));

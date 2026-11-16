@@ -83,8 +83,8 @@ require_once __DIR__ . '/config.php';
     body { background: var(--paper); }
   </style>
 
-  <link rel="stylesheet" href="<?php echo htmlspecialchars(asset_path('css/main.css'), ENT_QUOTES, 'UTF-8'); ?>">
-  <link rel="stylesheet" href="<?php echo htmlspecialchars(asset_path('css/print.css'), ENT_QUOTES, 'UTF-8'); ?>" media="print">
+  <link rel="stylesheet" href="<?php echo htmlspecialchars(asset_path_v('css/main.css'), ENT_QUOTES, 'UTF-8'); ?>">
+  <link rel="stylesheet" href="<?php echo htmlspecialchars(asset_path_v('css/print.css'), ENT_QUOTES, 'UTF-8'); ?>" media="print">
 
   <?php require_once __DIR__ . '/meta.php'; ?>
 </head>

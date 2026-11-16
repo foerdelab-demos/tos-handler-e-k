@@ -52,4 +52,4 @@
   </div>
 </div>
 
-<script src="<?php echo htmlspecialchars(asset_path('js/consent.js'), ENT_QUOTES, 'UTF-8'); ?>" defer></script>
+<script src="<?php echo htmlspecialchars(asset_path_v('js/consent.js'), ENT_QUOTES, 'UTF-8'); ?>" defer></script>
