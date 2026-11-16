@@ -46,7 +46,53 @@ if (!empty($errors)) {
     exit;
 }
 
-// PHPMailer
+$subject = 'Neue Anfrage von ' . $name . ' über tos-handler.de';
+$body  = "Name:      {$name}\n";
+$body .= "E-Mail:    {$email}\n";
+if (!empty($telefon)) {
+    $body .= "Telefon:   {$telefon}\n";
+}
+if (!empty($quelle)) {
+    $body .= "Quelle:    {$quelle}\n";
+}
+$body .= "\nAnfrage:\n{$anfrage}\n";
+
+// Versand über Mailgun, wenn auf dem Server eingerichtet. „Antworten“ im Mailprogramm
+// geht direkt an die Adresse aus dem Formular (Reply-To).
+$mailgun = (MAILGUN_CONFIG_FILE !== '' && is_file(MAILGUN_CONFIG_FILE)) ? (array) require MAILGUN_CONFIG_FILE : [];
+if (!empty($mailgun['MAILGUN_API_KEY']) && !empty($mailgun['MAILGUN_DOMAIN']) && function_exists('curl_init')) {
+    $replyName = trim(preg_replace('/[\r\n"<>,;]+/', ' ', $name) ?? '');
+    $fromName  = (string) ($mailgun['MAILGUN_FROM_NAME'] ?? SITE_NAME);
+    $ch = curl_init(rtrim((string) ($mailgun['MAILGUN_API_BASE'] ?? 'https://api.eu.mailgun.net'), '/')
+        . '/v3/' . rawurlencode((string) $mailgun['MAILGUN_DOMAIN']) . '/messages');
+    curl_setopt_array($ch, [
+        CURLOPT_POST           => true,
+        CURLOPT_USERPWD        => 'api:' . $mailgun['MAILGUN_API_KEY'],
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT        => 15,
+        CURLOPT_POSTFIELDS     => http_build_query([
+            'from'       => $fromName . ' <' . $mailgun['MAILGUN_FROM_EMAIL'] . '>',
+            'to'         => MAIL_TO,
+            'subject'    => $subject,
+            'text'       => $body,
+            'h:Reply-To' => ($replyName !== '' ? $replyName . ' ' : '') . '<' . $email . '>',
+        ]),
+    ]);
+    $antwort = curl_exec($ch);
+    $status  = (int) curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+    $fehler  = curl_error($ch);
+    curl_close($ch);
+
+    if ($status >= 200 && $status < 300) {
+        header('Location: ' . site_path('/') . '?gesendet=1#kontakt');
+        exit;
+    }
+    error_log('[TOS Kontaktformular] Mailgun-Fehler ' . $status . ': ' . ($fehler !== '' ? $fehler : substr((string) $antwort, 0, 200)));
+    header('Location: ' . site_path('/') . '?fehler=1#kontakt');
+    exit;
+}
+
+// Rückfall: PHPMailer über SMTP
 require_once __DIR__ . '/vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -69,18 +115,7 @@ try {
     $mail->addReplyTo($email, $name);
     $mail->addAddress(MAIL_TO, SITE_NAME);
 
-    $mail->Subject = 'Neue Anfrage von ' . $name . ' über tos-handler.de';
-
-    $body  = "Name:      {$name}\n";
-    $body .= "E-Mail:    {$email}\n";
-    if (!empty($telefon)) {
-        $body .= "Telefon:   {$telefon}\n";
-    }
-    if (!empty($quelle)) {
-        $body .= "Quelle:    {$quelle}\n";
-    }
-    $body .= "\nAnfrage:\n{$anfrage}\n";
-
+    $mail->Subject = $subject;
     $mail->Body = $body;
 
     $mail->send();

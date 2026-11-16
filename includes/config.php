@@ -42,7 +42,13 @@ define('VERTRETEN_DURCH', 'Knebel-Handler, Tilman');
 define('MAIL_TO',   CONTACT_EMAIL);
 define('MAIL_FROM', CONTACT_EMAIL); // Absender ist das Postfach info@ (kein noreply)
 
-// SMTP-Konfiguration — Werte aus Umgebungsvariablen
+// Versand über Mailgun (bevorzugt): Die Zugangsdaten liegen außerhalb des Webroots in einer
+// PHP-Datei, die ein Array mit MAILGUN_API_KEY, MAILGUN_DOMAIN, MAILGUN_API_BASE,
+// MAILGUN_FROM_EMAIL und MAILGUN_FROM_NAME zurückgibt. Fehlt die Datei, greift SMTP (unten).
+// Der Pfad kommt aus der Umgebungsvariable MAILGUN_CONFIG_FILE (live im Apache-Eintrag gesetzt).
+define('MAILGUN_CONFIG_FILE', (string) (getenv('MAILGUN_CONFIG_FILE') ?: ''));
+
+// SMTP-Konfiguration (Rückfall) — Werte aus Umgebungsvariablen
 define('SMTP_HOST',     getenv('SMTP_HOST')     ?: 'localhost');
 define('SMTP_PORT',     (int)(getenv('SMTP_PORT') ?: 587));
 define('SMTP_USER',     getenv('SMTP_USER')     ?: '');
