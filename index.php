@@ -121,7 +121,7 @@ require_once __DIR__ . '/includes/header.php';
         </p>
         <div class="hero__actions" data-reveal="up" data-reveal-delay="2">
           <a href="#kontakt" class="btn btn--primary">Beratung anfragen</a>
-          <?php /* Festnetznummer im Kopf entfernt (Kundenwunsch 16.11.2026); sie steht weiter oben in der Navigation und im Kontaktbereich. */ ?>
+          <?php /* Festnetznummer im Kopf entfernt (Kundenwunsch 16.11.2026); sie steht nur noch im Kontaktbereich und im Impressum. */ ?>
         </div>
       </div>
 

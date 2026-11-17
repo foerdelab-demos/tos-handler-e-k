@@ -191,7 +191,7 @@
   }
 
   /* -------------------------------------------------------------------------
-   * Bewertungs-Carousel — natives Scroll-Snap; hier Pfeile, Punkte, Zustand.
+   * Bewertungs-Carousel — frei scrollbar; hier Pfeile, Punkte, Zustand.
    * Punkte und Pfeile arbeiten SEITENWEISE (so viele Karten, wie gerade
    * nebeneinander passen: Desktop 3, Tablet 2, Handy 1). Wischen/Scrollen
    * funktioniert auch ohne dieses Skript.
@@ -205,7 +205,7 @@
     if (!track || slides.length === 0 || !prevBtn || !nextBtn || !dotsWrap) return;
 
     const behavior = reduceMotion ? 'auto' : 'smooth';
-    const PAD = 4; // Track-Padding (siehe CSS), Snap rastet bei offsetLeft − PAD ein
+    const PAD = 4; // Track-Padding (siehe CSS), Karte steht bei offsetLeft − PAD bündig
     let step = 0, perView = 1, pages = 1, current = 0, dots = [];
 
     function measure() {
@@ -388,7 +388,7 @@
   });
 
   /* -------------------------------------------------------------------------
-   * Projekte-Feed: Bildstreifen pro Projekt (Scroll-Snap), Zähler, Punkte,
+   * Projekte-Feed: Bildstreifen pro Projekt (frei scrollbar), Zähler, Punkte,
    * Pfeile. Wischen funktioniert auch ohne dieses Skript.
    * -------------------------------------------------------------------- */
   document.querySelectorAll('[data-strip]').forEach(function (media) {

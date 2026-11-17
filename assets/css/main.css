@@ -400,30 +400,6 @@ mark.hl {
   flex-shrink: 0;
 }
 
-.site-header__tel {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--font-mono);
-  font-size: var(--fs-xs);
-  color: var(--ink-soft);
-  text-decoration: none;
-}
-
-.site-header__tel:hover {
-  color: var(--ink);
-}
-
-.site-header__tel-number {
-  display: none;
-}
-
-@media (min-width: 1024px) {
-  .site-header__tel-number {
-    display: inline;
-  }
-}
-
 .nav-burger {
   display: none;
   flex-direction: column;
@@ -945,7 +921,8 @@ mark.hl {
   fill: currentColor;
 }
 
-/* Carousel — natives Scroll-Snap, Pfeile + Punkte per JS (main.js) */
+/* Carousel — frei scrollbar ohne Einrasten (Kundenwunsch 17.11.2026),
+   Pfeile + Punkte per JS (main.js) */
 .carousel {
   margin-top: var(--space-5);
 }
@@ -955,7 +932,6 @@ mark.hl {
   display: flex;
   gap: var(--space-4);
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   padding: 4px 4px var(--space-2);
   scrollbar-width: none;
@@ -973,7 +949,6 @@ mark.hl {
 
 .carousel__slide {
   flex: 0 0 calc((100% - 2 * var(--space-4)) / 3);
-  scroll-snap-align: start;
   display: flex;
 }
 
@@ -1498,7 +1473,6 @@ body.has-dialog {
   height: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-  scroll-snap-type: x mandatory;
   scrollbar-width: none;
 }
 
@@ -1509,8 +1483,6 @@ body.has-dialog {
 .lightbox-dialog__track li {
   flex: 0 0 100%;
   height: 100%;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1685,7 +1657,6 @@ body.has-dialog {
   height: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-  scroll-snap-type: x mandatory;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
 }
@@ -1698,7 +1669,6 @@ body.has-dialog {
   position: relative;
   flex: 0 0 100%;
   height: 100%;
-  scroll-snap-align: start;
   overflow: hidden;
 }
 
@@ -1830,20 +1800,14 @@ body.has-dialog {
 }
 
 /* Handy: Feed im normalen Seitenfluss, jedes Projekt eine Bildschirmhöhe.
-   Die Seite rastet sanft pro Projekt ein (proximity: kein Zwang, man kann
-   nicht daran vorbeiscrollen, aber auch nicht hängen bleiben).
+   Die Seite rastet nicht mehr ein (Kundenwunsch 17.11.2026, es ruckelte).
    svh = Höhe bei eingeblendeter Browserleiste, damit die Bildunterschrift
-   nie hinter der Safari-Leiste liegt. Der Versatz für den Sticky-Header
-   kommt allein vom scroll-padding-top am html. */
+   nie hinter der Safari-Leiste liegt. */
 @media (max-width: 767px) {
-  html {
-    scroll-snap-type: y proximity;
-  }
   .feed-item {
     flex: 0 0 auto;
     height: calc(100vh - var(--header-h));
     height: calc(100svh - var(--header-h));
-    scroll-snap-align: start;
   }
   .feed__head {
     margin-bottom: var(--space-3);
