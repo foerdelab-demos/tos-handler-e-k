@@ -56,12 +56,12 @@ return [
     [
         'title'    => 'Fassadensanierung in Zusammenarbeit mit dem Denkmalamt',
         'label'    => 'Gebäudesanierung',
-        // Bildtexte nach Kundenvorgabe vom 20.11.2026
+        // Bildtexte nach Kundenvorgabe vom 20.11.2026 (Sprachnotiz)
         'slides'   => [
             ['ergebnis', 'denkmal-fassade-ergebnis.webp',       'Fachwerkfassade nach der Sanierung'],
-            ['vorher',   'denkmal-fassade-vorher.webp',         'Sämtliches Holz und Balken erneuert'],
-            ['bau',      'denkmal-fassade-bau-holzschutz.webp', 'Holzschutz mit Leinöl und Kalk-Kasein'],
-            ['bau',      'denkmal-fassade-bau-fugen.webp',      'Holzschutz mit Leinöl und Kalk-Kasein'],
+            ['vorher',   'denkmal-fassade-vorher.webp',         'Vor der Sanierung'],
+            ['bau',      'denkmal-fassade-bau-holzschutz.webp', 'Fugensanierung mit speziell angefertigten Mörteln aus Steinmehl, Rosshaar, Kalk und Lehm'],
+            ['bau',      'denkmal-fassade-bau-fugen.webp',      'Fachwerk und Balken teilerneuert. Holzschutz mit Leinöl, Kalk-Kasein und Farbpigmenten'],
             ['ergebnis', 'denkmal-fassade-ergebnis.webp',       'Fugensanierung mit speziell angefertigten Mörteln aus Steinmehl, Rosshaar, Kalk und Lehm'],
         ],
     ],
@@ -127,15 +127,15 @@ return [
         'label'    => 'Renovierung',
         // Ergebnis und passendes Vorher-Bild im Wechsel, bewusst ohne Bildunterschriften
         'slides'   => [
-            ['ergebnis', 'wohnung-ergebnis-kueche.webp',        ''],
-            ['vorher',   'wohnung-vorher-kueche.webp',          ''],
             ['ergebnis', 'wohnung-ergebnis-wohnbereich.webp',   ''],
             ['vorher',   'wohnung-vorher-wohnbereich-1.webp',   ''],
             ['vorher',   'wohnung-vorher-wohnbereich-2.webp',   ''],
-            ['ergebnis', 'wohnung-ergebnis-bad-klein.webp',     ''],
-            ['vorher',   'wohnung-vorher-bad.webp',             ''],
+            ['ergebnis', 'wohnung-ergebnis-kueche.webp',        ''],
+            ['vorher',   'wohnung-vorher-kueche.webp',          ''],
             ['ergebnis', 'wohnung-ergebnis-bad-1.webp',         ''],
             ['ergebnis', 'wohnung-ergebnis-bad-2.webp',         ''],
+            ['vorher',   'wohnung-vorher-bad.webp',             ''],
+            ['ergebnis', 'wohnung-ergebnis-bad-klein.webp',     ''],
         ],
     ],
     [
