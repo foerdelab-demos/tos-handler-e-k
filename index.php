@@ -304,13 +304,16 @@ require_once __DIR__ . '/includes/header.php';
           <!-- Kundenwunsch 16.11.2026: alte Überschrift entfällt, dieser Satz steht größer und fetter -->
           <h2 id="kontakt-heading" class="kontakt-daten__zusage">Wir melden uns schnellstmöglich zurück.</h2>
           <address class="kontakt-daten__address">
-            <strong><?php echo e(SITE_NAME); ?></strong><br>
-            <?php echo e(LAGER_STREET); ?>, <?php echo e(LAGER_ZIP . ' ' . CONTACT_CITY); ?>
-            <span class="kontakt-daten__ort">Lager &amp; Werkstatt</span><br>
-            <?php echo e(CONTACT_STREET); ?>, <?php echo e(CONTACT_ZIP . ' ' . CONTACT_CITY); ?>
-            <span class="kontakt-daten__ort">Büro</span>
-            · <a href="https://www.openstreetmap.org/?mlat=54.78077&mlon=9.44045#map=17/54.78077/9.44045"
-                 target="_blank" rel="noopener noreferrer" class="kontakt-daten__map">Karte</a>
+            <strong><?php echo e(SITE_NAME); ?></strong>
+            <!-- Ortsangabe steht immer in einer eigenen Zeile unter der Adresse (Kundenwunsch 20.11.2026) -->
+            <span class="kontakt-daten__standort">
+              <?php echo e(LAGER_STREET); ?>, <?php echo e(LAGER_ZIP . ' ' . CONTACT_CITY); ?>
+              <span class="kontakt-daten__ort">Lager &amp; Werkstatt</span>
+            </span>
+            <span class="kontakt-daten__standort">
+              <?php echo e(CONTACT_STREET); ?>, <?php echo e(CONTACT_ZIP . ' ' . CONTACT_CITY); ?>
+              <span class="kontakt-daten__ort">Büro</span>
+            </span>
           </address>
           <dl class="kontakt-daten__list font-mono">
             <div>

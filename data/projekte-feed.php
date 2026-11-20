@@ -44,7 +44,7 @@ return [
     ],
 
     [
-        'title'    => 'Malerarbeiten mit Holzböden',
+        'title'    => 'Malerarbeiten und Holzböden aufarbeiten',
         'label'    => 'Renovierung',
         // eigene Reihenfolge: Ergebnis nur einmal (Kundenwunsch)
         'slides'   => [
@@ -56,11 +56,13 @@ return [
     [
         'title'    => 'Fassadensanierung in Zusammenarbeit mit dem Denkmalamt',
         'label'    => 'Gebäudesanierung',
-        'ergebnis' => [['denkmal-fassade-ergebnis.webp', 'Fachwerkfassade nach der Sanierung']],
-        'vorher'   => [['denkmal-fassade-vorher.webp', 'Vorher']],
-        'bau'      => [
-            ['denkmal-fassade-bau-holzschutz.webp', 'Holzschutz mit Leinöl und Kalk-Kasein'],
-            ['denkmal-fassade-bau-fugen.webp',      'Fugensanierung mit speziell angefertigten Mörteln aus Steinmehl, Rosshaar, Kalk und Lehm'],
+        // Bildtexte nach Kundenvorgabe vom 20.11.2026
+        'slides'   => [
+            ['ergebnis', 'denkmal-fassade-ergebnis.webp',       'Fachwerkfassade nach der Sanierung'],
+            ['vorher',   'denkmal-fassade-vorher.webp',         'Sämtliches Holz und Balken erneuert'],
+            ['bau',      'denkmal-fassade-bau-holzschutz.webp', 'Holzschutz mit Leinöl und Kalk-Kasein'],
+            ['bau',      'denkmal-fassade-bau-fugen.webp',      'Holzschutz mit Leinöl und Kalk-Kasein'],
+            ['ergebnis', 'denkmal-fassade-ergebnis.webp',       'Fugensanierung mit speziell angefertigten Mörteln aus Steinmehl, Rosshaar, Kalk und Lehm'],
         ],
     ],
     [
@@ -68,17 +70,17 @@ return [
         'label'    => 'Gebäudesanierung',
         // Vorher-Nachher-Paare je Raum (Kundenwunsch)
         'slides'   => [
+            ['ergebnis', 'toenning-ergebnis-treppenhaus.webp',   'Treppenhaus'],
+            ['vorher',   'toenning-vorher-treppenhaus-2.webp',   'Vorher: Treppenhaus'],
+            ['vorher',   'toenning-vorher-treppenhaus.webp',     'Vorher: Flur'],
             ['ergebnis', 'toenning-ergebnis-1.webp',             'Eingangsbereich'],
             ['vorher',   'toenning-vorher-1.webp',               'Vorher: Eingangsbereich'],
-            ['vorher',   'toenning-vorher-treppenhaus.webp',     'Vorher: Treppenhaus'],
-            ['vorher',   'toenning-vorher-treppenhaus-2.webp',   'Vorher: Treppenhaus'],
-            ['ergebnis', 'toenning-ergebnis-treppenhaus.webp',   'Treppenhaus'],
             ['vorher',   'toenning-vorher-2.webp',               'Vorher: Veranda von außen'],
             ['vorher',   'toenning-vorher-3.webp',               'Vorher: Veranda'],
             ['ergebnis', 'toenning-ergebnis-2.webp',             'Veranda'],
             ['ergebnis', 'toenning-ergebnis-3.webp',             'Veranda'],
-            ['vorher',   'toenning-vorher-bad.webp',             'Vorher: Badezimmer'],
-            ['ergebnis', 'toenning-ergebnis-bad.webp',           'Badezimmer'],
+            ['vorher',   'toenning-vorher-bad.webp',             'Vorher: Gäste-WC'],
+            ['ergebnis', 'toenning-ergebnis-bad.webp',           'Gäste-WC'],
             ['vorher',   'toenning-vorher-wohnbereich.webp',     'Vorher: Wohnbereich'],
             ['bau',      'toenning-bau-wohnbereich.webp',        'Wohnbereich während der Arbeiten'],
             ['ergebnis', 'toenning-ergebnis-wohnbereich-1.webp', 'Wohnbereich'],
@@ -92,10 +94,10 @@ return [
         'slides'   => [
             ['ergebnis', 'balkonsanierung-ergebnis.webp', 'Fassade und Balkone nach der Sanierung'],
             ['bau',      'balkonsanierung-bau-3.webp',    'Eingerüstete Fassade'],
-            ['vorher',   'balkonsanierung-vorher-1.webp', 'Vorher: Schäden am Balkon'],
-            ['vorher',   'balkonsanierung-vorher-2.webp', 'Vorher: freiliegender Stahlträger'],
-            ['bau',      'balkonsanierung-bau-1.webp',    'Schadhafter Beton wird freigelegt'],
-            ['bau',      'balkonsanierung-bau-2.webp',    'Balkone während der Sanierung'],
+            ['vorher',   'balkonsanierung-vorher-1.webp', 'Vorher: Schaden am Fenstersturz'],
+            ['bau',      'balkonsanierung-vorher-2.webp', 'Ein defekter Sturz wurde erneuert'],
+            ['bau',      'balkonsanierung-bau-1.webp',    'Während der Sanierung'],
+            ['bau',      'balkonsanierung-bau-2.webp',    'Während der Sanierung'],
             ['ergebnis', 'balkonsanierung-ergebnis.webp', 'Fassade und Balkone nach der Sanierung'],
         ],
     ],
@@ -164,7 +166,7 @@ return [
         'bau'      => ['innenausbau-dach-1.webp', 'innenausbau-dach-2.webp', 'innenausbau-dach-3.webp'],
     ],
     [
-        'title'    => 'Betonsanierung mit anschließenden Malerarbeiten',
+        'title'    => 'Betonsanierung',
         'label'    => 'Gebäudesanierung',
         'bau'      => ['betonsanierung-bau.webp'],
     ],

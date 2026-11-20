@@ -61,6 +61,7 @@
 
   /* Header-Höhe (Sticky) — Basis für Sektionshöhen und Anker-Offsets */
   --header-h: 72px;
+  --header-line: 2px;   /* rote Linie unter dem Header */
 
   /* Container */
   --container-max:    1280px;
@@ -321,7 +322,16 @@ mark.hl {
   top: 0;
   z-index: 100;
   background: var(--paper);
-  border-bottom: 1px solid var(--border);
+}
+
+/* Rote Linie am unteren Rand. Das Haus im Schriftzug steht auf ihr und
+   unterbricht sie, wie im alten langen Logo. */
+.site-header::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: var(--header-line);
+  background: var(--rust);
 }
 
 .site-header__inner {
@@ -331,34 +341,77 @@ mark.hl {
   height: var(--header-h);
 }
 
+/* Schriftzug "Technischer Objekt-Service" (T, O, S in Logo-Rot) + Haus */
 .site-header__logo {
+  --house-h: 56px;
+  position: relative;
+  z-index: 1; /* über der roten Linie */
   flex-shrink: 0;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
   text-decoration: none;
+  color: var(--ink);
 }
 
-.site-header__logo img {
-  height: 48px;
-  width: auto;
+.brand__text {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  white-space: nowrap;
+  hyphens: none;
 }
 
-/* Startseite: Header-Logo erst einblenden, wenn das große Hero-Logo aus dem
-   Bild gescrollt ist (Klassen setzt main.js; ohne JS bleibt es sichtbar). */
-.site-header--hero-logo .site-header__logo {
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-6px);
-  transition: none; /* erstes Verstecken sofort, kein Aufblitzen */
+.brand__initial {
+  color: var(--rust);
+  font-weight: 800;
+  transition: color 0.2s ease;
 }
 
-.site-header--hero-logo.is-ready .site-header__logo {
-  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
+/* Hover/Fokus: T, O, S und das Haus wechseln von Rot auf Schwarz */
+.site-header__logo:hover .brand__initial,
+.site-header__logo:focus-visible .brand__initial {
+  color: var(--ink);
 }
 
-.site-header--hero-logo.is-past-hero-logo .site-header__logo {
-  opacity: 1;
-  visibility: visible;
-  transform: none;
-  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0s;
+.site-header__logo:hover .brand__house::after,
+.site-header__logo:focus-visible .brand__house::after {
+  background: var(--ink);
+}
+
+/* Haus aus dem Tilman-Handler-Logo (haus.png, 590×737). Es ragt ein Stück
+   unter die Linie, die Wände schneiden sie links und rechts ab. */
+.brand__house {
+  position: relative;
+  flex-shrink: 0;
+  align-self: flex-end;
+  height: var(--house-h);
+  aspect-ratio: 590 / 737;
+  margin-bottom: calc(var(--house-h) * -0.09 + var(--header-line));
+}
+
+.brand__house::before,
+.brand__house::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+/* Papierfläche in Hausform: deckt die Linie hinter dem Haus ab */
+.brand__house::before {
+  background: var(--paper);
+  clip-path: polygon(63.6% 0, 99% 16%, 100% 17%, 100% 96%, 70% 98%, 44% 100%, 33% 100%, 3% 90.5%, 3% 25%, 0 25%, 0 23%, 27% 10%, 58% 0);
+}
+
+/* Zeichnung als Maske, damit die Farbe per CSS steuerbar bleibt */
+.brand__house::after {
+  background: var(--rust);
+  transition: background-color 0.2s ease;
+  -webkit-mask: url('../img/haus.png') center / 100% 100% no-repeat;
+  mask: url('../img/haus.png') center / 100% 100% no-repeat;
 }
 
 .site-nav {
@@ -431,6 +484,47 @@ mark.hl {
   transition: transform 0.25s ease, opacity 0.2s;
 }
 
+/* Zwischengrößen (Tablets, schmale Fenster): Navbar schrittweise verdichten,
+   damit Schriftzug, Links und Button nicht aus dem Bild laufen. */
+@media (max-width: 1199px) {
+  .site-header__inner {
+    gap: var(--space-2);
+  }
+  .brand__text {
+    font-size: 1rem;
+  }
+  .site-nav__link {
+    padding-inline: 0.625rem;
+  }
+  .site-header__actions .btn {
+    padding-inline: 1.25rem;
+  }
+}
+
+/* Button entfällt, "Kontakt" steht weiter in der Navigation */
+@media (max-width: 1023px) {
+  .site-header__actions {
+    display: none;
+  }
+}
+
+@media (max-width: 859px) {
+  .site-header__inner {
+    gap: 0.75rem;
+  }
+  .site-header__logo {
+    --house-h: 50px;
+    gap: 0.5rem;
+  }
+  .brand__text {
+    font-size: 0.9375rem;
+  }
+  .site-nav__link {
+    font-size: 1rem;
+    padding-inline: 0.375rem;
+  }
+}
+
 @media (max-width: 767px) {
   .site-nav,
   .site-header__actions {
@@ -440,9 +534,12 @@ mark.hl {
     display: flex;
     margin-left: auto;
   }
-  /* Logo (1676×270) sonst 298px breit → Burger wird aus dem Viewport geschoben */
-  .site-header__logo img {
-    height: 36px;
+  .site-header__logo {
+    --house-h: 46px;
+    gap: 0.625rem;
+  }
+  .brand__text {
+    font-size: 0.9375rem;
   }
 }
 
@@ -2292,8 +2389,18 @@ body.has-dialog {
   margin-bottom: var(--space-4);
 }
 
+.kontakt-daten__address strong {
+  display: block;
+}
+
+.kontakt-daten__standort {
+  display: block;
+  margin-top: var(--space-1);
+  line-height: 1.4;
+}
+
 .kontakt-daten__ort {
-  margin-left: 0.4em;
+  display: block;
   font-family: var(--font-mono);
   font-size: var(--fs-xs);
   letter-spacing: 0.06em;
@@ -2324,11 +2431,6 @@ body.has-dialog {
   gap: var(--space-1);
   border-bottom: 1px solid var(--border);
   padding-bottom: var(--space-1);
-}
-
-.kontakt-daten__map {
-  font-size: var(--fs-sm);
-  white-space: nowrap;
 }
 
 .kontakt-daten__list dt {

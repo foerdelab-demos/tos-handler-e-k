@@ -343,24 +343,6 @@
   });
 
   /* -------------------------------------------------------------------------
-   * Header-Logo auf der Startseite: ausgeblendet, solange das große Logo im
-   * Hero sichtbar ist; eingeblendet, sobald es unter den Header gescrollt
-   * ist. Block entfernen → Header-Logo ist immer sichtbar.
-   * -------------------------------------------------------------------- */
-  const heroLogo   = document.querySelector('.hero__logo');
-  const siteHeader = document.querySelector('.site-header');
-  if (heroLogo && siteHeader && 'IntersectionObserver' in window) {
-    siteHeader.classList.add('site-header--hero-logo');
-    window.requestAnimationFrame(function () {
-      window.requestAnimationFrame(function () { siteHeader.classList.add('is-ready'); });
-    });
-    const headerH = siteHeader.offsetHeight || 72;
-    new IntersectionObserver(function (entries) {
-      siteHeader.classList.toggle('is-past-hero-logo', !entries[0].isIntersecting);
-    }, { rootMargin: '-' + headerH + 'px 0px 0px 0px' }).observe(heroLogo);
-  }
-
-  /* -------------------------------------------------------------------------
    * Leistungs-Popups: <a href="#dialog-…" data-open-dialog> öffnet das
    * gleichnamige <dialog>. Schließen per ✕, Escape oder Klick daneben.
    * -------------------------------------------------------------------- */

@@ -26,10 +26,8 @@ function nav_href(string $home, string $href): string
   <div class="site-header__inner container">
 
     <a href="<?php echo htmlspecialchars($home, ENT_QUOTES, 'UTF-8'); ?>" class="site-header__logo" aria-label="<?php echo htmlspecialchars(SITE_NAME, ENT_QUOTES, 'UTF-8'); ?>, zur Startseite">
-      <img src="<?php echo htmlspecialchars(asset_path('img/2TOS-Brief-Typo.png'), ENT_QUOTES, 'UTF-8'); ?>"
-           alt="TOS Handler e.K., Meisterfachbetrieb Flensburg"
-           width="160" height="60"
-           loading="eager">
+      <span class="brand__text"><span class="brand__initial">T</span>echnischer <span class="brand__initial">O</span>bjekt-<span class="brand__initial">S</span>ervice</span>
+      <span class="brand__house" aria-hidden="true"></span>
     </a>
 
     <nav class="site-nav" aria-label="Hauptnavigation">
