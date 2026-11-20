@@ -123,6 +123,22 @@ return [
         ],
     ],
     [
+        'title'    => 'Komplettsanierung einer Wohnung',
+        'label'    => 'Renovierung',
+        // Ergebnis und passendes Vorher-Bild im Wechsel, bewusst ohne Bildunterschriften
+        'slides'   => [
+            ['ergebnis', 'wohnung-ergebnis-kueche.webp',        ''],
+            ['vorher',   'wohnung-vorher-kueche.webp',          ''],
+            ['ergebnis', 'wohnung-ergebnis-wohnbereich.webp',   ''],
+            ['vorher',   'wohnung-vorher-wohnbereich-1.webp',   ''],
+            ['vorher',   'wohnung-vorher-wohnbereich-2.webp',   ''],
+            ['ergebnis', 'wohnung-ergebnis-bad-klein.webp',     ''],
+            ['vorher',   'wohnung-vorher-bad.webp',             ''],
+            ['ergebnis', 'wohnung-ergebnis-bad-1.webp',         ''],
+            ['ergebnis', 'wohnung-ergebnis-bad-2.webp',         ''],
+        ],
+    ],
+    [
         'title'    => 'Einer von mehreren Sanitärumbauten in der dänischen Zentralbibliothek',
         'label'    => 'Gebäudetechnik',
         'ergebnis' => ['bibliothek-sanitaer-ergebnis-1.webp', 'bibliothek-sanitaer-ergebnis-2.webp',
