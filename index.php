@@ -165,16 +165,32 @@ require_once __DIR__ . '/includes/header.php';
           <p class="eyebrow" data-reveal="left">Das sagen unsere Kunden</p>
           <h2 id="bewertungen-heading" data-reveal="up">Google-Bewertungen</h2>
         </div>
-        <div class="bewertungen__score" data-reveal="up" data-reveal-delay="1">
-          <?php if ($summary['score'] !== ''): ?>
-          <span class="bewertungen__score-number"><?php echo e($summary['score']); ?></span>
-          <?php endif; ?>
-          <div class="bewertungen__score-meta">
-            <?php echo stars_svg(5); ?>
-            <a class="bewertungen__link" href="<?php echo e($summary['url']); ?>" target="_blank" rel="noopener noreferrer">
-              <?php echo (int)$summary['count'] > 0 ? (int)$summary['count'] . ' Bewertungen' : 'Alle Bewertungen'; ?> auf Google ansehen
-            </a>
+        <div class="bewertungen__aside" data-reveal="up" data-reveal-delay="1">
+          <div class="bewertungen__score">
+            <?php if ($summary['score'] !== ''): ?>
+            <span class="bewertungen__score-number"><?php echo e($summary['score']); ?></span>
+            <?php endif; ?>
+            <div class="bewertungen__score-meta">
+              <?php echo stars_svg(5); ?>
+              <a class="bewertungen__link" href="<?php echo e($summary['url']); ?>" target="_blank" rel="noopener noreferrer">
+                <?php echo (int)$summary['count'] > 0 ? (int)$summary['count'] . ' Bewertungen' : 'Alle Bewertungen'; ?> auf Google ansehen
+              </a>
+            </div>
           </div>
+          <?php if (!empty($summary['write_url'])): ?>
+          <div class="rate">
+            <p class="rate__label font-mono" id="rate-label">Ihre Bewertung</p>
+            <?php /* Sterne in umgekehrter Reihenfolge (5 … 1), damit per CSS alle Sterne links vom Mauszeiger mitleuchten.
+                     Jeder Stern führt zu Google; die Sternzahl selbst wählt der Kunde dort. */ ?>
+            <div class="rate__stars" role="group" aria-labelledby="rate-label">
+              <?php for ($i = 5; $i >= 1; $i--): ?>
+              <a class="rate__star" href="<?php echo e($summary['write_url']); ?>" target="_blank" rel="noopener noreferrer"
+                 aria-label="<?php echo $i; ?> von 5 Sternen auf Google vergeben"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg></a>
+              <?php endfor; ?>
+            </div>
+            <p class="rate__hint">Stern antippen, weiter geht es bei Google</p>
+          </div>
+          <?php endif; ?>
         </div>
       </div>
 

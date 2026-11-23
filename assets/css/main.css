@@ -1006,6 +1006,92 @@ mark.hl {
   font-weight: 600;
 }
 
+.bewertungen__aside {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-5);
+}
+
+/* Sterne zum Bewerten: grau, beim Darüberfahren goldig bis zum gewählten Stern.
+   Solange niemand interagiert, läuft ab und zu eine Welle über alle fünf (Vorschlag 5 Sterne). */
+.rate__label {
+  font-size: var(--fs-xs, 0.8125rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 0 0 6px;
+}
+
+.rate__stars {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  gap: 4px;
+}
+
+.rate__star {
+  display: block;
+  padding: 2px;
+  color: #d9d2c6;
+  border-radius: 6px;
+  transition: color 0.15s ease, transform 0.15s ease;
+  animation: rate-hint 5s ease-in-out 1.2s infinite;
+}
+
+.rate__star svg {
+  display: block;
+  width: 38px;
+  height: 38px;
+  fill: currentColor;
+}
+
+/* DOM-Reihenfolge 5,4,3,2,1 → Verzögerung von links nach rechts */
+.rate__star:nth-child(5) { animation-delay: 1.2s; }
+.rate__star:nth-child(4) { animation-delay: 1.32s; }
+.rate__star:nth-child(3) { animation-delay: 1.44s; }
+.rate__star:nth-child(2) { animation-delay: 1.56s; }
+.rate__star:nth-child(1) { animation-delay: 1.68s; }
+
+@keyframes rate-hint {
+  0%, 8%    { color: #d9d2c6; transform: none; }
+  14%       { color: var(--star); transform: scale(1.12); }
+  20%, 46%  { color: var(--star); transform: none; }
+  60%, 100% { color: #d9d2c6; transform: none; }
+}
+
+.rate__stars:hover .rate__star,
+.rate__stars:focus-within .rate__star {
+  animation: none;
+  color: #d9d2c6;
+}
+
+.rate__stars .rate__star:hover,
+.rate__stars .rate__star:hover ~ .rate__star,
+.rate__stars .rate__star:focus-visible,
+.rate__stars .rate__star:focus-visible ~ .rate__star {
+  color: var(--star);
+}
+
+.rate__stars .rate__star:hover,
+.rate__stars .rate__star:focus-visible {
+  transform: scale(1.12);
+}
+
+.rate__star:focus-visible {
+  outline: 2px solid var(--rust);
+  outline-offset: 2px;
+}
+
+.rate__hint {
+  margin: 4px 0 0;
+  font-size: var(--fs-sm);
+  color: var(--ink-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rate__star { animation: none; color: var(--star); }
+}
+
 .stars {
   display: inline-flex;
   gap: 2px;

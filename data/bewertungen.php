@@ -12,9 +12,13 @@ declare(strict_types=1);
 
 return [
     'summary' => [
-        'score' => '',   // TODO: Gesamtbewertung von Google eintragen, z. B. '5,0'
-        'count' => 0,    // TODO: Anzahl der Google-Rezensionen, z. B. 14
-        'url'   => 'https://www.google.com/maps/place/TOS+Handler+e.K./',
+        'score'     => '5,0',  // Stand 23.11.2026 laut Google
+        'count'     => 19,
+        // Profil „TOS Tilman Handler e.K“ (Munketoft 1A) mit den Bewertungen.
+        // Das zweite, leere Profil „TOS-Handler“ (Waitzstraße 10) NICHT verlinken.
+        'url'       => 'https://www.google.com/maps/search/?api=1&query=TOS+Tilman+Handler+e.K&query_place_id=ChIJ68VXhZhCs0cRHXegzdldI3s',
+        // Öffnet direkt das Bewertungsfenster (Kurzlink dafür: tos-handler.de/bewerten, siehe .htaccess)
+        'write_url' => 'https://search.google.com/local/writereview?placeid=ChIJ68VXhZhCs0cRHXegzdldI3s',
     ],
     'reviews' => [
         [

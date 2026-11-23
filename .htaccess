@@ -32,6 +32,9 @@ RewriteRule ^index\.php/datenschutzerklaerung/?$            %{ENV:BASE}/datensch
 RewriteRule ^index\.php/kontakt/?$                          %{ENV:BASE}/#kontakt       [R=301,NE,L]
 RewriteRule ^index\.php/impressum/?$                        %{ENV:BASE}/impressum      [R=301,L]
 
+# Kurzlink für Google-Bewertungen (für Mails, Rechnungen, QR-Code)
+RewriteRule ^bewerten/?$ https://search.google.com/local/writereview?placeid=ChIJ68VXhZhCs0cRHXegzdldI3s [R=302,NE,L]
+
 # Pretty URLs (z. B. /referenzen statt /referenzen.php)
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
